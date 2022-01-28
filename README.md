@@ -1,4 +1,4 @@
-# Bicaption
+# BiCaption
 
 # An ultimate photography site.
 
