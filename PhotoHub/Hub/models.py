@@ -1,104 +1,23 @@
 from django.db import models
 
-# Create your models here.
-class Customer(models.Model):
-    STATE_OPTION = (
-        ("AN","Andaman and Nicobar Islands"),
-        ("AP","Andhra Pradesh"),
-        ("AR","Arunachal Pradesh"),
-        ("AS","Assam"),
-        ("BR","Bihar"),
-        ("CG","Chhattisgarh"),
-        ("CH","Chandigarh"),
-        ("DN","Dadra and Nagar Haveli"),
-        ("DD","Daman and Diu"),
-        ("DL","Delhi"),
-        ("GA","Goa"),
-        ("GJ","Gujarat"),
-        ("HR","Haryana"),
-        ("HP","Himachal Pradesh"),
-        ("JK","Jammu and Kashmir"),
-        ("JH","Jharkhand"),
-        ("KA","Karnataka"),
-        ("KL","Kerala"),
-        ("LA","Ladakh"),
-        ("LD","Lakshadweep"),
-        ("MP","Madhya Pradesh"),
-        ("MH","Maharashtra"),
-        ("MN","Manipur"),
-        ("ML","Meghalaya"),
-        ("MZ","Mizoram"),
-        ("NL","Nagaland"),
-        ("OD","Odisha"),
-        ("PB","Punjab"),
-        ("PY","Pondicherry"),
-        ("RJ","Rajasthan"),
-        ("SK","Sikkim"),
-        ("TN","Tamil Nadu"),
-        ("TS","Telangana"),
-        ("TR","Tripura"),
-        ("UP","Uttar Pradesh"),
-        ("UK","Uttarakhand"),
-        ("WB","West Bengal")
-    )
 
-    name = models.CharField(max_length=50)
-    phone = models.IntegerField()
-    email = models.EmailField()
-    state = models.CharField(
-        max_length=100,
-        choices= STATE_OPTION,
-        default=None
-    )
-    city = models.CharField(max_length=100)
-    area = models.CharField(max_length=200)
-    pincode = models.IntegerField()
+class Customer(models.Model):
+    customer_id = models.IntegerField(default=0, null=True, blank=True)
+    fname = models.CharField(max_length=50, null=True, blank=True)
+    lname = models.CharField(max_length=50, null=True, blank=True)
+    phone = models.IntegerField(null=True, blank=True)
+    email = models.EmailField(null=True, blank=True)
+    state = models.CharField(max_length=100, null=True,  blank=True)
+    city = models.CharField(max_length=100, null=True, blank=True)
+    area = models.CharField(max_length=200, null=True, blank=True)
+    pincode = models.IntegerField(null=True, blank=True)
 
     def __str__(self):
-        return self.name
+        return str(self.fname) + " " + str(self.lname)
 
 
 class Photographer(models.Model):
-    STATE_OPTION = (
-        ("AN","Andaman and Nicobar Islands"),
-        ("AP","Andhra Pradesh"),
-        ("AR","Arunachal Pradesh"),
-        ("AS","Assam"),
-        ("BR","Bihar"),
-        ("CG","Chhattisgarh"),
-        ("CH","Chandigarh"),
-        ("DN","Dadra and Nagar Haveli"),
-        ("DD","Daman and Diu"),
-        ("DL","Delhi"),
-        ("GA","Goa"),
-        ("GJ","Gujarat"),
-        ("HR","Haryana"),
-        ("HP","Himachal Pradesh"),
-        ("JK","Jammu and Kashmir"),
-        ("JH","Jharkhand"),
-        ("KA","Karnataka"),
-        ("KL","Kerala"),
-        ("LA","Ladakh"),
-        ("LD","Lakshadweep"),
-        ("MP","Madhya Pradesh"),
-        ("MH","Maharashtra"),
-        ("MN","Manipur"),
-        ("ML","Meghalaya"),
-        ("MZ","Mizoram"),
-        ("NL","Nagaland"),
-        ("OD","Odisha"),
-        ("PB","Punjab"),
-        ("PY","Pondicherry"),
-        ("RJ","Rajasthan"),
-        ("SK","Sikkim"),
-        ("TN","Tamil Nadu"),
-        ("TS","Telangana"),
-        ("TR","Tripura"),
-        ("UP","Uttar Pradesh"),
-        ("UK","Uttarakhand"),
-        ("WB","West Bengal")
-    )
-
+   
     CATEGORY_OPTIONS = (
         ('Event', 'Event'),
         ('Fashion', 'Fashion'),
@@ -114,45 +33,39 @@ class Photographer(models.Model):
         ('Photo Journalism', 'Photo journalism')
     )
 
-    GENDER_OPTIONS = (
-        ('Male', '1'),
-        ('Female', '0')
-    )
 
     STATUS_OPTIONS = (
         ('Available', 'Available'),
         ('Busy', 'Busy')
     )
 
-    name = models.CharField(max_length=50)
-    phone = models.IntegerField()
-    email = models.EmailField()
-    gender = models.CharField(
-        max_length=10,
-        choices = GENDER_OPTIONS,
-        default='1'
-    )
-    dob = models.DateTimeField()
+    photographer_id = models.IntegerField(default=0, null=True, blank=True)
+    fname = models.CharField(max_length=50, null=True, blank=True)
+    lname = models.CharField(max_length=50, null=True, blank=True)
+    phone = models.IntegerField(null=True, blank=True)
+    email = models.EmailField(null=True, blank=True)
+    gender = models.CharField(max_length=10, null=True,  blank=True)
+    age = models.IntegerField(default=0, null=True, blank=True)
     category = models.CharField(
         max_length=100,
-        choices = CATEGORY_OPTIONS
+        choices = CATEGORY_OPTIONS,
+        null=True, 
+        blank=True
     )
-    address = models.CharField(max_length=500)
-    city = models.CharField(max_length=100)
-    state = models.CharField(
-        max_length=50,
-        choices = STATE_OPTION,
-        default = "AN"
-    )
-    pincode = models.IntegerField()
+    area = models.CharField(max_length=200, null=True, blank=True)
+    city = models.CharField(max_length=100, null=True, blank=True)
+    state = models.CharField(max_length=50, null=True, blank=True)
+    pincode = models.IntegerField(null=True, blank=True)
     status = models.CharField(
         max_length = 20,
         choices = STATUS_OPTIONS,
-        default = 'Available'
+        default = 'Available',
+        null=True, 
+        blank=True
     )
 
     def __str__(self):
-        return self.name
+        return str(self.fname) + " " + str(self.lname)
 
 
 class Appointment(models.Model):
