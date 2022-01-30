@@ -21,7 +21,7 @@ def index(request):
                     'fname': ph.fname, 'lname':ph.lname, 'gender':ph.gender, 'phone':ph.phone, 'city':ph.city,
                     'email':ph.email, 'age':ph.age, 'category':ph.category, 'role':'Photographer', 'image':ph.image
             }
-            return render(request, 'profile.html', 'landing.html', context)
+            return render(request, 'landing.html', context)
         elif request.user.groups.all()[0].name == 'Customer':
             cst = Customer.objects.get(customer_id=request.user.id)
             context={
@@ -98,7 +98,7 @@ def profile(request):
                 'email':ph.email, 'age':ph.age, 'category':ph.category, 'role':'Photographer', 'image':ph.image
              }
         
-        return render(request, 'profile.html', 'landing.html', context)
+        return render(request, 'profile.html',  context)
     else :
         cst = Customer.objects.get(customer_id=request.user.id)
         context={
