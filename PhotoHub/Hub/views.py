@@ -184,4 +184,19 @@ def register_step2(request):
 
 
 def checkout(request):
+    if request.user.is_authenticated:
+        if request.user.groups.all()[0].name == 'Photographer':
+            ph = Photographer.objects.get(photographer_id=request.user.id)
+            context={
+                    'fname': ph.fname, 'lname':ph.lname, 'gender':ph.gender, 'phone':ph.phone, 'city':ph.city,
+                    'email':ph.email, 'age':ph.age, 'category':ph.category, 'role':'Photographer', 'image':ph.image
+            }
+            return render(request, 'checkout.html', context)
+        elif request.user.groups.all()[0].name == 'Customer':
+            cst = Customer.objects.get(customer_id=request.user.id)
+            context={
+                    'fname': cst.fname, 'lname':cst.lname, 'phone':cst.phone, 'city':cst.city,
+                    'email':cst.email, 'role':'Customer', 'image':cst.image
+                }
+            return render(request, 'checkout.html', context)
     return render(request, 'checkout.html')
