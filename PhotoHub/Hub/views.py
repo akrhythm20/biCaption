@@ -181,3 +181,7 @@ def register_step2(request):
 
         messages.info(request, "Your registration is completed successfuly !")
         return redirect('/')
+
+
+def checkout(request):
+    return render(request, 'checkout.html')
