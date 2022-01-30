@@ -76,7 +76,7 @@ def logoutUser(request):
 
 
 def profile(request):
-    if request.user.groups.all()[0] == 'Photographer':
+    if request.user.groups.all()[0].name == 'Photographer':
         ph = Photographer.objects.get(photographer_id=request.user.id)
         context={
                 'fname': ph.fname, 'lname':ph.lname, 'gender':ph.gender, 'phone':ph.phone, 'city':ph.city,
