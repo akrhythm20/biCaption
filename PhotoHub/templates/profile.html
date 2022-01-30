@@ -62,7 +62,7 @@
                   d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"
                 />
               </svg>
-              <span class="font-bold">BiCaption</span>
+              <span class="font-bold"><a href="/">BiCaption</a></span>
             </a>
             <a href="#" class="py-5 px-3 text-gray-700 hover:text-gray-900"
               >Features</a
@@ -87,10 +87,10 @@
                 @click="open = !open"
                 class="flex flex-row items-center space-x-2 w-full px-3 py-2 mt-2 text-sm font-semibold text-left bg-transparent hover:bg-blue-800 md:w-auto md:inline md:mt-0 md:ml-4 hover:bg-gray-200 focus:bg-blue-800 focus:outline-none focus:shadow-outline"
               >
-                <span>{{request.user}} </span>
+                <span>Hi {{request.user}}</span>
                 <img
                   class="inline h-6 rounded-full"
-                  src="https://avatars2.githubusercontent.com/u/24622175?s=60&amp;v=4"
+                  src="/static/img/profile/{{ image }}"
                 />
                 <svg
                   fill="currentColor"
@@ -151,7 +151,7 @@
               <div class="image overflow-hidden">
                 <img
                   class="h-auto w-full mx-auto"
-                  src=""
+                  src="/static/img/profile/{{ image }}"
                   alt="Rhythm"
                 />
               </div>
@@ -313,7 +313,7 @@
                   {% if role == 'Photographer'%}
                     <div class="grid grid-cols-2">
                       <div class="px-4 py-2 font-semibold">Age</div>
-                      <div class="px-4 py-2">{{Age}}</div>
+                      <div class="px-4 py-2">{{age}}</div>
                     </div>
                   {% endif %}  
                 </div>
