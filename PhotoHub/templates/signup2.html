@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>BiCapture</title>
+    <title>BiCaption</title>
     <link rel="stylesheet" href="https://unpkg.com/tailwindcss/dist/tailwind.min.css" />
     <script src="https://cdn.tailwindcss.com"></script>
 
@@ -108,7 +108,7 @@
 
 
         <!--Form here-->
-        <form action="/register2" method="post">{% csrf_token %}
+        <form action="/register2" enctype="multipart/form-data" method="post">{% csrf_token %}
             <h1 class="text-center text-4xl font-bold mt-8 text-red-800"> Welcome to BiCaption</h1>
 
             <div class="mt-1 p-4">
@@ -210,6 +210,11 @@
                     </div>
                 </div>
 
+                <!-- Taking image from user and showing a preview to user before uploading -->
+                <label for="dp">Upload your display picture</label><br>
+                <input type="file" name="dp" onchange="previewFile()"><br><br>
+                <img id="preview" src="" height="200" alt="Image preview...">
+
                 <input type="text" name="role" id="role" value={{role}} hidden>
                 <input type="text" name="id" id="id" value={{id}} hidden>
 
@@ -221,25 +226,33 @@
         text-gray-700 
         border duration-200 ease-in-out 
                  border-gray-600 transition">Submit</button>
-                    <!-- <div class="flex-auto flex flex-row-reverse">
-                    <button class="text-base  ml-2  hover:scale-110 focus:outline-none flex justify-center px-4 py-2 rounded font-bold cursor-pointer 
-        hover:bg-teal-600  
-        bg-teal-600 
-        text-teal-100 
-        border duration-200 ease-in-out 
-        border-teal-600 transition">Next</button>
-                    <button class="text-base hover:scale-110 focus:outline-none flex justify-center px-4 py-2 rounded font-bold cursor-pointer 
-        hover:bg-teal-200  
-        bg-teal-100 
-        text-teal-700 
-        border duration-200 ease-in-out 
-        border-teal-600 transition">Skip</button>
-                </div> -->
 
                 </div>
             </div>
         </form>
     </div>
+
 </body>
+
+<footer>
+    <!-- javascript for showing image preview -->
+    <script>
+        function previewFile() {
+          var preview = document.getElementById('preview');
+          var file    = document.querySelector('input[type=file]').files[0];
+          var reader  = new FileReader();
+  
+          reader.onloadend = function () {
+              preview.src = reader.result;
+          }
+  
+          if (file) {
+              reader.readAsDataURL(file);
+          } else {
+              preview.src = "";
+          }
+       }
+      </script>
+</footer>
 
 </html>
