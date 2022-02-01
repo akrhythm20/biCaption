@@ -12,4 +12,5 @@ urlpatterns = [
     path('logout', views.logoutUser, name='logout'),
     path('checkout', views.checkout, name="checkout"),
     path('allfromCat/<str:cat>', views.allfromCat, name="allfromCat"),
+    path('appointment/<str:pk>', views.appointment, name='appointment')
 ]

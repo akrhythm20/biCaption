@@ -150,7 +150,7 @@
  
 
       <div class="container mx-auto my-5 p-5">
-        <div class="md:flex no-wrap md:-mx-2">
+        <div class="divide-x-2 md:flex no-wrap md:-mx-2">
           <!-- Left Side -->
           <div class="w-full md:w-3/12 md:mx-2">
             <!-- Profile Card -->
@@ -249,29 +249,21 @@
                   />
                   <a href="#" class="text-main-color">Namita Thapar</a>
                 </div>
-                <div class="text-center my-2">
-                  <img
-                    class="h-16 w-16 rounded-full mx-auto"
-                    src=""
-                    alt="Ashneet pic"
-                  />
-                  <a href="#" class="text-main-color">Ashneet Grover</a>
-                </div>
               </div>
             </div>
             <!-- End of friends card -->
           </div>
           <!-- Right Side -->
-          <div class="w-full md:w-9/12 mx-2 h-64">
+          <div class=" w-full md:w-9/12 mx-2 h-64">
             <!-- Profile tab -->
             <!-- About Section -->
-            <div class="bg-white p-3 shadow-sm rounded-sm">
+            <div class=" bg-white p-3 shadow-sm rounded-sm">
               <div
-                class="flex items-center space-x-2 font-semibold text-gray-900 leading-8"
+                class="pb-3 flex items-center space-x-2 font-semibold text-gray-900 leading-8"
               >
                 <span clas="text-green-500">
                   <svg
-                    class="h-5"
+                    class="h-8 ml-3"
                     xmlns="http://www.w3.org/2000/svg"
                     fill="none"
                     viewBox="0 0 24 24"
@@ -285,40 +277,36 @@
                     />
                   </svg>
                 </span>
-                <span class="tracking-wide">About</span>
+                <span class="text-3xl tracking-wide">About</span>
               </div>
-              <div class="text-gray-700">
+              <div class="pl-5 text-gray-700">
                 <div class="grid md:grid-cols-2 text-sm">
                   <div class="grid grid-cols-2">
-                    <div class="px-4 py-2 font-semibold">First Name</div>
-                    <div class="px-4 py-2">{{fname}}</div>
-                  </div>
-                  <div class="grid grid-cols-2">
-                    <div class="px-4 py-2 font-semibold">Last Name</div>
-                    <div class="px-4 py-2">{{lname}}</div>
+                    <div class="px-4 py-2 font-semibold text-lg">Full Name</div>
+                    <div class="text-lg px-4 py-2">{{fname}} {{lname}}</div>
                   </div>
                   {% if role == 'Photographer' %}
                     <div class="grid grid-cols-2">
-                      <div class="px-4 py-2 font-semibold">Gender</div>
-                      <div class="px-4 py-2">{{gender}}</div>
+                      <div class="px-4 py-2 font-semibold text-lg">Gender</div>
+                      <div class="text-lg px-4 py-2">{{gender}}</div>
                     </div>
                   {% endif %}  
                   <div class="grid grid-cols-2">
-                    <div class="px-4 py-2 font-semibold">Contact No.</div>
-                    <div class="px-4 py-2">{{phone}}</div>
+                    <div class="px-4 py-2 font-semibold text-lg">Contact No.</div>
+                    <div class="px-4 py-2">+91 {{phone}}</div>
                   </div>
                   {% if role == 'Photographer' %}
                     <div class="grid grid-cols-2">
-                      <div class="px-4 py-2 font-semibold">Category</div>
+                      <div class="px-4 py-2 font-semibold text-lg">Category</div>
                       <div class="px-4 py-2">{{category}}</div>
                     </div>
                   {% endif %}  
                   <div class="grid grid-cols-2">
-                    <div class="px-4 py-2 font-semibold">Address</div>
-                    <div class="px-4 py-2">{{city}}</div>
+                    <div class="px-4 py-2 font-semibold text-lg">Address</div>
+                    <div class="px-4 py-2">{{state}}, {{city}} - {{pin}}</div>
                   </div>
                   <div class="grid grid-cols-2">
-                    <div class="px-4 py-2 font-semibold">Email.</div>
+                    <div class="px-4 py-2 font-semibold text-lg">Email.</div>
                     <div class="px-4 py-2">
                       <a class="text-blue-800" href="{{email}}"
                         >{{email}}</a
@@ -327,31 +315,31 @@
                   </div>
                   {% if role == 'Photographer'%}
                     <div class="grid grid-cols-2">
-                      <div class="px-4 py-2 font-semibold">Age</div>
-                      <div class="px-4 py-2">{{age}}</div>
+                      <div class="px-4 py-2 font-semibold text-lg">Age</div>
+                      <div class="px-4 py-2">{{age}} Yr</div>
                     </div>
                   {% endif %}  
                 </div>
               </div>
-              <div class="px-4 py-2 font-semibold">Sample Work Links</div>
+              <!-- <div class="px-4 py-2 font-semibold text-lg">Sample Work Links</div>
                     <div class="px-4 py-2">https://xyz.com</div>
                     <div class="px-4 py-2">https://xyz.com</div>
                     <div class="px-4 py-2">https://xyz.com</div>
-            </div>
+            </div> -->
             <!-- End of about section -->
 
             <div class="my-4"></div>
 
             <!-- Experience and education -->
-            <div class="bg-white p-3 shadow-sm rounded-sm">
+            <div class="lg:mt-16 bg-white p-3 shadow-sm rounded-sm">
               <div class="grid grid-cols-2">
-                <div>
+                <div class="">
                   <div
-                    class="flex items-center space-x-2 font-semibold text-gray-900 leading-8 mb-3"
+                    class="pt-3 flex items-center space-x-2 font-semibold text-gray-900 leading-8 mb-3"
                   >
                     <span clas="text-green-500">
                       <svg
-                        class="h-5"
+                        class="h-8"
                         xmlns="http://www.w3.org/2000/svg"
                         fill="none"
                         viewBox="0 0 24 24"
@@ -365,11 +353,11 @@
                         />
                       </svg>
                     </span>
-                    <span class="tracking-wide">Experience</span>
+                    <span class="text-2xl tracking-wide">Experience</span>
                   </div>
-                  <ul class="list-inside space-y-2">
+                  <ul class="tracking-wider py-3 px-5 font-semibold text-lg list-inside space-y-2">
                     <li>
-                      <div class="text-teal-600">Photographer at Her Company Inc.</div>
+                      <div class=" text-teal-600">Photographer at Her Company Inc.</div>
                       <div class="text-gray-500 text-xs">March 2022 - Now</div>
                     </li>
                     <li>
@@ -392,7 +380,7 @@
                   >
                     <span clas="text-green-500">
                       <svg
-                        class="h-5"
+                        class="h-8 pt-2 lg:pt-1"
                         xmlns="http://www.w3.org/2000/svg"
                         fill="none"
                         viewBox="0 0 24 24"
@@ -411,12 +399,12 @@
                         />
                       </svg>
                     </span>
-                    <span class="tracking-wide">Education</span>
+                    <span class="text-2xl pt-2 lg:pt-1 tracking-wide">Education</span>
                   </div>
-                  <ul class="list-inside space-y-2">
+                  <ul class="py-2 px-6 list-inside space-y-2">
                     
                     <li>
-                      <div class="text-teal-600">B.Tech(CSE) NIT PATNA </div>
+                      <div class="text-lg text-teal-600">B.Tech(CSE) NIT PATNA </div>
                       <div class="text-gray-500 text-xs">August 2019 - Now</div>
                     </li>
                   </ul>
@@ -431,22 +419,5 @@
     </div>
 
 
-    <footer class="bg-gray-800 px-5 sm:px-10 md:px-20 py-5">
-      <div class="flex flex-col items-center lg:flex-row-reverse justify-between">
-        <div class="">
-          <a class="mx-4 text-sm font-bold text-indigo-600 hover:text-indigo-800" href="#">Home</a>
-          <a class="mx-4 text-sm font-bold text-indigo-600 hover:text-indigo-800" href="#">About Us</a>
-          <a class="mx-4 text-sm font-bold text-indigo-600 hover:text-indigo-800" href="#">Careers</a>
-          <!-- <a href="#">About Us</a> -->
-          <!-- <a href="#">Careers</a> -->
-        </div>
-        <div class="mt-4">
-          <img src="" class="w-32">
-        </div>
-        <div class="mt-4 text-xs font-bold text-gray-500">
-          &copy; 2022 BiCaption | MIT License 
-        </div>
-      </div>
-    </footer>
-  </body>
+    
 </html>

@@ -90,7 +90,7 @@ def profile(request):
     if request.user.groups.all()[0].name == 'Photographer':
         ph = Photographer.objects.get(photographer_id=request.user.id)
         context={
-                'fname': ph.fname, 'lname':ph.lname, 'gender':ph.gender, 'phone':ph.phone, 'city':ph.city,
+                'fname': ph.fname, 'lname':ph.lname, 'gender':ph.gender, 'phone':ph.phone, 'state':ph.state, 'city':ph.city, 'pin':ph.pincode,
                 'email':ph.email, 'age':ph.age, 'category':ph.category, 'role':'Photographer', 'image':ph.image, 'status':ph.status
         }
         
@@ -226,3 +226,16 @@ def allfromCat(request, cat):
     context['category'] = cat
     return render(request, 'allfromCat.html', context)
 
+
+def appointment(request, pk):
+    context = {}
+    if request.user.is_authenticated:
+        if request.user.groups.all()[0].name == 'Photographer':
+            ph = Photographer.objects.get(photographer_id=request.user.id)
+            context['image'] = ph.image
+        else :
+            cst = Customer.objects.get(customer_id=request.user.id)
+            context['image'] = cst.image
+    ph = Photographer.objects.get(photographer_id=pk)
+    context['id'] = ph.photographer_id
+    return render(request, 'appointment.html', context)
