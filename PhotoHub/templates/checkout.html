@@ -13,7 +13,7 @@
 
 <body>
   <!-- navbar goes here -->
-  <nav class="bg-blue-100 py-3">
+  <nav class="bg-blue-200 py-4">
     <div class="max-w-6xl mx-auto px-4">
       <div class="flex justify-between">
 
@@ -112,7 +112,7 @@
     <!--card-->
     {% for ph in catph%}
     {% if forloop.counter < 4 %}
-    <div class="drop-shadow-xl hover:drop-shadow-2xl bg-cyan-400 ml-20 mt-4 text-white  p-3 lg:w-1/4 sm:w-4/4 md:w-2/4 rounded-lg text-center py-8  cursor-pointer">
+    <div class="drop-shadow-xl hover:drop-shadow-2xl bg-blue-200 ml-20 mt-4 text-white  p-3 lg:w-1/4 sm:w-4/4 md:w-2/4 rounded-lg text-center py-8  cursor-pointer">
       <div class="flex justify-center mb-2"> <img src="/media/{{ph.image}}"
           class="rounded-full h-48 w-48 flex items-center  justify-center"> </div>
       <h1 class="text-2xl  text-black mt-5">{{ph.fname}} {{ph.lname}}</h1> <span class="text-1xl  text-black  mt-2">2+ Years
@@ -121,15 +121,38 @@
       <div class="mx-auto">
         <button style="background-color: rgb(15, 219, 8);" class="bg-red-600 ml-3 mt-3 px-6 py-3 rounded-lg">Book
           Now</button>
-        <button style="background-color: rgb(32, 248, 230);"
+        <button style="background-color: rgb(6, 65, 173);"
           class="hover:bg-black-200 ml-1 mt-3 px-6 mr-3 py-3 rounded-lg">Checkout</button>
       </div>
     </div>
     {% endif %}
     {% endfor %}
   </div>
-  <div class=" p-5 mt-4">
-    <a href="/allfromCat/{{cat}}"><button>show more</button></a>
-  </div>
+  <center>
+    <div class=" py-10 mt-4">
+      <a href="/allfromCat/{{cat}}"><button class="px-2 py-1" style="border-radius: 5px; color: white; background-color: rgb(60, 63, 63);">Show More..</button></a>
+    </div>
+  </center>
+  <hr>
   {% endfor %}
+
+
+
+  <footer class="bg-gray-800 px-5 sm:px-10 md:px-20 py-5">
+    <div class="flex flex-col items-center lg:flex-row-reverse justify-between">
+      <div class="">
+        <a class="mx-4 text-sm font-bold text-indigo-600 hover:text-indigo-800" href="#">Home</a>
+        <a class="mx-4 text-sm font-bold text-indigo-600 hover:text-indigo-800" href="#">About Us</a>
+        <a class="mx-4 text-sm font-bold text-indigo-600 hover:text-indigo-800" href="#">Careers</a>
+        <!-- <a href="#">About Us</a> -->
+        <!-- <a href="#">Careers</a> -->
+      </div>
+      <div class="mt-4">
+        <img src="" class="w-32">
+      </div>
+      <div class="mt-4 text-xs font-bold text-gray-500">
+        &copy; 2022 BiCaption | MIT License 
+      </div>
+    </div>
+  </footer>
 </body>
