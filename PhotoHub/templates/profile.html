@@ -37,9 +37,9 @@
       defer
     ></script>
   </head>
-  <body>
+  <body class="bg-gradient-to-r from-pink-400 to-blue-500">
     <!-- navbar goes here -->
-<nav class="bg-gradient-to-r from-pink-400 to-blue-500 py-3">
+<nav class="">
   <div class="max-w-6xl mx-auto px-4">
     <div class="flex justify-between">
 
@@ -79,7 +79,7 @@
             >
               <span style="color: rgb(6, 90, 90); font-size: medium;"><span style="font-family:-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif; color: rgb(9, 171, 192);">Hi</span> {{request.user}}</span>
               <img
-                class="inline ml-3 h-6 rounded-full absolute
+                class="border border-2 border-blue-800 inline ml-3 h-6 rounded-full absolute
                 " style="z-index: 1000;"
                 src="/media/{{ image }}"
               />
@@ -87,7 +87,7 @@
                 fill="currentColor"
                 viewBox="0 0 20 20"
                 :class="{'rotate-180': open, 'rotate-0': !open}"
-                class="inline w-16 h-4 transition-transform duration-200 transform"
+                class=" inline w-16 h-4 transition-transform duration-200 transform"
               >
                 <path
                   fill-rule="evenodd"
@@ -107,16 +107,16 @@
               class=" right-0 w-full mt-2 origin-top-right rounded-md shadow-lg md:w-48"
             >
               <div
-                class="absolute py-2 px-8 ml-10 bg-white text-blue-800 text-sm rounded-sm border border-main-color shadow-sm"
+                class="absolute py-2 px-8 ml-10  text-blue-800 text-sm rounded-sm border border-main-color shadow-sm"
               >
                 <a
-                  class="block px-4 py-2 mt-2 text-sm bg-white md:mt-0 focus:text-gray-900 hover:bg-indigo-100 focus:bg-gray-200 focus:outline-none focus:shadow-outline"
+                  class="block px-4 py-2 mt-2 text-sm  md:mt-0 focus:text-gray-900 hover:bg-indigo-100 focus:bg-gray-200 focus:outline-none focus:shadow-outline"
                   href="/profile"
                   style="color: rgb(51, 51, 51); border-bottom: 0.8px solid rgb(156, 156, 156);"
                   >Profile</a
                 >
                 <a
-                  class="block px-4 py-2 mt-2 text-sm bg-white md:mt-0 focus:text-gray-900 hover:bg-indigo-100 focus:bg-gray-200 focus:outline-none focus:shadow-outline"
+                  class="block px-4 py-2 mt-2 text-sm  md:mt-0 focus:text-gray-900 hover:bg-indigo-100 focus:bg-gray-200 focus:outline-none focus:shadow-outline"
                   href="/logout"
                   >Logout</a
                 >
@@ -150,11 +150,11 @@
  
 
       <div class="container mx-auto my-5 p-5">
-        <div class="divide-x-2 md:flex no-wrap md:-mx-2">
+        <div class="md:flex no-wrap md:-mx-2">
           <!-- Left Side -->
           <div class="w-full md:w-3/12 md:mx-2">
             <!-- Profile Card -->
-            <div class="text-center bg-white p-3">
+            <div class="text-center  p-3">
               <div class="image overflow-hidden">
                 <img
                   class="rounded-full h-48 w-48 mx-auto border border-blue-500 border-4 "
@@ -162,7 +162,7 @@
                   alt="DP"
                 />
               </div>
-              <h1 class=" text-center text-gray-700 font-bold text-2xl leading-8 my-1">
+              <h1 class="pt-2 text-center text-gray-700 font-bold text-2xl leading-8 my-1">
                 {{fname}} {{lname}}
               </h1>
               <h3 class=" text-center text-gray-700 text-lg  my-1">
@@ -202,7 +202,7 @@
             <!-- End of profile card -->
             <div class="my-4"></div>
             <!-- Friends card -->
-            <div class="bg-white p-3 hover:shadow">
+            <div class=" p-3 hover:shadow">
               <div
                 class="flex items-center space-x-3 font-semibold text-gray-900 text-xl leading-8"
               >
@@ -257,7 +257,7 @@
           <div class=" w-full md:w-9/12 mx-2 h-64">
             <!-- Profile tab -->
             <!-- About Section -->
-            <div class=" bg-white p-3 shadow-sm rounded-sm">
+            <div class="  p-3 shadow-sm rounded-sm">
               <div
                 class="pb-3 flex items-center space-x-2 font-semibold text-gray-900 leading-8"
               >
@@ -331,7 +331,7 @@
             <div class="my-4"></div>
 
             <!-- Experience and education -->
-            <div class="lg:mt-16 bg-white p-3 shadow-sm rounded-sm">
+            <div class="lg:mt-16  p-3 shadow-sm rounded-sm">
               <div class="grid grid-cols-2">
                 <div class="">
                   <div
