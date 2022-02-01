@@ -4,12 +4,13 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>BiCaption</title>
-    <link
+   <link
       rel="stylesheet"
       href="https://unpkg.com/tailwindcss/dist/tailwind.min.css"
     />
     <script src="https://cdn.tailwindcss.com"></script>
-
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" integrity="sha512-Fo3rlrZj/k7ujTnHg4CGR2D7kSs0v4LLanw2qksYuRlEzO+tcaEPQogQ0KaoGN26/zrn20ImR1DfuLWnOo7aBA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    
     <style>
       :root {
         --main-color: #186757;
@@ -38,7 +39,7 @@
   </head>
   <body>
     <!-- navbar goes here -->
-<nav class="bg-blue-100 py-3">
+<nav class="bg-gradient-to-r from-pink-400 to-blue-500 py-3">
   <div class="max-w-6xl mx-auto px-4">
     <div class="flex justify-between">
 
@@ -153,40 +154,48 @@
           <!-- Left Side -->
           <div class="w-full md:w-3/12 md:mx-2">
             <!-- Profile Card -->
-            <div class="bg-white p-3 border-t-4 border-green-400">
+            <div class="text-center bg-white p-3">
               <div class="image overflow-hidden">
                 <img
-                  class="h-auto w-full mx-auto"
+                  class="rounded-full h-48 w-48 mx-auto border border-blue-500 border-4 "
                   src="/media/{{image}}"
                   alt="DP"
                 />
               </div>
-              <h1 class="text-gray-900 font-bold text-xl leading-8 my-1">
-                
+              <h1 class=" text-center text-gray-700 font-bold text-2xl leading-8 my-1">
+                {{fname}} {{lname}}
               </h1>
-              <h3 class="text-gray-600 font-lg text-semibold leading-6">
-                Photographer at Her Company Inc.
+              <h3 class=" text-center text-gray-700 text-lg  my-1">
+                {{category}} Photographer
               </h3>
-              <p class="text-sm text-gray-500 hover:text-gray-600 leading-6">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                Reprehenderit, eligendi dolorum sequi illum qui unde aspernatur
-                non deserunt
-              </p>
+  
+              <div class="inline-flex mx-auto mb-3">
+                <a href="mailto:rhythmanand6@gmail.com">
+                  <img class="ml-2 mx-auto"  width="26px" src="https://cdn.jsdelivr.net/npm/simple-icons@v3/icons/gmail.svg" />
+                </a>
+                <a href="mailto:rhythmanand6@gmail.com">
+                  <img class="ml-2 mx-auto"  width="26px" src="https://cdn.jsdelivr.net/npm/simple-icons@v3/icons/gmail.svg" />
+                </a>
+                <a href="https://www.instagram.com/rhythmanand6//">
+                  <img class="ml-2 mx-auto"  width="26px" src="https://cdn.jsdelivr.net/npm/simple-icons@v3/icons/instagram.svg" />
+                </a>
+            </div>
+
               <ul
-                class="bg-gray-100 text-gray-600 hover:text-gray-700 hover:shadow py-2 px-3 mt-3 divide-y rounded shadow-sm"
+                class="bg-blue-400 text-gray-600 hover:text-gray-700 hover:shadow py-2 px-3 mt-3 divide-y rounded shadow-sm"
               >
                 <li class="flex items-center py-3">
                   <span>Status</span>
                   <span class="ml-auto"
                     ><span
-                      class="bg-green-500 py-1 px-2 rounded text-white text-sm"
-                      >Active</span
+                      class="mr-1 bg-green-500 hover:bg-red-600 py-1 px-3 rounded text-white text-sm"
+                      >{{status}}</span
                     ></span
                   >
                 </li>
                 <li class="flex items-center py-3">
                   <span>Member since</span>
-                  <span class="ml-auto">Jan 28,2022</span>
+                  <span class="ml-auto bg-purple-600 p-1 rounded text-white text-sm">Jan 28, 2022</span>
                 </li>
               </ul>
             </div>

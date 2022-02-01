@@ -91,8 +91,8 @@ def profile(request):
         ph = Photographer.objects.get(photographer_id=request.user.id)
         context={
                 'fname': ph.fname, 'lname':ph.lname, 'gender':ph.gender, 'phone':ph.phone, 'city':ph.city,
-                'email':ph.email, 'age':ph.age, 'category':ph.category, 'role':'Photographer', 'image':ph.image
-             }
+                'email':ph.email, 'age':ph.age, 'category':ph.category, 'role':'Photographer', 'image':ph.image, 'status':ph.status
+        }
         
         return render(request, 'profile.html',  context)
     else :
@@ -225,3 +225,4 @@ def allfromCat(request, cat):
     context['catph'] = catph
     context['category'] = cat
     return render(request, 'allfromCat.html', context)
+

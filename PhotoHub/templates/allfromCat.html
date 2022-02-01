@@ -11,9 +11,9 @@
   <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>
 </head>
 
-<body>
+<body class="bg-gradient-to-r from-pink-400 to-blue-500">
   <!-- navbar goes here -->
-  <nav class="bg-blue-200 py-4">
+  <nav class="bg-gradient-to-r from-pink-400 to-blue-500 py-4">
     <div class="max-w-6xl mx-auto px-4">
       <div class="flex justify-between">
 
@@ -102,15 +102,15 @@
 
 
   <!--Category-->
-  <div class=" p-5 mt-4">
-    <h1 class=" ml-16 text-2xl font-bold text-red-800">{{category}}</h1>
+  <div class="py-10 mt-4">
+    <button class="bg-gradient-to-r from-slate-300 to-cyan-500 px-20 py-4 rounded-r-lg">{{category}}</button>
   </div>
 
 
-  <div class="row h-84 flex ml-4 items-left">
+  <div class="h-84 flex items-left">
     {% for ph in  catph%}
     <!--cards-->
-    <div class="drop-shadow-xl hover:drop-shadow-2xl bg-blue-200 ml-20 mt-4 text-white  p-3 lg:w-1/4 sm:w-4/4 md:w-2/4 rounded-lg text-center py-8  cursor-pointer">
+    <div class="bg-gradient-to-r from-cyan-500 drop-shadow-xl hover:drop-shadow-2xl bg-blue-200 ml-5 mt-4 text-white  p-3 lg:w-1/4 sm:w-4/4 md:w-2/4 rounded-lg text-center py-8  cursor-pointer">
       <div class="flex justify-center mb-2"> <img src="/media/{{ph.image}}"
           class="rounded-full h-48 w-48 flex items-center  justify-center"> </div>
       <h1 class="text-2xl  text-black mt-5">{{ph.fname}} {{ph.lname}}</h1> <span class="text-1xl  text-black  mt-2">2+ Years
