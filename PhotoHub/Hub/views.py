@@ -90,8 +90,9 @@ def profile(request):
     if request.user.groups.all()[0].name == 'Photographer':
         ph = Photographer.objects.get(photographer_id=request.user.id)
         context={
-                 'fname': ph.fname, 'lname':ph.lname, 'gender':ph.gender, 'phone':ph.phone, 'city':ph.city,
-                 'email':ph.email, 'age':ph.age, 'category':ph.category, 'role':'Photographer', 'image':ph.image, 'status':ph.status
+                 'fname': ph.fname, 'lname':ph.lname, 'gender':ph.gender, 'phone':ph.phone, 'city':ph.city, 'pin':ph.pincode,
+                 'email':ph.email, 'category':ph.category, 'role':'Photographer', 'image':ph.image, 'status':ph.status,
+                 'state':ph.state,
         }
         
         return render(request, 'profile.html',  context)
@@ -247,7 +248,7 @@ def createAppointment(request):
                                   appointment_status=True                         
                                   )
         appointment.save()
-        context = {'ph': ph, 'image': cst.image}
+        context = {'ph': ph, 'cst': cst, 'appointment' : appointment ,'image': cst.image}
         return render(request, 'successAppointment.html', context)
 
 
