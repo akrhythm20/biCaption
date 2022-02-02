@@ -206,21 +206,23 @@ header .logo
               <svg class="h-6 w-6 mr-1 text-blue-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />
               </svg>
-              <span class="font-bold">BiCaption</span>
+              <span class="font-extrabold">BiCaption</span>
             </a>
           </div>
   
           <!-- primary nav -->
           <div class="hidden md:flex items-center space-x-1">
-            <a href="#" class="py-5 px-3 text-gray-700 hover:text-gray-900">Features</a>
-            <a href="#" class="py-5 px-3 text-gray-700 hover:text-gray-900">Pricing</a>
+
+            <a href="#" class="py-5 px-3 text-white hover:text-yellow-300"><strong>Features</strong></a>
+            <a href="#" class="py-5 px-3 text-white hover:text-yellow-300"><strong>Pricing</strong></a>
+
             {% if request.user.is_authenticated%}
               {% if role == 'Customer'%}
-              <a href="/category" class="py-5 px-3 text-gray-700 hover:text-gray-900">Book Now</a>
+              <a href="/category" class="py-5 px-3 text-white hover:text-yellow-300"><strong>Book Now</strong></a>
               {% endif %}
             
             {% else %}
-             <a href="/accounts/login" class="py-5 px-3 text-gray-700 hover:text-gray-900">Book Now</a>
+             <a href="/accounts/login" class="py-5 px-3 text-white hover:text-yellow-300"><strong>Book Now</strong></a>
             {% endif %}
           </div>
         </div>
@@ -307,9 +309,10 @@ header .logo
   
     <!-- mobile menu -->
     <div class="mobile-menu hidden md:hidden">
-      <a href="#" class="block py-2 px-4 text-sm hover:bg-gray-200">Features</a>
-      <a href="#" class="block py-2 px-4 text-sm hover:bg-gray-200">Pricing</a>
+      <a href="#" class="block py-2 px-4 text-white text-sm hover:bg-gray-200"><strong> Features</strong></a>
+      <a href="#" class="block py-2 px-4 text-white text-sm hover:bg-gray-200"><strong>Pricing</strong></a>
     </div>
+
   </nav>
   
  

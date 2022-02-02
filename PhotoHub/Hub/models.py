@@ -12,6 +12,7 @@ class Customer(models.Model):
     area = models.CharField(max_length=200, null=True, blank=True)
     pincode = models.IntegerField(null=True, blank=True)
     image = models.ImageField(upload_to="images/", null=True, blank = True)
+    
     def _str_(self):
         return str(self.fname) + " " + str(self.lname)
 
@@ -81,4 +82,4 @@ class Appointment(models.Model):
     appointment_status = models.BooleanField(blank=True, null=True)
 
     def _str_(self):
-        return self.customer.fname + " " + self.customer.lname
+        return str(self.customer.fname) + " " + str(self.customer.lname)

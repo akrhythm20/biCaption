@@ -10,6 +10,7 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css" rel="stylesheet" />
     <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css" integrity="sha384-DyZ88mC6Up2uqS4h/KRgHuoeGwBcD4Ng9SiP4dIRy0EXTlnuz47vAwmeGwVChigm" crossorigin="anonymous">
     <style>
         body {
             font-family: Arial, Helvetica, sans-serif;
@@ -41,11 +42,13 @@
 
         /* Modal Content */
         .modal-content {
+            text-align: center;
+            border: 1.5px groove;
+            border-radius:25px;
             position: relative;
             background-color: #fefefe;
             margin: auto;
             padding: 0;
-            border: 1px solid #888;
             width: 40%;
             box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
             -webkit-animation-name: animatetop;
@@ -81,7 +84,7 @@
 
         /* The Close Button */
         .close {
-            color: white;
+            color: rgb(19, 18, 18);
             float: right;
             font-size: 28px;
             font-weight: bold;
@@ -89,15 +92,19 @@
 
         .close:hover,
         .close:focus {
-            color: #000;
+            color: rgb(140, 82, 247);
             text-decoration: none;
             cursor: pointer;
         }
 
         .modal-header {
             padding: 2px 16px;
-            background-color: #0bb1f3;
-            color: white;
+            color: rgb(11, 241, 69);
+        }
+
+        .success {
+           color :rgb(11, 241, 69); 
+           font-size: 2.7rem;
         }
 
         .modal-body {
@@ -106,15 +113,14 @@
 
         .modal-footer {
             padding: 2px 16px;
-            background-color: #0bb1f3;
-            color: white;
+            color: rgb(4, 136, 37);
         }
     </style>
 
 </head>
 
 <body>
-    <nav class="bg-gradient-to-r from-sky-600 to-slate-300">
+    <nav class="bg-gradient-to-r from-pink-400 via-purple-400 to-blue-500">
         <div class="max-w-6xl mx-auto px-4">
             <div class="flex justify-between">
 
@@ -202,17 +208,24 @@
 
     <!-- The Modal -->
     <div id="myModal" class="modal">
-        <div class="modal-content">
-            <div class="modal-header">
+        <div class="modal-content bg-gradient-to-r from-pink-300 to-blue-300">
+            <div class="modal-header pt-3"> 
+                <i class="fas fa-check-circle success"></i>
                 <span class="close">&times;</span>
-                <h1>Appointment Success !</h1>
+                <h1 class="text-white"><strong> Appointment Success !</strong></h1>
             </div>
-            <div class="modal-body">
-                <p>Your appointment was booked successfully !</p>
-                <p>Visit your profile to see your appointment</p>
+            <hr class="mt-2">
+            <div class="py-4 modal-body">
+                <h3 class ="text-gray-600"><strong>Your Appointment was Booked Successfully !</strong></h3>
+                <p class ="text-gray-600"><strong>Your Name</strong> : {{cst.fname}} {{cst.lname}}</p>
+                <p class ="text-gray-600"><strong>Photographer</strong> : {{ph.fname}} {{ph.lname}}</p>
+                <p class ="text-gray-600"><strong>Photographer id</strong> : {{ph.photographer_id}}</p>
+                <p class ="text-gray-600"><strong>Start Date</strong> : {{appointment.start_date}}</p>
+                <p class ="text-gray-600"><strong>End Date</strong> : {{appointment.end_date}}</p>
+                <p class ="text-gray-600"><strong>Visit your Profile to see further details of Appointment.</strong></p>
             </div>
-            <div class="modal-footer">
-                <a href="/profile"><button>Profile</button></a>
+            <div class="modal-footer py-4">
+                <a href="/profile"><button class="bg-green-500 hover:bg-emerald-500 text-white font-bold py-2 px-4 border border-gray-400 rounded shadow">Visit Profile</button></a>
             </div>
         </div>
     </div>
@@ -230,18 +243,18 @@
 
             // When the user clicks on <span> (x), close the modal
             span.onclick = function () {
-              window.location = '/profile'
-           }
-
-           // When the user clicks anywhere outside of the modal, close it
-            window.onclick = function (event) {
-             if (event.target == modal) {
                 window.location = '/profile'
-             }
-           }
+            }
+
+            // When the user clicks anywhere outside of the modal, close it
+            window.onclick = function (event) {
+                if (event.target == modal) {
+                    window.location = '/profile'
+                }
+            }
         }
 
-    
+
     </script>
 </body>
 
