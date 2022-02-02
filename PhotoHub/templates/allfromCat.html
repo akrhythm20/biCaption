@@ -117,17 +117,19 @@
         Experience</span>
       <br />
       <div class="mx-auto">
-        <button style="background-color: rgb(15, 219, 8);" class="bg-red-600 ml-3 mt-3 px-6 py-3 rounded-lg">Book
+        <a href="/appointment/{{ph.photographer_id}}"><button style="background-color: rgba(7, 248, 99, 0.658);" class="bg-red-600 ml-3 mt-3 px-6 py-3 rounded-lg">Book
           Now</button>
-        <button style="background-color: rgb(6, 65, 173);"
-          class="hover:bg-black-200 ml-1 mt-3 px-6 mr-3 py-3 rounded-lg">Checkout</button>
+        </a> 
+          <a href="/blog/{{ph.photographer_id}}"><button style="background-color: rgb(6, 65, 173);"
+            class="hover:bg-black-200 ml-1 mt-3 px-6 mr-3 py-3 rounded-lg">Profile</button>
+        </a>
       </div>
     </div>
     {% endfor %}
  </div>
  <center>
   <div class=" p-5 mt-4">
-    <a href="/checkout"><button class="px-6 py-2" style="border-radius: 5px; color: white; background-color: rgb(60, 63, 63);">Back</button></a>
+    <a href="/category"><button class="px-6 py-2" style="border-radius: 5px; color: white; background-color: rgb(60, 63, 63);">Back</button></a>
   </div>
 </center>
 
