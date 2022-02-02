@@ -11,9 +11,9 @@
   <script src="https://cdn.tailwindcss.com"></script>
 </head>
 
-<body class="bg-gradient-to-r from-sky-600 to-slate-300">
+<body class="bg-gradient-to-r from-pink-400 to-blue-500">
   <!-- navbar goes here -->
-  <nav class="bg-gradient-to-r from-sky-600 to-slate-300">
+  <nav class="py-3 bg-gradient-to-r from-pink-400 via-purple-400 to-blue-500">
     <div class="max-w-6xl mx-auto px-4">
       <div class="flex justify-between">
 
@@ -98,8 +98,8 @@
 
 
   <!-- Appointment Form -->
-  <div class="pl-24 px-6 py-8 grid grid-cols-2 divide-x-2">
-    <form action="/createAppointment" method="post" style="background-color: rgb(64, 190, 248);" class=" rounded-lg text-left w-full max-w-lg p-6">
+  <div class="pl-24 px-6 py-16 grid grid-cols-2 divide-x-2">
+    <form action="/createAppointment" method="post" style="background-color: rgb(49, 191, 226);" class=" rounded-lg text-left w-full max-w-lg p-6">
       {% csrf_token %}
       <h1 class="mt-2 mb-4" style="text-align: center; font-size:20px; color: rgb(70, 67, 67);"><b>BOOK APPOINTMENT</b>
       </h1>
@@ -177,7 +177,7 @@
         </div>
       </div>
       <input type="text" name = "pid" value="{{pid}}" hidden>
-      <button type = "submit" class="mt-4 px-4 py-3 bg-cyan-600 hover:bg-teal-400 text-black font-bold py-2 px-4 rounded">
+      <button type = "submit" class="mt-4 px-4 py-3 bg-indigo-600 hover:bg-pink-500 text-black font-bold py-2 px-4 rounded">
         Confirm
       </button>
 

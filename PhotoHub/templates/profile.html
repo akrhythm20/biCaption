@@ -37,9 +37,9 @@
       defer
     ></script>
   </head>
-  <body class="bg-gradient-to-r from-pink-400 to-blue-500">
+  <body class="bg-gradient-to-r from-pink-300 to-blue-400">
     <!-- navbar goes here -->
-<nav class="">
+<nav class="py-4 bg-gradient-to-r from-pink-400  to-blue-500">
   <div class="max-w-6xl mx-auto px-4">
     <div class="flex justify-between">
 
@@ -182,10 +182,10 @@
             </div>
 
               <ul
-                class="bg-blue-400 text-gray-600 hover:text-gray-700 hover:shadow py-2 px-3 mt-3 divide-y rounded shadow-sm"
+                class=" bg-blue-800 text-gray-600 hover:text-gray-700 hover:shadow py-2 px-3 mt-3 divide-y rounded shadow-sm"
               >
                 <li class="flex items-center py-3">
-                  <span>Status</span>
+                  <span class="text-white">Status</span>
                   <span class="ml-auto"
                     ><span
                       class="mr-1 bg-green-500 hover:bg-red-600 py-1 px-3 rounded text-white text-sm"
@@ -194,7 +194,7 @@
                   >
                 </li>
                 <li class="flex items-center py-3">
-                  <span>Member since</span>
+                  <span class="text-white">Member since</span>
                   <span class="ml-auto bg-purple-600 p-1 rounded text-white text-sm">Jan 28, 2022</span>
                 </li>
               </ul>
@@ -206,50 +206,11 @@
               <div
                 class="flex items-center space-x-3 font-semibold text-gray-900 text-xl leading-8"
               >
-                <span class="text-green-500">
-                  <svg
-                    class="h-5 fill-current"
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                  >
-                    <path
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      stroke-width="2"
-                      d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"
-                    />
-                  </svg>
-                </span>
-                <span>Similar Profiles</span>
+      
+                
+                
               </div>
-              <div class="grid grid-cols-3">
-                <div class="text-center my-2">
-                  <img
-                    class="h-16 w-16 rounded-full mx-auto"
-                    src=""
-                    alt=""
-                  />
-                  <a href="#" class="text-main-color">Rohit Jha</a>
-                </div>
-                <div class="text-center my-2">
-                  <img
-                    class="h-16 w-16 rounded-full mx-auto"
-                    src=""
-                    alt="pic"
-                  />
-                  <a href="#" class="text-main-color">Shubham</a>
-                </div>
-                <div class="text-center my-2">
-                  <img
-                    class="h-16 w-16 rounded-full mx-auto"
-                    src=""
-                    alt="pic"
-                  />
-                  <a href="#" class="text-main-color">Namita Thapar</a>
-                </div>
-              </div>
+              
             </div>
             <!-- End of friends card -->
           </div>
@@ -282,41 +243,41 @@
               <div class="pl-5 text-gray-700">
                 <div class="grid md:grid-cols-2 text-sm">
                   <div class="grid grid-cols-2">
-                    <div class="px-4 py-2 font-semibold text-lg">Full Name</div>
-                    <div class="text-lg px-4 py-2">{{fname}} {{lname}}</div>
+                    <div class="text-white px-4 py-2 font-semibold text-lg">Full Name</div>
+                    <div class="text-white text-lg px-4 py-2">{{fname}} {{lname}}</div>
                   </div>
                   {% if role == 'Photographer' %}
                     <div class="grid grid-cols-2">
-                      <div class="px-4 py-2 font-semibold text-lg">Gender</div>
-                      <div class="text-lg px-4 py-2">{{gender}}</div>
+                      <div class="text-white px-4 py-2 font-semibold text-lg">Gender</div>
+                      <div class="text-white text-lg px-4 py-2">{{gender}}</div>
                     </div>
                   {% endif %}  
                   <div class="grid grid-cols-2">
-                    <div class="px-4 py-2 font-semibold text-lg">Contact No.</div>
-                    <div class="px-4 py-2">+91 {{phone}}</div>
+                    <div class="text-white px-4 py-2 font-semibold text-lg">Contact No.</div>
+                    <div class="text-white px-4 py-2">+91 {{phone}}</div>
                   </div>
                   {% if role == 'Photographer' %}
                     <div class="grid grid-cols-2">
-                      <div class="px-4 py-2 font-semibold text-lg">Category</div>
-                      <div class="px-4 py-2">{{category}}</div>
+                      <div class="text-white px-4 py-2 font-semibold text-lg">Category</div>
+                      <div class="text-white px-4 py-2">{{category}}</div>
                     </div>
                   {% endif %}  
                   <div class="grid grid-cols-2">
-                    <div class="px-4 py-2 font-semibold text-lg">Address</div>
-                    <div class="px-4 py-2">{{state}}, {{city}} - {{pin}}</div>
+                    <div class="text-white px-4 py-2 font-semibold text-lg">Address</div>
+                    <div class="text-white px-4 py-2">{{state}}, {{city}} - {{pin}}</div>
                   </div>
                   <div class="grid grid-cols-2">
-                    <div class="px-4 py-2 font-semibold text-lg">Email.</div>
+                    <div class="text-white px-4 py-2 font-semibold text-lg">Email.</div>
                     <div class="px-4 py-2">
-                      <a class="text-blue-800" href="{{email}}"
+                      <a class="text-white text-blue-800" href="{{email}}"
                         >{{email}}</a
                       >
                     </div>
                   </div>
                   {% if role == 'Photographer'%}
                     <div class="grid grid-cols-2">
-                      <div class="px-4 py-2 font-semibold text-lg">Age</div>
-                      <div class="px-4 py-2">{{age}} Yr</div>
+                      <div class="text-white px-4 py-2 font-semibold text-lg">Age</div>
+                      <div class="text-white px-4 py-2">{{age}} Yr</div>
                     </div>
                   {% endif %}  
                 </div>
@@ -357,19 +318,19 @@
                   </div>
                   <ul class="tracking-wider py-3 px-5 font-semibold text-lg list-inside space-y-2">
                     <li>
-                      <div class=" text-teal-600">Photographer at Her Company Inc.</div>
+                      <div class=" text-white">Photographer at Her Company Inc.</div>
                       <div class="text-gray-500 text-xs">March 2022 - Now</div>
                     </li>
                     <li>
-                      <div class="text-teal-600">Photographer at Her Company Inc.</div>
+                      <div class="text-white">Photographer at Her Company Inc.</div>
                       <div class="text-gray-500 text-xs">March 2022 - Now</div>
                     </li>
                     <li>
-                      <div class="text-teal-600">Photographer at Her Company Inc.</div>
+                      <div class="text-white">Photographer at Her Company Inc.</div>
                       <div class="text-gray-500 text-xs">March 2022 - Now</div>
                     </li>
                     <li>
-                      <div class="text-teal-600">Photographer at Her Company Inc.</div>
+                      <div class="text-white">Photographer at Her Company Inc.</div>
                       <div class="text-gray-500 text-xs">March 2022 - Now</div>
                     </li>
                   </ul>
@@ -404,7 +365,7 @@
                   <ul class="py-2 px-6 list-inside space-y-2">
                     
                     <li>
-                      <div class="text-lg text-teal-600">B.Tech(CSE) NIT PATNA </div>
+                      <div class="text-lg text-white">B.Tech(CSE) NIT PATNA </div>
                       <div class="text-gray-500 text-xs">August 2019 - Now</div>
                     </li>
                   </ul>

@@ -98,7 +98,7 @@ def profile(request):
     else :
         cst = Customer.objects.get(customer_id=request.user.id)
         context={
-                'fname': cst.fname, 'lname':cst.lname, 'phone':cst.phone, 'city':cst.city,
+                'fname': cst.fname, 'lname':cst.lname, 'phone':cst.phone, 'city':cst.city, 'state':cst.state, 'pin':cst.pincode,
                 'email':cst.email, 'role':'Customer', 'image':cst.image
              }
         return render(request, 'profile.html', context)
