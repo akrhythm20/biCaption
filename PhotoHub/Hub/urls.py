@@ -10,7 +10,10 @@ urlpatterns = [
     path('role', views.role, name='role'),
     path('profile', views.profile, name='profile'),
     path('logout', views.logoutUser, name='logout'),
-    path('checkout', views.checkout, name="checkout"),
+    path('category', views.category, name="category"),
     path('allfromCat/<str:cat>', views.allfromCat, name="allfromCat"),
-    path('appointment/<str:pk>', views.appointment, name='appointment')
+    path('blog/<int:pid>', views.blog, name="blog"),
+    path('appointment/<int:pid>', views.appointment, name="appointment"),
+    path('createAppointment', views.createAppointment, name="createAppointment"),
+    
 ]
