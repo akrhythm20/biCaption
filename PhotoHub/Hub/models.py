@@ -71,10 +71,14 @@ class Photographer(models.Model):
 
 class Appointment(models.Model):
     customer = models.ForeignKey(Customer, on_delete=models.CASCADE, blank=True, null=True)    
+    photographer = models.ForeignKey(Photographer, on_delete=models.SET_NULL, blank=True, null=True)
     start_date = models.DateTimeField()
     end_date = models.DateTimeField()
-    Photographer = models.ForeignKey(Photographer, on_delete=models.SET_NULL, blank=True, null=True)
-    payment_status = models.BooleanField(blank=True, null=True)
+    state = models.CharField(max_length=50, null=True, blank=True)
+    city = models.CharField(max_length=100, null=True, blank=True)
+    area = models.CharField(max_length=200, null=True, blank=True)
+    zip = models.IntegerField(null=True, blank=True)
+    appointment_status = models.BooleanField(blank=True, null=True)
 
     def __str__(self):
-        return self.customer.name
+        return self.customer.fname + " " + self.customer.lname

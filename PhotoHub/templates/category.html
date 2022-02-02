@@ -11,9 +11,9 @@
   <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>
 </head>
 
-<body class="bg-gradient-to-r from-pink-400 to-blue-500">
+<body class="bg-gradient-to-r from-sky-600 to-slate-300">
   <!-- navbar goes here -->
-  <nav class="bg-gradient-to-r from-pink-400 to-blue-500  py-4">
+  <nav class="bg-gradient-to-r from-slate-300 to-sky-300  py-4">
     <div class="max-w-6xl mx-auto px-4">
       <div class="flex justify-between">
 
@@ -39,7 +39,6 @@
 
         <!-- secondary nav -->
         <div class="hidden md:flex  items-center space-x-1">
-          {% if request.user.is_authenticated %}
           <nav :class="{'flex': open, 'hidden': !open}"
             class="flex-col flex-grow pb-4 md:pb-0 hidden md:flex md:justify-end md:flex-row">
             <div @click.away="open = false" class="relative" x-data="{ open: false }">
@@ -74,10 +73,6 @@
                 </div>
               </div>
           </nav>
-          {% else %}
-          <a href="/accounts/login" class="py-5 px-3">Login</a>
-          <a href="/accounts/signup" class="py-5 px-3">Register</a>
-          {% endif %}
         </div>
 
         <!-- mobile button goes here -->
@@ -99,38 +94,43 @@
       <a href="#" class="block py-2 px-4 text-sm hover:bg-gray-200">Pricing</a>
     </div>
   </nav>
-<hr>
+  <hr>
 
 
   <!--All cards-->
-  {% for cat, catph in  allcatph%}
-   <!--Category-->
+  {% for cat, catph in allcatph%}
+  <!--Category-->
   <div class=" py-10 mt-4">
-    <button   class="bg-gradient-to-r from-slate-300 to-cyan-500 px-20 py-4 rounded-r-lg">{{cat}}</button>
+    <button class="bg-gradient-to-r from-slate-300 to-cyan-500 px-20 py-4 rounded-r-lg">{{cat}}</button>
   </div>
   <div class="h-84 flex ml-4 items-left">
     <!--card-->
     {% for ph in catph%}
-    {% if forloop.counter < 4 %}
-    <div class="bg-gradient-to-r from-cyan-500  drop-shadow-xl hover:drop-shadow-2xl bg-blue-200 ml-20 mt-4 text-white  p-3 lg:w-1/4 sm:w-1/4 md:w-2/4 rounded-lg text-center py-8  cursor-pointer">
+    {% if forloop.counter < 4 %} <div
+      class="bg-gradient-to-r from-cyan-500  drop-shadow-xl hover:drop-shadow-2xl bg-blue-200 ml-20 mt-4 text-white  p-3 lg:w-1/4 sm:w-1/4 md:w-2/4 rounded-lg text-center py-8  cursor-pointer">
       <div class="flex justify-center mb-2"> <img src="/media/{{ph.image}}"
           class="rounded-full h-48 w-48 flex items-center  justify-center"> </div>
-      <h1 class="text-2xl  text-black mt-5">{{ph.fname}} {{ph.lname}}</h1> <span class="text-1xl  text-black  mt-2">2+ Years
+      <h1 class="text-2xl  text-black mt-5">{{ph.fname}} {{ph.lname}}</h1> <span class="text-1xl  text-black  mt-2">2+
+        Years
         Experience</span>
       <br />
       <div class="mx-auto">
-        <button style="background-color: rgb(15, 219, 8);" class="bg-red-600 ml-3 mt-3 px-6 py-3 rounded-lg">Book
+        <a href="/appointment/{{ph.photographer_id}}"><button style="background-color: rgba(7, 248, 99, 0.658);" class="bg-red-600 ml-3 mt-3 px-6 py-3 rounded-lg">Book
           Now</button>
-        <button style="background-color: rgb(6, 65, 173);"
-          class="hover:bg-black-200 ml-1 mt-3 px-6 mr-3 py-3 rounded-lg">Checkout</button>
+        </a>  
+        <a href="/blog/{{ph.photographer_id}}"><button style="background-color: rgb(6, 65, 173);"
+            class="hover:bg-black-200 ml-1 mt-3 px-6 mr-3 py-3 rounded-lg">Profile</button>
+        </a>
       </div>
-    </div>
-    {% endif %}
-    {% endfor %}
+  </div>
+  {% endif %}
+  {% endfor %}
   </div>
   <center>
     <div class="py-10 mt-4">
-      <a href="/allfromCat/{{cat}}"><button class="bg-gradient-to-r from-green-400 to-blue-500 hover:from-pink-500 hover:to-yellow-500 px-2 py-1" style="border-radius: 5px; color: white;">Show More..</button></a>
+      <a href="/allfromCat/{{cat}}"><button
+          class="bg-gradient-to-r from-green-400 to-blue-500 hover:from-pink-500 hover:to-yellow-500 px-2 py-1"
+          style="border-radius: 5px; color: white;">Show More..</button></a>
     </div>
   </center>
   <hr>
@@ -151,7 +151,7 @@
         <img src="" class="w-32">
       </div>
       <div class="mt-4 text-xs font-bold text-gray-500">
-        &copy; 2022 BiCaption | MIT License 
+        &copy; 2022 BiCaption | MIT License
       </div>
     </div>
   </footer>

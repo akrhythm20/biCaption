@@ -195,7 +195,7 @@ header .logo
 {% endif %}
 
 <!-- navbar goes here -->
-<nav class="bg-gradient-to-r from-pink-400 to-blue-500">
+<nav class="bg-gradient-to-r from-sky-600 to-slate-300">
     <div class="max-w-6xl mx-auto px-4">
       <div class="flex justify-between">
   
@@ -214,7 +214,14 @@ header .logo
           <div class="hidden md:flex items-center space-x-1">
             <a href="#" class="py-5 px-3 text-gray-700 hover:text-gray-900">Features</a>
             <a href="#" class="py-5 px-3 text-gray-700 hover:text-gray-900">Pricing</a>
-            <a href="/checkout" class="py-5 px-3 text-gray-700 hover:text-gray-900">Book Now</a>
+            {% if request.user.is_authenticated%}
+              {% if role == 'Customer'%}
+              <a href="/category" class="py-5 px-3 text-gray-700 hover:text-gray-900">Book Now</a>
+              {% endif %}
+            
+            {% else %}
+             <a href="/accounts/login" class="py-5 px-3 text-gray-700 hover:text-gray-900">Book Now</a>
+            {% endif %}
           </div>
         </div>
   
@@ -604,20 +611,18 @@ header .logo
 
       </main>
 
-      <footer class="px-5 sm:px-10 md:px-20 py-8">
+      <footer class="px-5 sm:px-10 md:px-20 py-8 bg-gradient-to-r from-sky-600 to-slate-300">
         <div class="flex flex-col items-center lg:flex-row-reverse justify-between">
           <div class="">
             <a class="mx-4 text-sm font-bold text-indigo-600 hover:text-indigo-800" href="#">Home</a>
             <a class="mx-4 text-sm font-bold text-indigo-600 hover:text-indigo-800" href="#">About Us</a>
             <a class="mx-4 text-sm font-bold text-indigo-600 hover:text-indigo-800" href="#">Careers</a>
-            <!-- <a href="#">About Us</a> -->
-            <!-- <a href="#">Careers</a> -->
           </div>
           <div class="mt-4">
             <img src="" class="w-32">
           </div>
-          <div class="mt-4 text-xs font-bold text-gray-500">
-            &copy; 2022 BiCaption | MIT License 
+          <div class="mt-4 text-xs font-bold text-black-500">
+            &copy; <strong> 2022 BiCaption | MIT License </strong>
           </div>
         </div>
       </footer>

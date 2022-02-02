@@ -7,7 +7,7 @@ from django.contrib.auth.models import Group
 from django.contrib.auth import authenticate, login, logout
 
 #Importing Customer and Photographer module
-from Hub.models import Customer, Photographer
+from Hub.models import Customer, Photographer, Appointment
 
 #For message displaying
 from django.contrib import messages
@@ -17,12 +17,12 @@ def index(request):
     if request.user.is_authenticated:
         if request.user.groups.all()[0].name == 'Photographer':
             ph = Photographer.objects.get(photographer_id=request.user.id)
-            context= {'image': ph.image}
+            context= {'role':'Photographer','image': ph.image}
             return render(request, 'landing.html', context)
 
         else : 
             cst = Customer.objects.get(customer_id=request.user.id)
-            context= {'image':cst.image}
+            context= {'role':'Customer','image':cst.image}
             return render(request, 'landing.html', context)
 
     return render(request, 'landing.html')
@@ -90,8 +90,8 @@ def profile(request):
     if request.user.groups.all()[0].name == 'Photographer':
         ph = Photographer.objects.get(photographer_id=request.user.id)
         context={
-                'fname': ph.fname, 'lname':ph.lname, 'gender':ph.gender, 'phone':ph.phone, 'city':ph.city,
-                'email':ph.email, 'age':ph.age, 'category':ph.category, 'role':'Photographer', 'image':ph.image, 'status':ph.status
+                 'fname': ph.fname, 'lname':ph.lname, 'gender':ph.gender, 'phone':ph.phone, 'city':ph.city,
+                 'email':ph.email, 'age':ph.age, 'category':ph.category, 'role':'Photographer', 'image':ph.image, 'status':ph.status
         }
         
         return render(request, 'profile.html',  context)
@@ -182,16 +182,11 @@ def register_step2(request):
         return redirect('/')
 
 
-def checkout(request):
+def category(request):
     context = {}
-    if request.user.is_authenticated:
-        if request.user.groups.all()[0].name == 'Photographer':
-            ph = Photographer.objects.get(photographer_id=request.user.id)
-            context['image'] = ph.image
 
-        else :
-            cst = Customer.objects.get(customer_id=request.user.id)
-            context['image'] = cst.image
+    cst = Customer.objects.get(customer_id=request.user.id)
+    context['image'] = cst.image
     
     #creates dictionary for each object
     catphs = Photographer.objects.values('category', 'photographer_id')
@@ -206,23 +201,57 @@ def checkout(request):
 
    # print(allcatph)    
     context['allcatph'] = allcatph
-    return render(request, 'checkout.html', context)
+    return render(request, 'category.html', context)
 
 
 
 def allfromCat(request, cat):
     context = {}
-    if request.user.is_authenticated:
-        if request.user.groups.all()[0].name == 'Photographer':
-            ph = Photographer.objects.get(photographer_id=request.user.id)
-            context['image'] = ph.image
-
-        else :
-            cst = Customer.objects.get(customer_id=request.user.id)
-            context['image'] = cst.image
+    
+    cst = Customer.objects.get(customer_id=request.user.id)
+    context['image'] = cst.image
 
     catph = Photographer.objects.filter(category=cat)
     context['catph'] = catph
     context['category'] = cat
     return render(request, 'allfromCat.html', context)
 
+
+def appointment(request, pid):
+    cst = Customer.objects.get(customer_id=request.user.id)
+    context = {'image': cst.image, 'pid': pid}
+    return render(request, 'appointment.html', context)
+
+
+def createAppointment(request):
+    if request.method == 'POST':
+        pid = request.POST.get('pid')
+        sdate = request.POST.get('sdate')
+        edate = request.POST.get('edate')
+        state = request.POST.get('state')
+        city = request.POST.get('city')
+        area = request.POST.get('area')
+        zip = request.POST.get('zip')
+        
+        ph = Photographer.objects.get(photographer_id=pid)
+        cst = Customer.objects.get(customer_id=request.user.id)
+        appointment = Appointment(
+                                  customer=cst, 
+                                  photographer=ph, 
+                                  start_date=sdate, 
+                                  end_date=edate, 
+                                  state=state,
+                                  city=city,
+                                  area=area,
+                                  zip=zip,
+                                  appointment_status=True                         
+                                  )
+        appointment.save()
+        context = {'ph': ph, 'image': cst.image}
+        return render(request, 'successAppointment.html', context)
+
+
+def blog(request, pid):
+    ph = Photographer.objects.get(photographer_id=pid)
+    context={'ph': ph}
+    return render(request, 'blog.html', context)
