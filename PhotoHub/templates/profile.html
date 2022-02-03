@@ -26,7 +26,115 @@
     .border-main-color {
       border-color: var(--main-color);
     }
+
+
+    /* For Modal */
+    body {
+        font-family: Arial, Helvetica, sans-serif;
+    }
+
+    /* The Modal (background) */
+    .modal {
+        display: none;
+        /* Hidden by default */
+        position: fixed;
+        /* Stay in place */
+        z-index: 1;
+        /* Sit on top */
+        padding-top: 100px;
+        /* Location of the box */
+        left: 0;
+        top: 0;
+        width: 100%;
+        /* Full width */
+        height: 100%;
+        /* Full height */
+        overflow: auto;
+        /* Enable scroll if needed */
+        background-color: rgb(0, 0, 0);
+        /* Fallback color */
+        background-color: rgba(0, 0, 0, 0.4);
+        /* Black w/ opacity */
+    }
+
+    /* Modal Content */
+    .modal-content {
+        text-align: center;
+        border: 1.5px groove;
+        border-radius:25px;
+        position: relative;
+        background-color: #fefefe;
+        margin: auto;
+        padding: 0;
+        width: 40%;
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+        -webkit-animation-name: animatetop;
+        -webkit-animation-duration: 0.4s;
+        animation-name: animatetop;
+        animation-duration: 0.4s
+    }
+
+    /* Add Animation */
+    @-webkit-keyframes animatetop {
+        from {
+            top: -300px;
+            opacity: 0
+        }
+
+        to {
+            top: 0;
+            opacity: 1
+        }
+    }
+
+    @keyframes animatetop {
+        from {
+            top: -300px;
+            opacity: 0
+        }
+
+        to {
+            top: 0;
+            opacity: 1
+        }
+    }
+
+    /* The Close Button */
+    .close {
+        color: rgb(19, 18, 18);
+        float: right;
+        font-size: 28px;
+        font-weight: bold;
+    }
+
+    .close:hover,
+    .close:focus {
+        color: rgb(140, 82, 247);
+        text-decoration: none;
+        cursor: pointer;
+    }
+
+    .modal-header {
+        padding: 2px 16px;
+        color: rgb(11, 241, 69);
+    }
+
+    .details {
+        color :rgb(8, 149, 243); 
+        font-size: 2.7rem;
+    }
+
+    .modal-body {
+        padding: 2px 16px;
+    }
+
+    .modal-footer {
+        padding: 2px 16px;
+        color: rgb(4, 136, 37);
+    }
+
   </style>
+
   <link href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css" rel="stylesheet" />
   <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>
 </head>
@@ -236,13 +344,13 @@
                 
               </div>
             </div>
-            <button class="bg-green-500 hover:bg-emerald-500 text-white font-bold py-2 px-4 border border-gray-400 rounded ml-11 mt-9 mb-10">Edit Profile</button>
+            <button style="width:83%" class="inline-block bg-blue-400 hover:bg-blue-500 text-white font-bold py-2 px-4 rounded ml-11 mt-9 mb-10">Edit Profile</button>
           </div>
 
-          <!-- Experience and education -->
+          <!-- Appointments -->
           <div style=" border: 1.5px groove;
           border-radius:10px;" class="p-3 shadow-sm rounded-sm">
-            <div class="grid grid-cols-2">
+            <div class="grid grid-cols-1">
               <div class="">
                 <div class="pt-3 flex items-center space-x-2 font-semibold text-gray-900 leading-8 mb-3">
                   <span clas="text-green-500">
@@ -252,49 +360,70 @@
                         d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
                     </svg>
                   </span>
-                  <span class="text-2xl tracking-wide text-gray-900">Experience</span>
+                  <span class="text-2xl tracking-wide text-gray-900">Appointments</span>
                 </div>
                 <ul class="tracking-wider py-3 px-5 font-semibold text-lg list-inside space-y-2">
+                  {% for appointment in  appointments %}
+                  {% if forloop.counter < 5 %}
                   <li>
-                    <div class=" text-white">Photographer at Her Company Inc.</div>
-                    <div class="text-gray-500 text-xs">March 2022 - Now</div>
-                  </li>
-                  <li>
-                    <div class="text-white">Photographer at Her Company Inc.</div>
-                    <div class="text-gray-500 text-xs">March 2022 - Now</div>
-                  </li>
-                  <li>
-                    <div class="text-white">Photographer at Her Company Inc.</div>
-                    <div class="text-gray-500 text-xs">March 2022 - Now</div>
-                  </li>
-                  <li>
-                    <div class="text-white">Photographer at Her Company Inc.</div>
-                    <div class="text-gray-500 text-xs">March 2022 - Now</div>
-                  </li>
-                </ul>
-              </div>
-              <div>
-                <div class="flex items-center space-x-2 font-semibold text-gray-900 leading-8 mb-3">
-                  <span clas="text-green-500">
-                    <svg class="h-8 pt-2 lg:pt-1" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                      stroke="currentColor">
-                      <path fill="#fff" d="M12 14l9-5-9-5-9 5 9 5z" />
-                      <path fill="#fff"
-                        d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z" />
-                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                        d="M12 14l9-5-9-5-9 5 9 5zm0 0l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14zm-4 6v-7.5l4-2.222" />
-                    </svg>
-                  </span>
-                  <span class="text-2xl pt-2 lg:pt-1 tracking-wide text-gray-900">Education</span>
-                </div>
-                <ul class="py-2 px-6 list-inside space-y-2">
+                    <div style="text-align: center;" class="bg-gradient-to-r from-indigo-300 to-gray-400 py-2 px-4 border border-gray-400 rounded">
+                      {% if  role == 'Photographer'%}
+                      <div class = "font-bold text-white">Customer : {{appointment.customer.fname }} {{appointment.customer.lname}}</div>
+                      {% else %}
+                      <div class = "font-bold text-white">Photographer : {{appointment.photographer.fname }} {{appointment.photographer.lname}}</div>
+                      {% endif %}
+                      <div class="mt-1">
+                          {% if  appointment.appointment_status%}
+                          <button type = "button" class="p-1 px-2 text-white bg-blue-400 hover:bg-blue-500 rounded">Active</button>
+                          {% else %}
+                          <button type = "button" class="p-1 px-2 text-white bg-blue-400 hover:bg-blue-500 rounded">Closed</button>
+                          {% endif %}
+                  
+                          <!-- Modal trigger -->
+                          <button id="btn{{appointment.customer.customer_id}}{{appointment.photographer.photographer_id}}" onclick="showModal(this.id)"  type = "button" class="p-1 px-2 text-white bg-blue-400 hover:bg-blue-500 rounded">Details</button>
+                         
+                          <!-- The Modal -->
+                          <div id="modal{{appointment.customer.customer_id}}{{appointment.photographer.photographer_id}}" class="modal">
+                            <div class="modal-content bg-gradient-to-r from-pink-300 to-blue-300">
+                                <div class="modal-header pt-3"> 
+                                    <i class="fas fa-calendar-check details"></i>
+                                    <span class="close" id="close{{appointment.customer.customer_id}}{{appointment.photographer.photographer_id}}">&times;</span>
+                                    <h1 class="text-white"><strong> Appointment Details !</strong></h1>
+                                </div>
+                                <hr class="mt-2">
+                                <div class="py-4 modal-body">
+                                    {% if  role == 'Photographer'%}
+                                     <p class ="text-gray-600"><strong>Your Name</strong> : {{appointment.photographer.fname}} {{appointment.photographer.lname}}</p>
+                                     <p class ="text-gray-600"><strong>Customer id</strong> : {{appointment.customer.customer_id}}</p>
+                                     <p class ="text-gray-600"><strong>Customer contact</strong> : {{appointment.customer.phone}}</p>
+                                     <p class ="text-gray-600"><strong>Customer email</strong> : {{appointment.customer.email}}</p>
+                                    {% else %}
+                                     <p class ="text-gray-600"><strong>Your Name</strong> : {{appointment.customer.fname}} {{appointment.customer.lname}}</p>
+                                     <p class ="text-gray-600"><strong>Photographer id</strong> : {{appointment.photographer.photographer_id}}</p>
+                                     <p class ="text-gray-600"><strong>Photographer contact</strong> : {{appointment.photographer.phone}}</p>
+                                     <p class ="text-gray-600"><strong>Photographer email</strong> : {{appointment.photographer.email}}</p>
+                                    {% endif %}
+                                  
+                                    <p class ="text-gray-600"><strong>Start Date</strong> : {{appointment.start_date}}</p>
+                                    <p class ="text-gray-600"><strong>End Date</strong> : {{appointment.end_date}}</p>
+                                 
+                                </div>
+                                <div class="modal-footer py-4">
+                                    <a href="/category"><button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 border border-gray-400 rounded shadow">Book another appointment</button></a>
+                                </div>
+                            </div>
+                          </div>
 
-                  <li>
-                    <div class="text-lg text-white">B.Tech(CSE) NIT PATNA </div>
-                    <div class="text-gray-500 text-xs">August 2019 - Now</div>
+
+
+                      </div>
+                    </div>
                   </li>
+                  {% endif %}
+                  {% endfor %}
                 </ul>
               </div>
+          
             </div>
             <!-- End of Experience and education grid -->
           </div>
@@ -304,6 +433,35 @@
     </div>
   </div>
 
+  <script>
+  
+    function showModal(id){
+        // Get the modal
+        var key = id.substring(3)
+        console.log(id)
+        console.log(key)
+        var modal = document.getElementById("modal"+key);
+        
+        //When the window loads, open the modal
+        modal.style.display = "block"
 
+        // Get the <span> element that closes the modal
+        var span = document.getElementById("close"+key);
+
+        // When the user clicks on <span> (x), close the modal
+        span.onclick = function () {
+          modal.style.display = "none"
+        }
+
+        // When the user clicks anywhere outside of the modal, close it
+        window.onclick = function (event) {
+            if (event.target == modal) {
+              modal.style.display = "none"
+            }
+        }
+    }
+
+
+  </script>
 
 </html>

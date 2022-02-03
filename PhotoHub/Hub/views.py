@@ -89,18 +89,20 @@ def logoutUser(request):
 def profile(request):
     if request.user.groups.all()[0].name == 'Photographer':
         ph = Photographer.objects.get(photographer_id=request.user.id)
+        appointments = Appointment.objects.filter(photographer=ph)
         context={
                  'fname': ph.fname, 'lname':ph.lname, 'gender':ph.gender, 'phone':ph.phone, 'city':ph.city, 'pin':ph.pincode,
                  'email':ph.email, 'category':ph.category, 'role':'Photographer', 'image':ph.image, 'status':ph.status,
-                 'state':ph.state,
+                 'state':ph.state, 'appointments': appointments
         }
         
         return render(request, 'profile.html',  context)
     else :
         cst = Customer.objects.get(customer_id=request.user.id)
+        appointments = Appointment.objects.filter(customer=cst)
         context={
                 'fname': cst.fname, 'lname':cst.lname, 'phone':cst.phone, 'city':cst.city, 'state':cst.state, 'pin':cst.pincode,
-                'email':cst.email, 'role':'Customer', 'image':cst.image
+                'email':cst.email, 'role':'Customer', 'image':cst.image, 'appointments': appointments
              }
         return render(request, 'profile.html', context)
 

@@ -12,8 +12,8 @@ class Customer(models.Model):
     area = models.CharField(max_length=200, null=True, blank=True)
     pincode = models.IntegerField(null=True, blank=True)
     image = models.ImageField(upload_to="images/", null=True, blank = True)
-    
-    def _str_(self):
+
+    def __str__(self):
         return str(self.fname) + " " + str(self.lname)
 
 
@@ -24,14 +24,14 @@ class Photographer(models.Model):
         ('Fashion', 'Fashion'),
         ('Sports', 'Sports'),
         ('Food', 'Food'),
-        ('Art and Portrait', 'Art and Portrait'),
+        ('Art_and_Portrait', 'Art_and_Portrait'),
         ('Architecture', 'Architecture'),
         ('Documentary', 'Documentary'),
         ('Travel', 'Travel'),
-        ('Modelling and Lifestyle', 'Modelling and Lifestyle'),
-        ('Nature and Wildlife', 'Natue and Wildlife'),
+        ('Modelling_and_Lifestyle', 'Modelling_and_Lifestyle'),
+        ('Nature_and_Wildlife', 'Natue_and_Wildlife'),
         ('Product', 'Product'),
-        ('Photo Journalism', 'Photo journalism')
+        ('Photo_Journalism', 'Photo_journalism')
     )
 
 
@@ -66,7 +66,7 @@ class Photographer(models.Model):
     )
     image = models.ImageField(upload_to="images/", blank=True, null = True)
 
-    def _str_(self):
+    def __str__(self):
         return str(self.fname) + " " + str(self.lname)
 
 
@@ -81,5 +81,5 @@ class Appointment(models.Model):
     zip = models.IntegerField(null=True, blank=True)
     appointment_status = models.BooleanField(blank=True, null=True)
 
-    def _str_(self):
+    def __str__(self):
         return str(self.customer.fname) + " " + str(self.customer.lname)
