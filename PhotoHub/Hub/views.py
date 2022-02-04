@@ -254,6 +254,25 @@ def createAppointment(request):
         return render(request, 'successAppointment.html', context)
 
 
+def pagination(request, bnum):
+    bnum=bnum-1
+    start=bnum*3
+    end=start+3
+    if request.user.groups.all()[0].name == 'Photographer':
+        ph = Photographer.objects.get(photographer_id=request.user.id)
+        appointments = Appointment.objects.filter(photographer=ph)
+        apt_list = appointments[start:end]
+        context={'role':'Photographer', 'apt_list':apt_list, 'appointments': appointments}
+        return render(request, 'pagination.html', context)
+
+    else :
+        cst = Customer.objects.get(customer_id=request.user.id)
+        appointments = Appointment.objects.filter(customer=cst)
+        apt_list = appointments[start:end]
+        context={'role':'Customer', 'apt_list':apt_list, 'appointments': appointments}    
+        return render(request, 'pagination.html', context)
+
+
 def blog(request, pid):
     ph = Photographer.objects.get(photographer_id=pid)
     context={'ph': ph}
