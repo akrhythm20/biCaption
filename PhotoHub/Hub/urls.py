@@ -15,5 +15,5 @@ urlpatterns = [
     path('blog/<int:pid>', views.blog, name="blog"),
     path('appointment/<int:pid>', views.appointment, name="appointment"),
     path('createAppointment', views.createAppointment, name="createAppointment"),
-    path('pagination<int:bnum>', views.pagination, name="pagination"),
+    path('pagination<str:bnum>', views.pagination, name="pagination"),
 ]
