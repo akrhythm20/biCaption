@@ -12,6 +12,8 @@ from Hub.models import Customer, Photographer, Appointment
 #For message displaying
 from django.contrib import messages
 
+import math
+
 # Create your views here.
 def index(request):
     if request.user.is_authenticated:
@@ -90,19 +92,21 @@ def profile(request):
     if request.user.groups.all()[0].name == 'Photographer':
         ph = Photographer.objects.get(photographer_id=request.user.id)
         appointments = Appointment.objects.filter(photographer=ph)
+        length = len(appointments)
         context={
                  'fname': ph.fname, 'lname':ph.lname, 'gender':ph.gender, 'phone':ph.phone, 'city':ph.city, 'pin':ph.pincode,
                  'email':ph.email, 'category':ph.category, 'role':'Photographer', 'image':ph.image, 'status':ph.status,
-                 'state':ph.state, 'appointments': appointments
+                 'state':ph.state, 'appointments': appointments, 'length': length
         }
         
         return render(request, 'profile.html',  context)
     else :
         cst = Customer.objects.get(customer_id=request.user.id)
         appointments = Appointment.objects.filter(customer=cst)
+        length = len(appointments)
         context={
                 'fname': cst.fname, 'lname':cst.lname, 'phone':cst.phone, 'city':cst.city, 'state':cst.state, 'pin':cst.pincode,
-                'email':cst.email, 'role':'Customer', 'image':cst.image, 'appointments': appointments
+                'email':cst.email, 'role':'Customer', 'image':cst.image, 'appointments': appointments, 'length': length
              }
         return render(request, 'profile.html', context)
 
@@ -255,22 +259,98 @@ def createAppointment(request):
 
 
 def pagination(request, bnum):
-    bnum=bnum-1
-    start=bnum*3
-    end=start+3
+    pnum, first, last = bnum.split('_')
+    
+    #Range of buttons to show for controlling pagination
+    first = int(first)
+    last = int(last)
+
+    #Appointments to show for current pnum
+    pnum = int(pnum)-1
+    start=pnum*2
+    end=start+2
+
     if request.user.groups.all()[0].name == 'Photographer':
         ph = Photographer.objects.get(photographer_id=request.user.id)
         appointments = Appointment.objects.filter(photographer=ph)
+
+        # for setting up pagination
+        pages = [int(i) for i in range(1, math.ceil(len(appointments)/2)+1)]
+        length = len(pages)
+        if last == 0:
+            last = min(3, length)
+
+        if request.method=='POST':
+            f = int(request.POST.get('first'))
+            l = int(request.POST.get('last'))
+            funct = request.POST.get('funct') 
+
+            first, last = updateMarkers(f, l, funct)
+            
+            start = int(request.POST.get('start'))
+            end = int(request.POST.get('end'))
+
         apt_list = appointments[start:end]
-        context={'role':'Photographer', 'apt_list':apt_list, 'appointments': appointments}
+        context={
+            'role':'Customer', 
+            'apt_list':apt_list, 
+            'pages':pages, 
+            'first':first, 
+            'last':last, 
+            'length':length,
+            'start':start,
+            'end':end,
+            'pnum':pnum+1,
+            'image': ph.image
+            }    
         return render(request, 'pagination.html', context)
 
     else :
         cst = Customer.objects.get(customer_id=request.user.id)
         appointments = Appointment.objects.filter(customer=cst)
+
+        # for setting up pagination
+        pages = [int(i) for i in range(1, math.ceil(len(appointments)/2)+1)]
+        length = len(pages)
+        if last == 0:
+           last = min(3, length)
+
+        if request.method=='POST':
+            f = int(request.POST.get('first'))
+            l = int(request.POST.get('last'))
+            funct = request.POST.get('funct') 
+
+            first, last = updateMarkers(f, l, funct)
+
+            start = int(request.POST.get('start'))
+            end = int(request.POST.get('end'))
+
         apt_list = appointments[start:end]
-        context={'role':'Customer', 'apt_list':apt_list, 'appointments': appointments}    
+        context={
+            'role':'Customer', 
+            'apt_list':apt_list, 
+            'pages':pages, 
+            'first':first, 
+            'last':last, 
+            'length':length,
+            'start':start,
+            'end':end,
+            'pnum':pnum+1,
+            'image': cst.image
+            }    
         return render(request, 'pagination.html', context)
+
+
+def updateMarkers(first, last, funct):
+    if funct=='prev':
+        first=first-1
+        last = last-1
+
+    else :
+        first=first+1
+        last = last+1
+
+    return [first, last]
 
 
 def blog(request, pid):
