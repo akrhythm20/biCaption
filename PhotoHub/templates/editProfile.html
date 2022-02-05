@@ -64,7 +64,12 @@
                     <div class="hidden md:flex items-center space-x-1">
                         <a href="#" class="py-5 px-3 text-white hover:text-gray-900">Features</a>
                         <a href="#" class="py-5 px-3 text-white hover:text-gray-900">Pricing</a>
+                        {% if role == 'Customer' %}
                         <a href="/category" class="py-5 px-3 text-white hover:text-gray-900">Book Now</a>
+                        {% endif %}
+                        {% if role == 'Photographer' %}
+                        <a href="/blog/{{id}}" class="py-5 px-3 text-white hover:text-yellow-300"><strong>Blog</strong></a>
+                        {% endif %}
                     </div>
                 </div>
 

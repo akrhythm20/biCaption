@@ -248,7 +248,7 @@ def editProfile(request):
         context={
                  'fname': ph.fname, 'lname':ph.lname, 'phone':ph.phone, 'city':ph.city, 'pin':ph.pincode,
                  'email':ph.email, 'category':ph.category, 'image':ph.image, 'state':ph.state, 'age':ph.age,
-                 'area': ph.area
+                 'area': ph.area, 'id':ph.photographer_id
         }
         
         return render(request, 'editProfile.html',  context)
