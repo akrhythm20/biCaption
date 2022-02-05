@@ -8,7 +8,7 @@
   <link rel="stylesheet" href="https://unpkg.com/tailwindcss/dist/tailwind.min.css" />
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css"
-    integrity="sha384-DyZ88mC6Up2uqS4h/KRgHuoeGwBcD4Ng9SiP4dIRy0EXTlnuz47vAwmeGwVChigm" crossorigin="anonymous">
+    integrity="sha384-DyZ88mC6Up2uqS4h/KRgHuoeGwBcD4Ng9SiP4dIRy0EXTlnuz47vAwmeGwVChigm" crossorigin="anonymous"> 
 
   <style>
     :root {
@@ -139,9 +139,9 @@
   <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>
 </head>
 
-<body class="bg-gradient-to-r from-pink-300 to-blue-400">
+<body class="bg-gradient-to-r from-blue-100 to-gray-100">
   <!-- navbar goes here -->
-  <nav class="py-4 bg-gradient-to-r from-pink-400  via-purple-400 to-blue-400">
+  <nav class="py-4 bg-gradient-to-r from-pink-400  via-purple-300 to-blue-400">
     <div class="max-w-6xl mx-auto px-4">
       <div class="flex justify-between">
 
@@ -195,7 +195,7 @@
                 <div
                   class="absolute py-2 px-8 ml-10  text-blue-800 text-sm rounded-sm border border-main-color shadow-sm">
                   <a class="block px-4 py-2 mt-2 text-sm  md:mt-0 focus:text-gray-900 hover:bg-indigo-100 focus:bg-gray-200 focus:outline-none focus:shadow-outline"
-                    href="/profile"
+                    href="/profile0"
                     style="color: rgb(51, 51, 51); border-bottom: 0.8px solid rgb(156, 156, 156);">Profile</a>
                   <a class="block px-4 py-2 mt-2 text-sm  md:mt-0 focus:text-gray-900 hover:bg-indigo-100 focus:bg-gray-200 focus:outline-none focus:shadow-outline"
                     href="/logout">Logout</a>
@@ -225,19 +225,27 @@
     </div>
   </nav>
 
+ <!-- Alerts -->
+ {% if alert == 'true' %}
+  <div class="flex justify-between text-blue-200 shadow-inner rounded p-3 bg-blue-500">
+    <p class="self-center"><strong>Your profile was updated successfully ! </strong></p>
+    <strong class="text-xl align-center cursor-pointer alert-del">&times;</strong>
+  </div> 
+ {% endif %}
 
   <div class="my-3 p-5">
     <div class="md:flex no-wrap md:-mx-2">
       <!-- Left Side -->
-      <div class="w-full md:w-3/12 md:mx-2">
+      <div class=" w-full md:w-3/12 md:mx-2">
         <!-- Profile Card -->
         <div class="text-center  p-3">
           <div style=" border: 1px groove;
-          border-radius:10px;" class="py-4">
+          border-radius:10px;" class="py-4 bg-gradient-to-r from-pink-300 to-blue-400">
             <div class="image overflow-hidden">
-              <img class="rounded-full h-48 w-48 mx-auto border border-white border-4" src="/media/{{image}}"
+              <img class="rounded-full h-48 w-48  mx-auto p-5" src="/media/{{image}}"
                 alt="DP" />
             </div>
+            <hr style="width: 80%; margin: auto;">
             <h1 class="pt-2 text-center text-gray-700 font-bold text-2xl leading-8 my-1">
               {{fname}} {{lname}}
             </h1>
@@ -254,7 +262,7 @@
 
           <ul style=" border: 1px groove;
                 border-radius:10px;"
-            class="drop-shadow-2xl text-gray-600 hover:text-gray-700 hover:shadow py-2 px-3 mt-3 divide-y rounded shadow-sm">
+            class="bg-gradient-to-r from-pink-300 to-blue-400 drop-shadow-2xl text-gray-600 hover:text-gray-700 hover:shadow py-2 px-3 mt-3 divide-y rounded shadow-sm">
             <li class="flex items-center py-3">
               <span class="text-white">Member since</span>
               <span class="ml-auto bg-purple-600 p-1 rounded text-white text-sm mr-2">Jan 28, 2022</span>
@@ -276,26 +284,15 @@
           </ul>
         </div>
         <!-- End of profile card -->
-        <div class="my-4"></div>
-        <!-- Friends card -->
-        <div class=" p-3 hover:shadow">
-          <div class="flex items-center space-x-3 font-semibold text-gray-900 text-xl leading-8">
-
-
-
-          </div>
-
-        </div>
-        <!-- End of friends card -->
       </div>
 
       <!-- Right Side -->
       <div class=" w-full md:w-9/12 mx-2 h-64">
-        <!-- Profile tab -->
-        <!-- About Section -->
+
         <div class="shadow-sm rounded-sm  grid grid-cols-2 mt-3">
-          <div style=" border: 1.5px groove;
-          border-radius:10px;" class="px-3 pt-5 drop-shadow-2xl mr-3">
+          <!-- About Section -->
+          <div style="border: 1.5px groove;
+          border-radius:10px;" class="bg-gradient-to-r from-pink-300 to-blue-400  px-3 pt-5 drop-shadow-2xl mr-3">
             <div class="pb-3 flex items-center space-x-2 font-semibold text-gray-900 leading-8">
               <span clas="text-green-500">
                 <svg class="h-8 ml-3" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
@@ -312,29 +309,34 @@
                   <div class="text-white px-4 py-2 font-semibold text-xl">Full Name</div>
                   <div class="text-white text-xl px-4 py-2">{{fname}} {{lname}}</div>
                 </div>
+                <hr width="90%">
                 {% if role == 'Photographer' %}
                 <div class="grid grid-cols-2">
                   <div class="text-white px-4 py-2 font-semibold text-xl">Gender</div>
                   <div class="text-white text-xl px-4 py-2">{{gender}}</div>
                 </div>
+                <hr width="90%">
                 {% endif %}
                 <div class="grid grid-cols-2">
                   <div class="text-white px-4 py-2 font-semibold text-xl">Contact No.</div>
                   <div class="text-white px-4 text-xl py-2">+91 {{phone}}</div>
                 </div>
-                
+                <hr width="90%">
                 <div class="grid grid-cols-2">
                   <div class="text-white px-4 py-2 font-semibold text-xl">State</div>
                   <div class="text-white px-4 text-xl py-2">{{state}}</div>
                 </div>
+                <hr width="90%">
                 <div class="grid grid-cols-2">
                   <div class="text-white px-4 py-2 font-semibold text-xl">City</div>
                   <div class="text-white px-4 text-xl py-2">{{city}}</div>
                 </div>
+                <hr width="90%">
                 <div class="grid grid-cols-2">
                   <div class="text-white px-4 py-2 font-semibold text-xl">PinCode</div>
                   <div class="text-white px-4 text-xl py-2">{{pin}}</div>
                 </div>
+                <hr width="90%">
                 <div class="grid grid-cols-2">
                   <div class="text-white px-4 py-2 font-semibold text-xl">Email.</div>
                   <div class="px-4 py-2">
@@ -344,12 +346,12 @@
                 
               </div>
             </div>
-            <button style="width:83%" class="inline-block bg-sky-600 hover:bg-blue-500 text-white font-bold py-2 px-4 rounded ml-11 mt-9 mb-10">Edit Profile</button>
+            <a href="/editProfile"><button style="width:83%" class="inline-block bg-sky-600 hover:bg-blue-500 text-white font-bold py-2 px-4 rounded ml-11 mt-9 mb-10">Edit Profile</button></a>
           </div>
 
           <!-- Appointments -->
           <div style=" border: 1.5px groove;
-          border-radius:10px;" class="p-3 shadow-sm rounded-sm">
+          border-radius:10px;" class="bg-gradient-to-r from-pink-300 to-blue-400  p-3 shadow-sm rounded-sm">
             <div class="grid grid-cols-1">
               <div class="">
                 <div class="pt-3 flex items-center space-x-2 font-semibold text-gray-900 leading-8 mb-3">
@@ -439,7 +441,16 @@
   </div>
 
   <script>
-  
+
+   //For alert :
+    var alert_del = document.querySelectorAll('.alert-del');
+    alert_del.forEach((x) =>
+      x.addEventListener('click', function () {
+        x.parentElement.classList.add('hidden');
+      })
+    );
+
+    //For modal
     function showModal(id){
         // Get the modal
         var key = id.substring(3)
@@ -469,4 +480,5 @@
 
   </script>
 
+</body>
 </html>
