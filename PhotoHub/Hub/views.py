@@ -353,18 +353,3 @@ def updateMarkers(first, last, funct):
     return [first, last]
 
 
-def blog(request, pid):
-    ph = Photographer.objects.get(photographer_id=pid)
-    context={}
-    context['ph'] = ph
-    if request.user.is_authenticated:
-        if request.user.groups.all()[0].name == 'Customer':
-            usr = Customer.objects.get(customer_id=request.user.id)
-            context['role'] = 'Customer'
-            context['image'] = usr.image
-        else : 
-            usr = Photographer.objects.get(photographer_id=request.user.id)
-            context['role'] = 'Customer'
-            context['image'] = usr.image
-
-    return render(request, 'blog.html', context)
