@@ -88,15 +88,22 @@ def logoutUser(request):
     return redirect('/')
 
 
-def profile(request):
+def profile(request, af):
+    alert=""
+    if int(af) > 0:
+        alert='true'
+    else :
+        alert='false'
+
     if request.user.groups.all()[0].name == 'Photographer':
         ph = Photographer.objects.get(photographer_id=request.user.id)
         appointments = Appointment.objects.filter(photographer=ph)
         length = len(appointments)
+
         context={
                  'fname': ph.fname, 'lname':ph.lname, 'gender':ph.gender, 'phone':ph.phone, 'city':ph.city, 'pin':ph.pincode,
                  'email':ph.email, 'category':ph.category, 'role':'Photographer', 'image':ph.image, 'status':ph.status,
-                 'state':ph.state, 'appointments': appointments, 'length': length
+                 'state':ph.state, 'appointments': appointments, 'length': length, 'alert': alert
         }
         
         return render(request, 'profile.html',  context)
@@ -106,7 +113,8 @@ def profile(request):
         length = len(appointments)
         context={
                 'fname': cst.fname, 'lname':cst.lname, 'phone':cst.phone, 'city':cst.city, 'state':cst.state, 'pin':cst.pincode,
-                'email':cst.email, 'role':'Customer', 'image':cst.image, 'appointments': appointments, 'length': length
+                'email':cst.email, 'role':'Customer', 'image':cst.image, 'appointments': appointments, 'length': length,
+                'alert': alert
              }
         return render(request, 'profile.html', context)
 
@@ -187,6 +195,72 @@ def register_step2(request):
 
         messages.info(request, "Your registration is completed successfuly !")
         return redirect('/')
+
+
+def editProfile(request):
+   if request.method == 'POST':
+      fname = request.POST.get('fname')
+      lname = request.POST.get('lname')
+      email = request.POST.get('email')
+      phone = request.POST.get('phone')
+      state = request.POST.get('state')
+      city = request.POST.get('city')
+      area = request.POST.get('area')
+      pin = request.POST.get('pin')
+      image= request.FILES['dp'] 
+
+      if request.user.groups.all()[0].name == 'Photographer':
+          age = request.POST.get('age')
+          category = request.POST.get('category')  
+          photographer = Photographer.objects.get(photographer_id=request.user.id)
+          photographer.fname = fname
+          photographer.lname = lname
+          photographer.phone = phone
+          photographer.state = state
+          photographer.city = city
+          photographer.area = area
+          photographer.pincode = pin
+          photographer.age = age
+          photographer.email = email
+          photographer.category = category
+          photographer.image = image
+          photographer.save()
+
+      else :
+            customer = Customer.objects.get(customer_id=request.user.id)
+            customer.fname = fname
+            customer.lname = lname
+            customer.email = email
+            customer.phone = phone
+            customer.state = state
+            customer.city = city
+            customer.area = area
+            customer.pincode = pin
+            customer.image = image
+            customer.save()
+
+      return redirect('/profile1')
+
+
+   if request.user.groups.all()[0].name == 'Photographer':
+        ph = Photographer.objects.get(photographer_id=request.user.id)
+
+        context={
+                 'fname': ph.fname, 'lname':ph.lname, 'phone':ph.phone, 'city':ph.city, 'pin':ph.pincode,
+                 'email':ph.email, 'category':ph.category, 'image':ph.image, 'state':ph.state, 'age':ph.age,
+                 'area': ph.area
+        }
+        
+        return render(request, 'editProfile.html',  context)
+
+   else :
+        cst = Customer.objects.get(customer_id=request.user.id)
+        context={
+                'fname': cst.fname, 'lname':cst.lname, 'phone':cst.phone, 'city':cst.city, 'state':cst.state, 'pin':cst.pincode,
+                'email':cst.email, 'image':cst.image, 'area': cst.area
+             }
+        return render(request, 'editProfile.html', context)
+   
 
 
 def category(request):
@@ -351,9 +425,3 @@ def updateMarkers(first, last, funct):
         last = last+1
 
     return [first, last]
-
-
-def blog(request, pid):
-    ph = Photographer.objects.get(photographer_id=pid)
-    context={'ph': ph}
-    return render(request, 'blog.html', context)
