@@ -103,7 +103,7 @@ def profile(request, af):
         context={
                  'fname': ph.fname, 'lname':ph.lname, 'gender':ph.gender, 'phone':ph.phone, 'city':ph.city, 'pin':ph.pincode,
                  'email':ph.email, 'category':ph.category, 'role':'Photographer', 'image':ph.image, 'status':ph.status,
-                 'state':ph.state, 'appointments': appointments, 'length': length, 'alert': alert
+                 'state':ph.state, 'appointments': appointments, 'length': length, 'alert': alert, 'id':ph.photographer_id
         }
         
         return render(request, 'profile.html',  context)
