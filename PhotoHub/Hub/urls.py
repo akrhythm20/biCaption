@@ -16,4 +16,8 @@ urlpatterns = [
     path('appointment/<int:pid>', views.appointment, name="appointment"),
     path('createAppointment', views.createAppointment, name="createAppointment"),
     path('pagination<str:bnum>', views.pagination, name="pagination"),
+    path('blog/<int:pid>', views.blog, name='blog'),
+    path('deletePost/<int:pid>', views.deletePost, name='deletePost'),
+    path('editPost/<int:pid>', views.editPost, name='editPost'),
+    path('addPost/<int:pid>', views.addPost, name='addPost')
 ]

@@ -7,7 +7,7 @@ from django.contrib.auth.models import Group
 from django.contrib.auth import authenticate, login, logout
 
 #Importing Customer and Photographer module
-from Hub.models import Customer, Photographer, Appointment
+from Hub.models import Customer, Photographer, Appointment, Blog
 
 #For message displaying
 from django.contrib import messages
@@ -19,7 +19,7 @@ def index(request):
     if request.user.is_authenticated:
         if request.user.groups.all()[0].name == 'Photographer':
             ph = Photographer.objects.get(photographer_id=request.user.id)
-            context= {'role':'Photographer','image': ph.image}
+            context= {'id':ph.photographer_id, 'role':'Photographer','image': ph.image}
             return render(request, 'landing.html', context)
 
         else : 
@@ -425,3 +425,76 @@ def updateMarkers(first, last, funct):
         last = last+1
 
     return [first, last]
+
+
+
+def blog(request, pid):
+    ph = Photographer.objects.get(photographer_id=pid)
+    post = Blog.objects.filter(photographer = ph)
+    context={}
+    context['ph'] = ph
+    context['post'] = post
+    if request.user.is_authenticated:
+        if request.user.groups.all()[0].name == 'Customer':
+            usr = Customer.objects.get(customer_id=request.user.id)
+            context['role'] = 'Customer'
+            context['image'] = usr.image
+            context['id'] = usr.customer_id
+        else : 
+            usr = Photographer.objects.get(photographer_id=request.user.id)
+            context['role'] = 'Photographer'
+            context['image'] = usr.image
+            context['id'] = usr.photographer_id
+
+    return render(request, 'blog.html', context)
+
+
+def deletePost(request, pid):
+    post = Blog.objects.get(id=pid)
+    post.delete()
+    return redirect('/blog/'+str(post.photographer.photographer_id))
+
+
+def editPost(request, pid):
+    post = Blog.objects.get(id=pid)
+    if request.method == 'POST':
+        img = request.FILES['img']
+        head = request.POST.get('head')
+        date = request.POST.get('date')
+        desc = request.POST.get('desc')
+        post.img = img
+        post.head = head
+        post.date = date
+        post.desc = desc
+        post.save()
+        return redirect('/blog/'+str(post.photographer.photographer_id))
+    else : 
+        context = {}
+        context['post'] = post
+        context['id'] = post.photographer.photographer_id
+        context['image'] = post.photographer.image
+        return render(request, 'editPost.html', context)
+
+    
+def addPost(request, pid):
+    if request.method == 'POST':
+        photographer = Photographer.objects.get(photographer_id = pid)
+        img = request.FILES['img']
+        head = request.POST.get('head')
+        date = request.POST.get('date')
+        desc = request.POST.get('desc')
+        post = Blog(
+                    photographer = photographer,
+                    img = img,
+                    head = head,
+                    date = date,
+                    desc = desc
+                    )
+        post.save()
+        return redirect('/blog/'+str(pid))
+    ph = Photographer.objects.get(photographer_id = pid)
+    context = {}
+    context['id'] = ph.photographer_id
+    context['image'] = ph.image
+    return render(request, 'addPost.html', context)
+    

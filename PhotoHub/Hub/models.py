@@ -1,3 +1,4 @@
+from statistics import mode
 from django.db import models
 
 
@@ -83,3 +84,18 @@ class Appointment(models.Model):
 
     def __str__(self):
         return str(self.customer.fname) + " " + str(self.customer.lname)
+
+
+
+class Blog(models.Model):
+    photographer = models.ForeignKey(Photographer, on_delete=models.CASCADE)
+    carousel1 = models.ImageField(upload_to="images/")
+    carousel2 = models.ImageField(upload_to="images/")  
+    carousel3 = models.ImageField(upload_to="images/")  
+    img = models.ImageField(upload_to="images/")
+    head = models.CharField(max_length=50)
+    date = models.DateField()
+    desc = models.CharField(max_length=400)
+
+    def __str__(self):
+        return str(self.photographer.fname) + " " + str(self.photographer.lname)
