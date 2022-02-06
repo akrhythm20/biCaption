@@ -1,3 +1,4 @@
+from xmlrpc.client import boolean
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
 
@@ -12,8 +13,10 @@ from Hub.models import Customer, Photographer, Appointment, Blog
 #For message displaying
 from django.contrib import messages
 
-import math
+import math, pytz
 from django.utils import timezone
+from datetime import date
+from datetime import datetime
 
 # Create your views here.
 def index(request):
@@ -139,7 +142,11 @@ def profile(request, af):
 
 def update_appointment_status(appointment):
     #For comparing datetime field of django models.
-    now = timezone.now()
+    #Get awared time in current time zone
+    now = timezone.make_aware(datetime.now(),timezone.get_default_timezone())
+    now =  now.astimezone(timezone.utc)
+    print(now)
+
     apt_status = 'Incoming'
     if now >= appointment.start_date and now <= appointment.end_date:
       apt_status = 'Ongoing' 
@@ -327,10 +334,20 @@ def allfromCat(request, cat):
 
 
 def appointment(request, pid):
+    alert=False
+    if(pid[0]=='0'):
+      alert=True
+      pid = pid[1:]
+
     cst = Customer.objects.get(customer_id=request.user.id)
-    context = {'image': cst.image, 'pid': pid}
+    context = {'image': cst.image, 'pid': pid, 'alert': alert}
     return render(request, 'appointment.html', context)
 
+
+
+
+
+    
 
 def createAppointment(request):
     if request.method == 'POST':
@@ -342,6 +359,12 @@ def createAppointment(request):
         area = request.POST.get('area')
         zip = request.POST.get('zip')
         
+        #Validating the start and end dates
+        flag = validateDate(str(sdate), str(edate))
+        if not flag:
+            return redirect('/appointment/0'+pid)
+
+
         ph = Photographer.objects.get(photographer_id=pid)
         cst = Customer.objects.get(customer_id=request.user.id)
         appointment = Appointment(
@@ -360,6 +383,29 @@ def createAppointment(request):
         ph.save()
         context = {'ph': ph, 'cst': cst, 'appointment' : appointment ,'image': cst.image}
         return render(request, 'successAppointment.html', context)
+
+
+def validateDate(sdate, edate):
+    date1 = sdate.split('-')
+    date1[0] = int(date1[0])
+    date1[1] = int(date1[1])
+    date1[2] = int(date1[2])
+
+    date2 = edate.split('-')
+    date2[0] = int(date2[0])
+    date2[1] = int(date2[1])
+    date2[2] = int(date2[2])
+
+    dt = date.today()
+    midnight = datetime.combine(dt, datetime.min.time())
+
+    d1 = datetime(date1[0], date1[1], date1[2])
+    d2 = datetime(date2[0], date2[1], date2[2])
+    
+    if (midnight <= d1 and d1 <= d2):
+        return True
+
+    return False    
 
 
 def pagination(request, bnum):
