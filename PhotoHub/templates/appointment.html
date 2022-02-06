@@ -110,6 +110,14 @@
     </div>
   </nav>
 
+  <!-- Alerts -->
+ {% if alert%}
+ <div class="flex justify-between bg-red-200 border border-red-400 text-red-700 px-4 py-3 rounded relative">
+   <p class="self-center"><strong>Invalid start or end date! </strong></p>
+   <strong class="text-xl align-center cursor-pointer alert-del">&times;</strong>
+ </div> 
+ {% endif %}
+
 
   <!-- Appointment Form -->
   <div class="pl-24 px-6 py-8 grid grid-cols-2 divide-x-2">
@@ -311,7 +319,15 @@
     </div>
   </div>
 
-
+  <script>
+     //For alert :
+     var alert_del = document.querySelectorAll('.alert-del');
+     alert_del.forEach((x) =>
+      x.addEventListener('click', function () {
+        x.parentElement.classList.add('hidden');
+      })
+    );
+  </script>
 
 </body>
 
