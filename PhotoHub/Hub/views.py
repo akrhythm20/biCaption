@@ -17,18 +17,25 @@ from django.utils import timezone
 
 # Create your views here.
 def index(request):
+    blogs = Blog.objects.all()[:3]
+
+    customerTemp = Customer.objects.all()[:4]
+    customers = [customerTemp[:2], customerTemp[2:4]]
+
+    context = {'blogs': blogs, 'customers':customers}
+
     if request.user.is_authenticated:
         if request.user.groups.all()[0].name == 'Photographer':
             ph = Photographer.objects.get(photographer_id=request.user.id)
-            context= {'id':ph.photographer_id, 'role':'Photographer','image': ph.image}
+            context= {'id':ph.photographer_id, 'role':'Photographer','image': ph.image, 'blogs': blogs, 'customers':customers}
             return render(request, 'landing.html', context)
 
         else : 
             cst = Customer.objects.get(customer_id=request.user.id)
-            context= {'role':'Customer','image':cst.image}
+            context= {'role':'Customer','image':cst.image, 'blogs': blogs, 'customers':customers}
             return render(request, 'landing.html', context)
 
-    return render(request, 'landing.html')
+    return render(request, 'landing.html', context)
     
 
 def role(request):
