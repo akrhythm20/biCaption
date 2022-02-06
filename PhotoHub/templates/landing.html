@@ -189,7 +189,7 @@
   {% endif %}
 
   <!-- navbar goes here -->
-  <nav class="bg-gradient-to-r from-pink-400 via-purple-400 to-blue-500">
+  <nav class="bg-gradient-to-r from-pink-400 via-purple-400 to-blue-500 hover:drop-shadow-xl">
     <div class="max-w-6xl mx-auto px-4">
       <div class="flex justify-between">
 
@@ -202,25 +202,32 @@
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                   d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />
               </svg>
-              <span class="font-extrabold">BiCaption</span>
+              <span class="font-extrabold text-gray-800">BiCaption</span>
             </a>
           </div>
 
           <!-- primary nav -->
           <div class="hidden md:flex items-center space-x-1">
 
-            <a href="#" class="py-5 px-3 text-white hover:text-yellow-300"><strong>Features</strong></a>
-            <a href="#" class="py-5 px-3 text-white hover:text-yellow-300"><strong>Pricing</strong></a>
+            <a href="#"
+              class="py-5 px-3 text-white tracking-normal hover:tracking-wide hover:drop-shadow-lg"><strong>Features</strong></a>
+            <a href="#"
+              class="py-5 px-3 text-white tracking-normal hover:tracking-wide hover:drop-shadow-lg"><strong>Pricing</strong></a>
             {% if request.user.is_authenticated%}
             {% if role == 'Photographer' %}
-            <a href="/blog/{{id}}" class="py-5 px-3 text-white hover:text-yellow-300"><strong>Blog</strong></a>
+            <a href="/blog/{{id}}"
+              class="py-5 px-3 text-white tracking-normal hover:tracking-wide hover:drop-shadow-lg"><strong>Blog</strong></a>
             {% endif %}
             {% if role == 'Customer'%}
-            <a href="/category" class="py-5 px-3 text-white hover:text-yellow-300"><strong>Book Now</strong></a>
+            <a href="/category"
+              class="py-5 px-3 text-white tracking-normal hover:tracking-wide hover:drop-shadow-lg"><strong>Book
+                Now</strong></a>
             {% endif %}
 
             {% else %}
-            <a href="/accounts/login" class="py-5 px-3 text-white hover:text-yellow-300"><strong>Book Now</strong></a>
+            <a href="/accounts/login"
+              class="py-5 px-3 text-white tracking-normal hover:tracking-wide hover:drop-shadow-lg"><strong>Book
+                Now</strong></a>
             {% endif %}
           </div>
         </div>
@@ -236,7 +243,7 @@
                 <span style="color: rgb(6, 90, 90); font-size: medium;"><span
                     style="font-family:-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif; color: rgb(9, 171, 192);">Hi</span>
                   {{request.user}}</span>
-                <img class="inline ml-3 h-6 rounded-full absolute border border-blue-500 border-4
+                <img class="inline ml-3 h-6 w-6 rounded-full absolute border border-blue-500 border-3
                   " style="z-index: 1000;" src="/media/{{image}}" />
                 <svg fill="currentColor" viewBox="0 0 20 20" :class="{'rotate-180': open, 'rotate-0': !open}"
                   class="inline w-16 h-4 transition-transform duration-200 transform">
@@ -263,8 +270,9 @@
               </div>
           </nav>
           {% else %}
-          <a href="/accounts/login" class="py-5 px-3">Login</a>
-          <a href="/accounts/signup" class="py-5 px-3">Register</a>
+          <a href="/accounts/login" class="py-5 px-3 tracking-normal hover:tracking-wide hover:drop-shadow-lg">Login</a>
+          <a href="/accounts/signup"
+            class="py-5 px-3 tracking-normal hover:tracking-wide hover:drop-shadow-lg">Register</a>
           {% endif %}
         </div>
 
@@ -291,11 +299,12 @@
 
 
   <!-- Video background-->
-  <div class="pl-24 pt-8 pb-24 px-8 grid grid-cols-2">
+  <div class="pl-24 pt-8 pb-24 px-8 grid grid-cols-2 hover:drop-shadow-xl">
     <div class="text py-8">
-      <h2>Never Stop To </h2>
-      <h3>Exploring The World</h3>
-      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit,Ut enim ad minim veniam,
+      <h2 class="tracking-tight hover:tracking-wide">Never Stop To </h2>
+      <h3 class="tracking-tight hover:tracking-wide">Exploring The World</h3>
+      <p class="tracking-tight hover:tracking-wide">Lorem ipsum dolor sit amet, consectetur adipisicing elit,Ut enim ad
+        minim veniam,
         quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
         consequat.</p>
       <a href="# " class="mr-3">Hire A Photographer</a>
@@ -462,7 +471,7 @@
 
       <div class="flex flex-col items-center flex-wrap lg:flex-row lg:items-stretch lg:flex-no-wrap lg:justify-between">
         <div style="background-color: rgb(58, 56, 54);"
-          class="w-full max-w-sm mt-6 lg:mt-8  rounded shadow-lg p-12 lg:p-8 lg:mx-4 xl:p-12">
+          class="transition ease-in-out delay-100 hover:-translate-y-2 hover:translate-x-2 hover:scale-110 duration-300 w-full max-w-sm mt-6 lg:mt-8  rounded shadow-lg p-12 lg:p-8 lg:mx-4 xl:p-12">
           <div class="p-4 inline-block bg-indigo-200 rounded-lg">
             <svg class="text-indigo-500 w-8" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
               stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -482,7 +491,7 @@
         </div>
 
         <div style="background-color: rgb(58, 56, 54);"
-          class="w-full max-w-sm mt-6 lg:mt-8  rounded shadow-lg p-12 lg:p-8 lg:mx-4 xl:p-12">
+          class="transition ease-in-out delay-100 hover:-translate-y-2 hover:translate-x-2 hover:scale-110 duration-300 w-full max-w-sm mt-6 lg:mt-8  rounded shadow-lg p-12 lg:p-8 lg:mx-4 xl:p-12">
           <div class="p-4 inline-block bg-green-200 rounded-lg">
             <svg class="text-green-500 w-8" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
               stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -501,7 +510,7 @@
         </div>
 
         <div style="background-color: rgb(58, 56, 54);"
-          class="w-full max-w-sm mt-8  rounded shadow-lg p-12 lg:p-8 lg:mx-4 xl:p-12">
+          class="transition ease-in-out delay-100 hover:-translate-y-2 hover:translate-x-2 hover:scale-110 duration-300 w-full max-w-sm mt-8  rounded shadow-lg p-12 lg:p-8 lg:mx-4 xl:p-12">
           <div class="p-4 inline-block bg-red-200 rounded-lg">
             <svg class="text-red-500 w-8" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
               stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -523,7 +532,7 @@
     </div>
   </div>
 
-  <div class="bg-gradient-to-r from-pink-200 to-blue-400 px-5 sm:px-10 md:px-20 lg:px-10 xl:px-20 py-8 bg-gray-100"
+  <!-- <div class="bg-gradient-to-r from-pink-200 to-blue-400 px-5 sm:px-10 md:px-20 lg:px-10 xl:px-20 py-8 bg-gray-100"
     id="cards">
     <div class="max-w-screen-xl mx-auto">
       <h3 class="leading-none font-black text-3xl">Popular PhotoGraphers</h3>
@@ -672,93 +681,157 @@
         </div>
       </div>
     </div>
-  </div>
+  </div> -->
 
-  <div class="bg-gradient-to-r from-pink-200 to-blue-400 px-5 sm:px-10 md:px-20 lg:px-10 xl:px-20 py-16 bg-indigo-100"
-    id="blog-posts">
-    <div class="grid grid-cols-2 max-w-screen-xl mx-auto">
-      <div class="mt-16 xl:mt-0 xl:ml-8">
-        <h3 class="leading-none font-black text-3xl">Recent Posts</h3>
-        <div class="flex flex-col items-center lg:flex-row lg:items-stretch lg:justify-around xl:flex-col">
-          <a href="" class="flex w-full max-w-sm mt-6 lg:mt-8">
-            <div class="transition-all duration-300 cursor-pointer w-full shadow-lg hover:shadow-xl rounded-lg
-                    bg-gray-100 relative xl:flex xl:flex-row-reverse xl:items-center xl:px-6 xl:py-8">
-              <div class="w-full h-48 bg-cover rounded-t-lg xl:w-32 xl:h-20 xl:rounded-lg xl:ml-2"
-                style='background-image:
-                      url("https://images.unsplash.com/photo-1452830978618-d6feae7d0ffa?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=512&q=80");'></div>
-              <div class="p-6 xl:p-0">
-                <div class="text-lg font-bold">How to work effectively with freelancers</div>
-                <div class="mt-2 text-gray-900 text-sm xl:hidden">
-                  Hiring a freelancer for your new project can be challenging if you've never done before. Learn
-                  some tips that will allow you to have a better experience working with freelancers
+  <!-- carousel -->
+  <div class=" py-84 pb-8 px-32">
+    <center>
+      <h3 class="leading-none text-gray-300 text-3xl pt-16"><strong>Popular PhotoGraphers</strong></h3>
+      <hr style="width:70%;" class="bg-white mt-3">
+    </center>
+    <div id="carouselExampleCaptions" class="carousel slide relative" data-bs-ride="carousel">
+      <div class="carousel-indicators absolute right-0 bottom-0 left-0 flex justify-center p-0 mb-4">
+        <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active"
+          aria-current="true" aria-label="Slide 1"></button>
+        <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1"
+          aria-label="Slide 2"></button>
+        <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="2"
+          aria-label="Slide 3"></button>
+      </div>
+      <div class="carousel-inner relative w-full overflow-hidden">
+        <div class="carousel-item active relative w-full float-center">
+          <div class="flex justify-center w-full">
+            <div class="rounded-lg max-w-xl pb-16 pt-8">
+              <center>
+                <a href="#!" data-mdb-ripple="true" data-mdb-ripple-color="light">
+                  <img class="w-32 h-32 border border-blue-500 border-3 rounded-full"
+                    src="https://mdbootstrap.com/img/new/standard/nature/182.jpg" alt="" />
+                </a>
+
+                <div class="p-6">
+                  <h5 class="text-gray-800 text-xl font-medium mb-2"><strong>Aman Kumar</strong></h5>
+                  <p style="font-size: 0.9rem;" class="text-white mb-3">
+                    Some quick example text to build on the card title and make up the bulk of the card's
+                    content.Some quick example text to build on the card title and make up the bulk of the card's
+                    content.Some quick example text to build on the card title and make up the bulk of the card's
+                    content.
+                  </p>
+                  <button class="border border-gray-600 border-1  hover:bg-gray-300  py-1 px-2 mr-1">Book Now</button>
+                  <button class="border border-gray-600 border-1  hover:bg-gray-300  py-1 px-2">Know More</button>
                 </div>
-              </div>
+              </center>
             </div>
-          </a>
-
-          <a href="" class="flex w-full max-w-sm mt-6 lg:mt-8">
-            <div class="transition-all duration-300 cursor-pointer w-full shadow-lg hover:shadow-xl rounded-lg
-                    bg-gray-100 relative xl:flex xl:flex-row-reverse xl:items-center xl:px-6 xl:py-8">
-              <div class="w-full h-48 bg-cover rounded-t-lg xl:w-32 xl:h-20 xl:rounded-lg xl:ml-2"
-                style='background-image:
-                      url("https://images.unsplash.com/photo-1581287053822-fd7bf4f4bfec?ixlib=rb-1.2.1&auto=format&fit=crop&w=512&q=80");'></div>
-              <div class="p-6 xl:p-0">
-                <div class="text-lg font-bold">How to create smooth React Native animations</div>
-                <div class="mt-2 text-gray-900 text-sm xl:hidden">
-                  Animations play a vital role in user experience. This article describes how you can create
-                  butter smooth 60 FPS animations easily.
-                </div>
-              </div>
-            </div>
-          </a>
-
-
+          </div>
         </div>
+        <div class="carousel-item  relative w-full float-center">
+          <div class="flex justify-center w-full">
+            <div class="rounded-lg max-w-xl py-16">
+              <center>
+                <a href="#!" data-mdb-ripple="true" data-mdb-ripple-color="light">
+                  <img class="w-32 h-32 border border-blue-500 border-3 rounded-full"
+                    src="https://mdbootstrap.com/img/new/standard/nature/182.jpg" alt="" />
+                </a>
 
-
-      </div>
-      <div class="flex flex-col items-center lg:flex-row lg:items-stretch lg:justify-around xl:flex-col">
-        <a href="" class="flex w-full max-w-sm mt-6 lg:mt-8">
-          <div class="transition-all duration-300 cursor-pointer w-full shadow-lg hover:shadow-xl rounded-lg
-                  bg-gray-100 relative xl:flex xl:flex-row-reverse xl:items-center xl:px-6 xl:py-8">
-            <div class="w-full h-48 bg-cover rounded-t-lg xl:w-32 xl:h-20 xl:rounded-lg xl:ml-2"
-              style='background-image:
-                    url("https://images.unsplash.com/photo-1452830978618-d6feae7d0ffa?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=512&q=80");'></div>
-            <div class="p-6 xl:p-0">
-              <div class="text-lg font-bold">How to work effectively with freelancers</div>
-              <div class="mt-2 text-gray-900 text-sm xl:hidden">
-                Hiring a freelancer for your new project can be challenging if you've never done before. Learn
-                some tips that will allow you to have a better experience working with freelancers
-              </div>
+                <div class="p-6">
+                  <h5 class="text-gray-800 text-xl font-medium mb-2"><strong>Aman Kumar</strong></h5>
+                  <p style="font-size: 0.9rem;" class="text-white mb-3">
+                    Some quick example text to build on the card title and make up the bulk of the card's
+                    content.Some quick example text to build on the card title and make up the bulk of the card's
+                    content.Some quick example text to build on the card title and make up the bulk of the card's
+                    content.
+                  </p>
+                  <button class="border border-gray-600 border-1  hover:bg-gray-300 py-1 px-2 mr-1">Book Now</button>
+                  <button class="border border-gray-600 border-1  hover:bg-gray-300 py-1 px-2">Know More</button>
+                </div>
+              </center>
             </div>
           </div>
-        </a>
+        </div>
+        <div class="carousel-item  relative w-full float-center">
+          <div class="flex justify-center w-full">
+            <div class="rounded-lg max-w-xl py-16">
+              <center>
+                <a href="#!" data-mdb-ripple="true" data-mdb-ripple-color="light">
+                  <img class="w-32 h-32 border border-blue-500 border-3 rounded-full"
+                    src="https://mdbootstrap.com/img/new/standard/nature/182.jpg" alt="" />
+                </a>
 
-        <a href="" class="flex w-full max-w-sm mt-6 lg:mt-8">
-          <div class="transition-all duration-300 cursor-pointer w-full shadow-lg hover:shadow-xl rounded-lg
-                  bg-gray-100 relative xl:flex xl:flex-row-reverse xl:items-center xl:px-6 xl:py-8">
-            <div class="w-full h-48 bg-cover rounded-t-lg xl:w-32 xl:h-20 xl:rounded-lg xl:ml-2"
-              style='background-image:
-                    url("https://images.unsplash.com/photo-1581287053822-fd7bf4f4bfec?ixlib=rb-1.2.1&auto=format&fit=crop&w=512&q=80");'></div>
-            <div class="p-6 xl:p-0">
-              <div class="text-lg font-bold">How to create smooth React Native animations</div>
-              <div class="mt-2 text-gray-900 text-sm xl:hidden">
-                Animations play a vital role in user experience. This article describes how you can create
-                butter smooth 60 FPS animations easily.
-              </div>
+                <div class="p-6">
+                  <h5 class="text-gray-800 text-xl font-medium mb-2"><strong>Aman Kumar</strong></h5>
+                  <p style="font-size: 0.9rem;" class="text-white mb-3">
+                    Some quick example text to build on the card title and make up the bulk of the card's
+                    content.Some quick example text to build on the card title and make up the bulk of the card's
+                    content.Some quick example text to build on the card title and make up the bulk of the card's
+                    content.
+                  </p>
+                  <button class="border border-gray-600 border-1  hover:bg-gray-300 py-1 px-2 mr-1">Book Now</button>
+                  <button class="border border-gray-600 border-1  hover:bg-gray-300 py-1 px-2">Know More</button>
+                </div>
+              </center>
             </div>
           </div>
-        </a>
-
-
+        </div>
       </div>
-
+      <button
+        class="carousel-control-prev absolute top-0 bottom-0 flex items-center justify-center p-0 text-center border-0 hover:outline-none hover:no-underline focus:outline-none focus:no-underline left-0"
+        type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon inline-block bg-no-repeat" aria-hidden="true"></span>
+        <span class="visually-hidden">Previous</span>
+      </button>
+      <button
+        class="carousel-control-next absolute top-0 bottom-0 flex items-center justify-center p-0 text-center border-0 hover:outline-none hover:no-underline focus:outline-none focus:no-underline right-0"
+        type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="next">
+        <span class="carousel-control-next-icon inline-block bg-no-repeat" aria-hidden="true"></span>
+        <span class="visually-hidden">Next</span>
+      </button>
     </div>
-
-
-  </div>
   </div>
 
+
+
+
+  <div class="bg-gradient-to-r from-pink-200 to-blue-400 px-5 sm:px-10 md:px-20 lg:px-10 xl:px-20 py-8 bg-indigo-100"
+    id="blog-posts">
+    <center>
+      <h3 class="leading-none text-gray-600 text-3xl pt-16"><strong>Recent Posts</strong></h3>
+      <hr style="width:70%;" class="bg-white mt-3">
+    </center>
+    <div class="grid grid-cols-3 px-16 pt-8 pb-16">
+      <div class="px-2 pt-2">
+        <div class="h-32 w-72 grid grid-cols-3 border border-black  rounded-lg border-2 bg-gray-300">
+          <div class="rounded-lg">
+              <img class="rounded-lg h-full w-full" src="https://www.freepsdbazaar.com/wp-content/uploads/2020/06/sky-replace/sun-rise/sunrise-10-freepsdbazaar.jpg" alt="">
+          </div>
+          <div class="col-span-2 px-2">
+            <h3 class="text-gray-700"><strong>Title</strong></h3>
+            <p style="font-size: 0.9rem;" class="text-white">Description</p>
+          </div>
+        </div>
+      </div>
+      <div class="px-2 pt-2">
+        <div class="h-32 w-72 grid grid-cols-3 border border-black  rounded-lg border-2">
+          <div class="rounded-lg">
+              <img class="rounded-lg h-full w-full" src="https://www.freepsdbazaar.com/wp-content/uploads/2020/06/sky-replace/sun-rise/sunrise-10-freepsdbazaar.jpg" alt="">
+          </div>
+          <div class="col-span-2 px-2">
+            <h3 class="text-gray-700"><strong>Title</strong></h3>
+            <p style="font-size: 0.9rem;" class="text-white">Description</p>
+          </div>
+        </div>
+      </div>
+      <div class="px-2 pt-2">
+        <div class="h-32 w-72 grid grid-cols-3 border border-black  rounded-lg border-2">
+          <div class="rounded-lg">
+              <img class="rounded-lg h-full w-full" src="https://www.freepsdbazaar.com/wp-content/uploads/2020/06/sky-replace/sun-rise/sunrise-10-freepsdbazaar.jpg" alt="">
+          </div>
+          <div class="col-span-2 px-2">
+            <h3 class="text-gray-700"><strong>Title</strong></h3>
+            <p style="font-size: 0.9rem;" class="text-white">Description</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 
   </main>
 
@@ -779,7 +852,7 @@
       </div>
     </div>
   </footer>
-  </div>
+
 </body>
 
 </html>

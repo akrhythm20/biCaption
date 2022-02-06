@@ -102,7 +102,7 @@ def profile(request, af):
 
         context={
                  'fname': ph.fname, 'lname':ph.lname, 'gender':ph.gender, 'phone':ph.phone, 'city':ph.city, 'pin':ph.pincode,
-                 'email':ph.email, 'category':ph.category, 'role':'Photographer', 'image':ph.image, 'status':ph.status,
+                 'email':ph.email[:21], 'category':ph.category, 'role':'Photographer', 'image':ph.image, 'status':ph.status,
                  'state':ph.state, 'appointments': appointments, 'length': length, 'alert': alert, 'id':ph.photographer_id
         }
         
@@ -113,7 +113,7 @@ def profile(request, af):
         length = len(appointments)
         context={
                 'fname': cst.fname, 'lname':cst.lname, 'phone':cst.phone, 'city':cst.city, 'state':cst.state, 'pin':cst.pincode,
-                'email':cst.email, 'role':'Customer', 'image':cst.image, 'appointments': appointments, 'length': length,
+                'email':cst.email[:21], 'role':'Customer', 'image':cst.image, 'appointments': appointments, 'length': length,
                 'alert': alert
              }
         return render(request, 'profile.html', context)
