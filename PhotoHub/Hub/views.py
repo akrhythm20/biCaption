@@ -13,6 +13,7 @@ from Hub.models import Customer, Photographer, Appointment, Blog
 from django.contrib import messages
 
 import math
+from django.utils import timezone
 
 # Create your views here.
 def index(request):
@@ -99,6 +100,11 @@ def profile(request, af):
         ph = Photographer.objects.get(photographer_id=request.user.id)
         appointments = Appointment.objects.filter(photographer=ph)
         length = len(appointments)
+        
+        #For comparing datetime field of django models.
+        for appointment in appointments:
+            appointment.appointment_status = update_appointment_status(appointment)
+            appointment.save()
 
         context={
                  'fname': ph.fname, 'lname':ph.lname, 'gender':ph.gender, 'phone':ph.phone, 'city':ph.city, 'pin':ph.pincode,
@@ -111,6 +117,11 @@ def profile(request, af):
         cst = Customer.objects.get(customer_id=request.user.id)
         appointments = Appointment.objects.filter(customer=cst)
         length = len(appointments)
+
+        for appointment in appointments:
+            appointment.appointment_status = update_appointment_status(appointment)
+            appointment.save()
+
         context={
                 'fname': cst.fname, 'lname':cst.lname, 'phone':cst.phone, 'city':cst.city, 'state':cst.state, 'pin':cst.pincode,
                 'email':cst.email[:21], 'role':'Customer', 'image':cst.image, 'appointments': appointments, 'length': length,
@@ -119,6 +130,16 @@ def profile(request, af):
         return render(request, 'profile.html', context)
 
 
+def update_appointment_status(appointment):
+    #For comparing datetime field of django models.
+    now = timezone.now()
+    apt_status = 'Incoming'
+    if now >= appointment.start_date and now <= appointment.end_date:
+      apt_status = 'Ongoing' 
+    elif now > appointment.end_date:
+      apt_status = 'Closed'
+
+    return apt_status   
 
 def register_step1(request):
     if request.method=='POST':
@@ -325,9 +346,11 @@ def createAppointment(request):
                                   city=city,
                                   area=area,
                                   zip=zip,
-                                  appointment_status=True                         
+                                  appointment_status='incoming'                        
                                   )
         appointment.save()
+        ph.status="Busy"
+        ph.save()
         context = {'ph': ph, 'cst': cst, 'appointment' : appointment ,'image': cst.image}
         return render(request, 'successAppointment.html', context)
 
@@ -427,7 +450,7 @@ def updateMarkers(first, last, funct):
     return [first, last]
 
 
-
+# For Blog of photographer
 def blog(request, pid):
     ph = Photographer.objects.get(photographer_id=pid)
     post = Blog.objects.filter(photographer = ph)
@@ -497,4 +520,14 @@ def addPost(request, pid):
     context['id'] = ph.photographer_id
     context['image'] = ph.image
     return render(request, 'addPost.html', context)
+
+
+
+def changeStatus(request):
+    if request.method == 'POST':
+        ph = Photographer.objects.get(photographer_id=request.user.id)
+        ph.status = request.POST.get('status')
+        ph.save()
+
+        return redirect('/profile0')    
     
