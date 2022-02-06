@@ -428,11 +428,16 @@
     
           <p class="text-1xl  text-gray-300  mt-1">Status : {{ph.status}}</p>
           <p class="text-1xl  text-gray-300  mt-1">Experience 2+ years</p>
-          <a href="/appointment/{{ph.photographer_id}}"><button style="background-color: rgb(95, 248, 7);"
-            class="bg-yellow-300 mt-3 px-3 py-2 rounded-lg">Book
-            Now</button>
-          </a>
-
+          {% if ph.status == 'Busy' %}
+            <button style="background-color: rgb(245, 23, 16);"
+              class="bg-yellow-300 mt-3 px-3 py-2 rounded-lg cursor-not-allowed">Book Now
+            </button>
+          {% else %}
+            <a href="/appointment/{{ph.photographer_id}}"><button style="background-color: rgb(95, 248, 7);"
+              class="bg-yellow-300 mt-3 px-3 py-2 rounded-lg">Book
+              Now</button>
+            </a>
+          {% endif %}
           <a href="/blog/{{ph.photographer_id}}"><button
             class="bg-blue-600 ml-1 mt-3 px-4 py-2 mr-3 rounded-lg">Profile</button>
           </a>

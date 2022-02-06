@@ -19,5 +19,6 @@ urlpatterns = [
     path('blog/<int:pid>', views.blog, name='blog'),
     path('deletePost/<int:pid>', views.deletePost, name='deletePost'),
     path('editPost/<int:pid>', views.editPost, name='editPost'),
-    path('addPost/<int:pid>', views.addPost, name='addPost')
+    path('addPost/<int:pid>', views.addPost, name='addPost'),
+    path('changeStatus', views.changeStatus, name='changeStatus'), 
 ]

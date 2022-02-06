@@ -80,7 +80,7 @@ class Appointment(models.Model):
     city = models.CharField(max_length=100, null=True, blank=True)
     area = models.CharField(max_length=200, null=True, blank=True)
     zip = models.IntegerField(null=True, blank=True)
-    appointment_status = models.BooleanField(blank=True, null=True)
+    appointment_status = models.CharField(max_length=50, null=True, blank=True)
 
     def __str__(self):
         return str(self.customer.fname) + " " + str(self.customer.lname)
