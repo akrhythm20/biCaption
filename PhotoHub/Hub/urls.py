@@ -8,7 +8,7 @@ urlpatterns = [
     path('login', views.loginUser, name='login'),
     path('glogin', views.googleLogin, name='glogin'),
     path('role', views.role, name='role'),
-    path('profile<int:af>', views.profile, name='profile'),
+    path('profile<str:af>', views.profile, name='profile'),
     path('logout', views.logoutUser, name='logout'),
     path('editProfile', views.editProfile, name='editProfile'),
     path('category', views.category, name="category"),
@@ -21,4 +21,5 @@ urlpatterns = [
     path('editPost/<int:pid>', views.editPost, name='editPost'),
     path('addPost/<int:pid>', views.addPost, name='addPost'),
     path('changeStatus', views.changeStatus, name='changeStatus'), 
+    path('reschedule/<int:flag>', views.rescheduleAppointment, name='reschedule'), 
 ]

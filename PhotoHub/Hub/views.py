@@ -1,3 +1,4 @@
+from asyncio.windows_events import NULL
 from xmlrpc.client import boolean
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
@@ -102,10 +103,28 @@ def logoutUser(request):
 
 def profile(request, af):
     alert=""
-    if int(af) > 0:
-        alert='true'
+    ckey=-1
+    pkey=-1
+
+    if af[0] != '3' :  
+        af = int(af)
+        if af > 0:
+            if af==1 :
+                alert='update'
+            elif af==2 :
+                alert='delete' 
+            elif af==4 :
+                alert='reschedule'
+            else :
+                alert='modal' 
+        else :
+           alert='false'
     else :
-        alert='false'
+       alert='modal'
+       af = af.split('_')
+       ckey = int(af[1])
+       pkey = int(af[2])
+
 
     if request.user.groups.all()[0].name == 'Photographer':
         ph = Photographer.objects.get(photographer_id=request.user.id)
@@ -122,7 +141,8 @@ def profile(request, af):
         context={
                  'fname': ph.fname, 'lname':ph.lname, 'gender':ph.gender, 'phone':ph.phone, 'city':ph.city, 'pin':ph.pincode,
                  'email':ph.email[:21], 'category':ph.category, 'role':'Photographer', 'image':ph.image, 'status':ph.status,
-                 'state':ph.state, 'incoming_appointments': incoming_appointments, 'length': length, 'alert': alert, 'id':ph.photographer_id
+                 'state':ph.state, 'incoming_appointments': incoming_appointments, 'length': length, 'alert': alert, 
+                 'id':ph.photographer_id, 'ckey':ckey, 'pkey': pkey
         }
         
         return render(request, 'profile.html',  context)
@@ -141,7 +161,7 @@ def profile(request, af):
         context={
                 'fname': cst.fname, 'lname':cst.lname, 'phone':cst.phone, 'city':cst.city, 'state':cst.state, 'pin':cst.pincode,
                 'email':cst.email[:21], 'role':'Customer', 'image':cst.image, 'incoming_appointments': incoming_appointments, 'length': length,
-                'alert': alert
+                'alert': alert, 'ckey':ckey, 'pkey': pkey
              }
         return render(request, 'profile.html', context)
 
@@ -361,9 +381,6 @@ def appointment(request, pid):
     return render(request, 'appointment.html', context)
 
 
-
-
-
     
 
 def createAppointment(request):
@@ -459,7 +476,7 @@ def pagination(request, bnum):
 
         apt_list = appointments[start:end]
         context={
-            'role':'Customer', 
+            'role':'Photographer', 
             'apt_list':apt_list, 
             'pages':pages, 
             'first':first, 
@@ -601,3 +618,39 @@ def changeStatus(request):
 
         return redirect('/profile0')    
     
+
+def rescheduleAppointment(request, flag):
+    if flag == 0:
+        cst = request.POST.get('cust')
+        photo = request.POST.get('photo')
+        action = request.POST.get('action')
+        
+        customer = Customer.objects.get(customer_id=cst)
+        photographer = Photographer.objects.get(photographer_id=photo)
+        appointment = Appointment.objects.filter(customer=customer, photographer=photographer)[0]
+
+        if action == 'Delete':
+           appointment.delete()
+           return redirect('/profile2')
+
+        else :
+            return redirect('/profile3_' + cst + '_' + photo)
+
+    else :
+        sdate = request.POST.get('sdate')
+        edate = request.POST.get('edate')
+        cst = request.POST.get('cust')
+        photo = request.POST.get('photo')
+
+        customer = Customer.objects.get(customer_id=cst)
+        photographer = Photographer.objects.get(photographer_id=photo)
+        appointment = Appointment.objects.filter(customer=customer, photographer=photographer)[0]
+
+
+        appointment.start_date = sdate
+        appointment.end_date = edate
+        appointment.save()
+        return redirect('/profile4')
+
+
+  

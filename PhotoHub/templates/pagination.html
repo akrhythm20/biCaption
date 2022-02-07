@@ -34,7 +34,11 @@
           <div class="hidden md:flex items-center space-x-1">
             <a href="#" class="py-5 px-3 text-white hover:text-gray-900">Features</a>
             <a href="#" class="py-5 px-3 text-white hover:text-gray-900">Pricing</a>
-            <a href="/category" class="py-5 px-3 text-white hover:text-gray-900">Book Now</a>
+            {% if role == 'Customer'%}
+             <a href="/category" class="py-5 px-3 text-white hover:text-gray-900">Book Now</a>
+             {% else %}
+             <a href="/blog/{{request.user.id}}" class="py-5 px-3 text-white hover:text-gray-900">Blog</a>
+            {% endif %}
           </div>
         </div>
 
@@ -204,9 +208,9 @@
         <div style="border: 1.5px groove; border-radius:15px;"
           class="bg-gradient-to-r from-emerald-200 to-blue-500 mt-6 mx-3 py-4 px-3 transition ease-in-out delay-100 hover:-translate-y-1 hover:scale-90 duration-300">
           <div style="text-align: center;" class="mb-3">
-            <i style="font-size: 2.5rem;" class="far fa-calendar-check text-gray-700"></i>
+            <i style="font-size: 2.5rem;" class="far fa-calendar-check text-purple-600"></i>
             <strong>
-              <h3 class="text-gray-700">Appointment Details</h3>
+              <h3 class="text-purple-600">Appointment Details</h3>
             </strong>
           </div>
           <hr>
@@ -226,11 +230,34 @@
             <div class="text-gray-900">Start date : {{apt.start_date}}</div>
             <div class="text-gray-900">End date : {{apt.end_date}}</div>
 
+            {% if role == 'Photographer'%}
+            <div class="grid grid-cols-1">
+              <div><p class ="text-gray-900">Area : {{apt.area}}</p></div>
+              <div class="grid grid-cols-2">
+               <p class ="text-gray-900">Zip : {{apt.zip}}</p>
+               <p class ="text-gray-900">City : {{apt.city}}</p>
+              </div>
+              <div><p class ="text-gray-900">State : {{apt.state}}</p></div>
+            </div>
+            {% endif %}
+
           </div>
           <hr class="mt-3">
           <div style="text-align: center;" class="mt-3">
-            <!-- <i style="font-size: 2.5rem;" class="far fa-check-circle text-gray-700"></i> -->
-            <strong><h3 class="text-gray-700">{{apt.appointment_status}}</h3></strong>
+            {% if  apt.appointment_status == 'Incoming' and role == 'Customer' %}
+                <div class="float-right">
+                  <form action="/reschedule/0" method="post">{% csrf_token %}
+                    <input type="text" name="cust" value="{{apt.customer.customer_id}}" hidden>
+                    <input type="text" name="photo" value="{{apt.photographer.photographer_id}}" hidden>
+                    <select name = 'action' class="p-1 px-2 mr-3 text-white bg-purple-600 rounded">
+                      <option value="Reschedule">Reschedule</option>
+                      <option value="Delete">Delete</option>
+                    </select>
+                    <button type="submit" class="px-4 py-1 text-white bg-yellow-500 hover:bg-yellow-600 rounded">Go</button>
+                  </form>
+                </div>
+            {% endif %}
+            <strong><h3 class="text-purple-600">{{apt.appointment_status}}</h3></strong>
           </div>
         </div>
         {% endfor %}
