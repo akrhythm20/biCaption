@@ -89,9 +89,6 @@ class Appointment(models.Model):
 
 class Blog(models.Model):
     photographer = models.ForeignKey(Photographer, on_delete=models.CASCADE)
-    carousel1 = models.ImageField(upload_to="images/")
-    carousel2 = models.ImageField(upload_to="images/")  
-    carousel3 = models.ImageField(upload_to="images/")  
     img = models.ImageField(upload_to="images/")
     head = models.CharField(max_length=50)
     date = models.DateField()

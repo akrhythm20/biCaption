@@ -384,10 +384,10 @@
                         d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
                     </svg>
                   </span>
-                  <span class="text-2xl tracking-wide text-gray-900">Appointments</span>
+                  <span class="text-2xl tracking-wide text-gray-900">Ongoing/Incoming Appointments</span>
                 </div>
                 <ul class="tracking-wider py-3 px-5 font-semibold text-lg list-inside space-y-2">
-                  {% for appointment in  appointments %}
+                  {% for appointment in  incoming_appointments %}
                   {% if forloop.counter < 4 %}
                   <li>
                     <div style="text-align: center;" class="bg-gradient-to-r from-indigo-300 to-gray-400 py-2 px-4 border border-gray-400 rounded">
