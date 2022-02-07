@@ -20,7 +20,8 @@ from datetime import datetime
 
 # Create your views here.
 def index(request):
-    blogs = Blog.objects.all()[:3]
+    #Display posts on basis of recent publishing date
+    blogs = Blog.objects.order_by('-date')[:3]
 
     customerTemp = Customer.objects.all()[:4]
     customers = [customerTemp[:2], customerTemp[2:4]]
@@ -108,7 +109,7 @@ def profile(request, af):
 
     if request.user.groups.all()[0].name == 'Photographer':
         ph = Photographer.objects.get(photographer_id=request.user.id)
-        appointments = Appointment.objects.filter(photographer=ph)
+        appointments = Appointment.objects.filter(photographer=ph).order_by('start_date')
         length = len(appointments)
         
         #For comparing datetime field of django models.
@@ -116,29 +117,45 @@ def profile(request, af):
             appointment.appointment_status = update_appointment_status(appointment)
             appointment.save()
 
+        incoming_appointments = fetch_incoming_appointments(appointments)
+
         context={
                  'fname': ph.fname, 'lname':ph.lname, 'gender':ph.gender, 'phone':ph.phone, 'city':ph.city, 'pin':ph.pincode,
                  'email':ph.email[:21], 'category':ph.category, 'role':'Photographer', 'image':ph.image, 'status':ph.status,
-                 'state':ph.state, 'appointments': appointments, 'length': length, 'alert': alert, 'id':ph.photographer_id
+                 'state':ph.state, 'incoming_appointments': incoming_appointments, 'length': length, 'alert': alert, 'id':ph.photographer_id
         }
         
         return render(request, 'profile.html',  context)
     else :
         cst = Customer.objects.get(customer_id=request.user.id)
-        appointments = Appointment.objects.filter(customer=cst)
+        appointments = Appointment.objects.filter(customer=cst).order_by('start_date')
         length = len(appointments)
 
         for appointment in appointments:
             appointment.appointment_status = update_appointment_status(appointment)
             appointment.save()
+        
+        incoming_appointments = fetch_incoming_appointments(appointments)
+
 
         context={
                 'fname': cst.fname, 'lname':cst.lname, 'phone':cst.phone, 'city':cst.city, 'state':cst.state, 'pin':cst.pincode,
-                'email':cst.email[:21], 'role':'Customer', 'image':cst.image, 'appointments': appointments, 'length': length,
+                'email':cst.email[:21], 'role':'Customer', 'image':cst.image, 'incoming_appointments': incoming_appointments, 'length': length,
                 'alert': alert
              }
         return render(request, 'profile.html', context)
 
+
+def fetch_incoming_appointments(appointments):
+    incoming_appointments = []
+    for appointment in appointments:
+        if len(incoming_appointments) < 3 and appointment.appointment_status != 'Closed':
+           incoming_appointments.append(appointment) 
+
+        if len(incoming_appointments) == 3 :
+            break
+
+    return incoming_appointments
 
 def update_appointment_status(appointment):
     #For comparing datetime field of django models.
