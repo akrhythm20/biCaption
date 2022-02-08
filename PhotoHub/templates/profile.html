@@ -236,20 +236,16 @@
   </nav>
 
   <!-- Alerts -->
-  {% if alert != 'false' and alert != 'modal'%}
+  
+  {% if messages %}
+  {% for message in messages %}
   <div class="flex justify-between text-white shadow-inner rounded p-3 bg-purple-500">
-    {% if alert == 'update' %}
-    <p class="self-center"><strong>Your profile was updated successfully ! </strong></p>
-    {% endif %}
-    {% if alert == 'delete' %}
-    <p class="self-center"><strong>Appointment deleted successfully ! </strong></p>
-    {% endif %}
-    {% if alert == 'reschedule' %}
-    <p class="self-center"><strong>Appointment rescheduled successfully ! </strong></p>
-    {% endif %}
+    <p class="self-center"><strong>{{message}}</strong></p>
     <strong class="text-xl align-center cursor-pointer alert-del">&times;</strong>
   </div>
+  {% endfor %}
   {% endif %}
+  
 
   <div class="my-3 p-5">
     <div class="md:flex no-wrap md:-mx-2">
