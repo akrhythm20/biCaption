@@ -106,20 +106,7 @@ def profile(request, af):
     ckey=-1
     pkey=-1
 
-    if af[0] != '3' :  
-        af = int(af)
-        if af > 0:
-            if af==1 :
-                alert='update'
-            elif af==2 :
-                alert='delete' 
-            elif af==4 :
-                alert='reschedule'
-            else :
-                alert='modal' 
-        else :
-           alert='false'
-    else :
+    if af[0] == '1' :
        alert='modal'
        af = af.split('_')
        ckey = int(af[1])
@@ -310,8 +297,9 @@ def editProfile(request):
             customer.pincode = pin
             customer.image = image
             customer.save()
-
-      return redirect('/profile1')
+      
+      messages.info(request, 'Your profile was updated successfully')
+      return redirect('/profile0')
 
 
    if request.user.groups.all()[0].name == 'Photographer':
@@ -631,10 +619,11 @@ def rescheduleAppointment(request, flag):
 
         if action == 'Delete':
            appointment.delete()
-           return redirect('/profile2')
+           messages.info(request, 'Appointment was deleted successfully')
+           return redirect('/profile0')
 
         else :
-            return redirect('/profile3_' + cst + '_' + photo)
+            return redirect('/profile1_' + cst + '_' + photo)
 
     else :
         sdate = request.POST.get('sdate')
@@ -650,7 +639,8 @@ def rescheduleAppointment(request, flag):
         appointment.start_date = sdate
         appointment.end_date = edate
         appointment.save()
-        return redirect('/profile4')
+        messages.info(request, 'Your Appointment was rescheduled successfully')
+        return redirect('/profile0')
 
 
   

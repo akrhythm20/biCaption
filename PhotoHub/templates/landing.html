@@ -175,16 +175,6 @@
 
 <body class="bg-gradient-to-r from-pink-400 to-blue-500">
 
-  <!-- Dismissable alert from bootstrap For Django Messages framework -->
-  {% if messages %}
-  {% for message in messages %}
-  <div class="alert alert-{{message.tags}} alert-dismissible fade show" role="alert" style="margin-bottom:0px">
-    <strong>{{message}}</strong>
-    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-  </div>
-  {% endfor %}
-  {% endif %}
-
   <!-- navbar goes here -->
   <nav class="bg-gradient-to-r from-pink-400 via-purple-400 to-blue-500 hover:drop-shadow-xl">
     <div class="max-w-6xl mx-auto px-4">
@@ -293,6 +283,16 @@
     </div>
 
   </nav>
+
+  <!-- Dismissable alert from tailwind For Django Messages framework -->
+  {% if messages %}
+  {% for message in messages %}
+  <div class="flex justify-between text-white shadow-inner rounded p-3 bg-purple-500">
+    <p class="self-center"><strong>{{message}}</strong></p>
+    <strong class="text-xl align-center cursor-pointer alert-del">&times;</strong>
+  </div>
+  {% endfor %}
+  {% endif %}
 
 
   <!-- Video background-->
@@ -744,6 +744,15 @@
     </div>
   </footer>
 
+
+  <script>
+    var alert_del = document.querySelectorAll('.alert-del');
+    alert_del.forEach((x) =>
+      x.addEventListener('click', function () {
+        x.parentElement.classList.add('hidden');
+      })
+    );
+  </script>
 </body>
 
 </html>
