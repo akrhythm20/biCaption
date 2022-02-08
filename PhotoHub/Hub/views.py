@@ -152,6 +152,16 @@ def profile(request, af):
              }
         return render(request, 'profile.html', context)
 
+def forgotpassword(request):
+   if request.method == 'POST':
+      uname = request.POST.get('uname')
+      pass1 = request.POST.get('password1')
+      pass2 = request.POST.get('password2')
+
+      #Validation logic
+      return HttpResponse('Password updated successfully!')
+
+   return render(request, 'forgotpassword.html')
 
 def fetch_incoming_appointments(appointments):
     incoming_appointments = []

@@ -10,6 +10,7 @@ urlpatterns = [
     path('role', views.role, name='role'),
     path('profile<str:af>', views.profile, name='profile'),
     path('logout', views.logoutUser, name='logout'),
+    path('forgotpassword', views.forgotpassword, name='forgotpassword'),
     path('editProfile', views.editProfile, name='editProfile'),
     path('category', views.category, name="category"),
     path('allfromCat/<str:cat>', views.allfromCat, name="allfromCat"),
