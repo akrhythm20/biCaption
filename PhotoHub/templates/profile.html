@@ -495,7 +495,7 @@
                             </div>
                             {% if role == 'Customer' %}
                             <div class="modal-footer py-4">
-                              <a href="/category"><button
+                              <a href="/location"><button
                                   class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 border border-gray-400 rounded shadow">Book
                                   Another Appointment</button></a>
                             </div>
@@ -541,18 +541,18 @@
         <form action="/reschedule/1" method="post">{% csrf_token %}
           <div class="flex flex-wrap -mx-3 mb-6">
             <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
-              <label class="custom block uppercase tracking-wide  text-xs font-bold mb-2" for="sdate">Start Date :
+              <label class="custom block uppercase tracking-wide  text-xs font-bold mb-2" for="sdate">Hours :
               </label>
               <input
                 class="appearance-none block w-full bg-gray-200 text-black border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                type="date" name="sdate" required>
+                type="number" name="hours" placeholder="Choose between 24 to 72"  required>
             </div>
             <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
               <label class="custom block uppercase tracking-wide  text-xs font-bold mb-2" for="edate">End Date :
               </label>
               <input
                 class="appearance-none block w-full bg-gray-200 text-black border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                type="date" name="edate" required>
+                type="datetime-local" name="edate" required>
             </div>
             <input type="text" name="cust" value="{{ckey}}" hidden>
             <input type="text" name="photo" value="{{pkey}}" hidden>

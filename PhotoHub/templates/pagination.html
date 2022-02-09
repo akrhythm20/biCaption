@@ -35,7 +35,7 @@
             <a href="#" class="py-5 px-3 text-white hover:text-gray-900">Features</a>
             <a href="#" class="py-5 px-3 text-white hover:text-gray-900">Pricing</a>
             {% if role == 'Customer'%}
-             <a href="/category" class="py-5 px-3 text-white hover:text-gray-900">Book Now</a>
+             <a href="/location" class="py-5 px-3 text-white hover:text-gray-900">Book Now</a>
              {% else %}
              <a href="/blog/{{request.user.id}}" class="py-5 px-3 text-white hover:text-gray-900">Blog</a>
             {% endif %}

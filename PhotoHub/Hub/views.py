@@ -14,10 +14,10 @@ from Hub.models import Customer, Photographer, Appointment, Blog
 #For message displaying
 from django.contrib import messages
 
-import math, pytz
+import math, pytz, sys
 from django.utils import timezone
-from datetime import date
-from datetime import datetime
+from datetime import date, datetime, timedelta
+
 
 # Create your views here.
 def index(request):
@@ -115,7 +115,14 @@ def profile(request, af):
 
     if request.user.groups.all()[0].name == 'Photographer':
         ph = Photographer.objects.get(photographer_id=request.user.id)
-        appointments = Appointment.objects.filter(photographer=ph).order_by('start_date')
+        tempappointments = Appointment.objects.filter(photographer=ph).order_by('start_date')
+        appointments = []
+        for appointment in tempappointments:
+            if appointment.zip != sys.maxsize:
+                appointments.append(appointment)
+            else:
+               appointment.delete() 
+
         length = len(appointments)
         
         #For comparing datetime field of django models.
@@ -135,7 +142,14 @@ def profile(request, af):
         return render(request, 'profile.html',  context)
     else :
         cst = Customer.objects.get(customer_id=request.user.id)
-        appointments = Appointment.objects.filter(customer=cst).order_by('start_date')
+        tempappointments = Appointment.objects.filter(customer=cst).order_by('start_date')
+        appointments = []
+        for appointment in tempappointments:
+            if appointment.zip != sys.maxsize:
+                appointments.append(appointment)
+            else:
+               appointment.delete()    
+
         length = len(appointments)
 
         for appointment in appointments:
@@ -179,13 +193,13 @@ def update_appointment_status(appointment):
     #Get awared time in current time zone
     now = timezone.make_aware(datetime.now(),timezone.get_default_timezone())
     now =  now.astimezone(timezone.utc)
-    print(now)
+    # print(now)
 
     apt_status = 'Incoming'
     if now >= appointment.start_date and now <= appointment.end_date:
-      apt_status = 'Ongoing' 
+        apt_status = 'Ongoing' 
     elif now > appointment.end_date:
-      apt_status = 'Closed'
+        apt_status = 'Closed'
 
     return apt_status   
 
@@ -332,9 +346,27 @@ def editProfile(request):
         return render(request, 'editProfile.html', context)
    
 
+def location_eligibility(request):
+    cst = Customer.objects.get(customer_id=request.user.id) 
+    context= {'image': cst.image}  
 
-def category(request):
-    context = {}
+    if request.method == 'POST':
+        city = request.POST.get('city')
+        hours = int(request.POST.get('hours'))
+
+        if hours < 24 or hours > 72 :
+           messages.warning(request, 'Invalid selection of hours !') 
+           return redirect('/location')
+        else :
+           start_date = datetime.now() + timedelta(hours=hours)
+           appointment = Appointment(customer = cst, start_date=start_date, zip=sys.maxsize)
+           appointment.save()
+           return redirect('/category/' + city)
+
+    return render(request, 'location_eligibility.html', context)
+
+def category(request, city):
+    context = {'city':city}
 
     cst = Customer.objects.get(customer_id=request.user.id)
     context['image'] = cst.image
@@ -346,98 +378,111 @@ def category(request):
     
     allcatph = []
     for cat in cats:
-        catph = Photographer.objects.filter(category=cat)
-        tuple = (cat, catph)
-        allcatph.append(tuple)
+        catph = Photographer.objects.filter(category=cat, city=city)
+        if len(catph) != 0:
+          tuple = (cat, catph)
+          allcatph.append(tuple)
 
    # print(allcatph)    
     context['allcatph'] = allcatph
     return render(request, 'category.html', context)
 
 
-
 def allfromCat(request, cat):
     context = {}
-    
+    cat = cat.split('_')
     cst = Customer.objects.get(customer_id=request.user.id)
     context['image'] = cst.image
 
-    catph = Photographer.objects.filter(category=cat)
+    catph = Photographer.objects.filter(category=cat[0], city=cat[1])
     context['catph'] = catph
-    context['category'] = cat
+    context['category'] = cat[0]
+    context['city'] = cat[1]
     return render(request, 'allfromCat.html', context)
 
 
 def appointment(request, pid):
-    alert=False
-    if(pid[0]=='0'):
-      alert=True
-      pid = pid[1:]
-
-    cst = Customer.objects.get(customer_id=request.user.id)
-    context = {'image': cst.image, 'pid': pid, 'alert': alert}
-    return render(request, 'appointment.html', context)
-
-
+    pid = pid.split('_')
     
+    cst = Customer.objects.get(customer_id=request.user.id)
+    appointment = Appointment.objects.get(zip=sys.maxsize)
+    sdate = appointment.start_date
+    context = {'image': cst.image, 'pid': pid[0], 'city': pid[1], 'sdate': sdate}
+    return render(request, 'appointment.html', context)
+  
 
-def createAppointment(request):
+def createAppointment(request, city):
     if request.method == 'POST':
         pid = request.POST.get('pid')
-        sdate = request.POST.get('sdate')
         edate = request.POST.get('edate')
         state = request.POST.get('state')
         city = request.POST.get('city')
         area = request.POST.get('area')
         zip = request.POST.get('zip')
-        
+
+        apt = Appointment.objects.get(zip=sys.maxsize)
+
         #Validating the start and end dates
-        flag = validateDate(str(sdate), str(edate))
+        sdate = str(apt.start_date).split(' ')
+        # print('Rohit___' + sdate[0] + '___' + sdate[1])
+        edt = str(edate).split('T')
+        # print('Rohit___' + edt[0] + '___' + edt[1])
+        flag = validateDate(sdate[0], sdate[1], edt[0], edt[1])
         if not flag:
-            return redirect('/appointment/0'+pid)
+            messages.warning(request, 'Invalid end date, appointment duration must be atleast 30 minutes !')
+            return redirect('/appointment/'+pid + '_' + city)
 
 
         ph = Photographer.objects.get(photographer_id=pid)
         cst = Customer.objects.get(customer_id=request.user.id)
-        appointment = Appointment(
-                                  customer=cst, 
-                                  photographer=ph, 
-                                  start_date=sdate, 
-                                  end_date=edate, 
-                                  state=state,
-                                  city=city,
-                                  area=area,
-                                  zip=zip,
-                                  appointment_status='incoming'                        
-                                  )
-        appointment.save()
+
+        apt.photographer=ph
+        apt.end_date=edate
+        apt.state=state
+        apt.city=city
+        apt.area=area
+        apt.zip=zip
+        apt.appointment_status='incoming'   
+        apt.save()
+        
         ph.status="Busy"
         ph.save()
-        context = {'ph': ph, 'cst': cst, 'appointment' : appointment ,'image': cst.image}
+        context = {'ph': ph, 'cst': cst, 'appointment' : apt ,'image': cst.image, 'edate':edt[0]}
         return render(request, 'successAppointment.html', context)
 
 
-def validateDate(sdate, edate):
+def validateDate(sdate, stime, edate, etime):
+    #Processing sdate
     date1 = sdate.split('-')
     date1[0] = int(date1[0])
     date1[1] = int(date1[1])
     date1[2] = int(date1[2])
 
+    stime = stime.split(':')
+    stime[0] = int(stime[0])
+    stime[1] = int(stime[1])
+
+    #Processing edate
     date2 = edate.split('-')
     date2[0] = int(date2[0])
     date2[1] = int(date2[1])
     date2[2] = int(date2[2])
 
-    dt = date.today()
-    midnight = datetime.combine(dt, datetime.min.time())
+    etime = etime.split(':')
+    etime[0] = int(etime[0])
+    etime[1] = int(etime[1])
 
-    d1 = datetime(date1[0], date1[1], date1[2])
-    d2 = datetime(date2[0], date2[1], date2[2])
-    
-    if (midnight <= d1 and d1 <= d2):
+    sdate = datetime(date1[0], date1[1], date1[2], stime[0], stime[1])
+    edate = datetime(date2[0], date2[1], date2[2], etime[0], etime[1])  
+    duration = edate - sdate
+    duration_in_s = duration.total_seconds()
+    minutes = divmod(duration_in_s, 60)[0]
+
+    # print('Rohit___' + str(minutes))
+
+    if minutes >= 30:
         return True
-
-    return False    
+    return False 
 
 
 def pagination(request, bnum):
@@ -454,7 +499,11 @@ def pagination(request, bnum):
 
     if request.user.groups.all()[0].name == 'Photographer':
         ph = Photographer.objects.get(photographer_id=request.user.id)
-        appointments = Appointment.objects.filter(photographer=ph)
+        tempappointments = Appointment.objects.filter(photographer=ph)
+        appointments = []
+        for appointment in tempappointments:
+            if appointment.zip != sys.maxsize:
+                appointments.append(appointment)
 
         # for setting up pagination
         pages = [int(i) for i in range(1, math.ceil(len(appointments)/2)+1)]
@@ -489,7 +538,11 @@ def pagination(request, bnum):
 
     else :
         cst = Customer.objects.get(customer_id=request.user.id)
-        appointments = Appointment.objects.filter(customer=cst)
+        tempappointments = Appointment.objects.filter(customer=cst)
+        appointments = []
+        for appointment in tempappointments:
+            if appointment.zip != sys.maxsize:
+                appointments.append(appointment)
 
         # for setting up pagination
         pages = [int(i) for i in range(1, math.ceil(len(appointments)/2)+1)]
@@ -537,11 +590,13 @@ def updateMarkers(first, last, funct):
 
 # For Blog of photographer
 def blog(request, pid):
-    ph = Photographer.objects.get(photographer_id=pid)
+    pid = pid.split('_')
+    ph = Photographer.objects.get(photographer_id=pid[0])
     post = Blog.objects.filter(photographer = ph)
     context={}
     context['ph'] = ph
     context['post'] = post
+    context['city'] = pid[1]
     if request.user.is_authenticated:
         if request.user.groups.all()[0].name == 'Customer':
             usr = Customer.objects.get(customer_id=request.user.id)
@@ -629,6 +684,8 @@ def rescheduleAppointment(request, flag):
 
         if action == 'Delete':
            appointment.delete()
+           photographer.status = 'Available'
+           photographer.save()
            messages.info(request, 'Appointment was deleted successfully')
            return redirect('/profile0')
 
@@ -636,7 +693,7 @@ def rescheduleAppointment(request, flag):
             return redirect('/profile1_' + cst + '_' + photo)
 
     else :
-        sdate = request.POST.get('sdate')
+        hours = int(request.POST.get('hours'))
         edate = request.POST.get('edate')
         cst = request.POST.get('cust')
         photo = request.POST.get('photo')
@@ -645,12 +702,25 @@ def rescheduleAppointment(request, flag):
         photographer = Photographer.objects.get(photographer_id=photo)
         appointment = Appointment.objects.filter(customer=customer, photographer=photographer)[0]
 
+        if hours < 24 or hours > 72 :
+           messages.warning(request, 'Invalid selection of hours !') 
+           return redirect('/profile0')
+        else : 
+            start_date = datetime.now() + timedelta(hours=hours)
+            sdate = str(start_date).split(' ')
+            edt = str(edate).split('T')
+            flag = validateDate(sdate[0], sdate[1], edt[0], edt[1])
+            if not flag:
+                messages.warning(request, 'Invalid end date, appointment duration must be atleast 30 minutes !')
+                return redirect('/profile0')
+            
 
-        appointment.start_date = sdate
-        appointment.end_date = edate
-        appointment.save()
-        messages.info(request, 'Your Appointment was rescheduled successfully')
-        return redirect('/profile0')
+            appointment.start_date = start_date
+            appointment.end_date = edate
+
+            appointment.save()
+            messages.info(request, 'Your Appointment was rescheduled successfully')
+            return redirect('/profile0')
 
 
   
