@@ -74,8 +74,8 @@ class Photographer(models.Model):
 class Appointment(models.Model):
     customer = models.ForeignKey(Customer, on_delete=models.CASCADE, blank=True, null=True)    
     photographer = models.ForeignKey(Photographer, on_delete=models.SET_NULL, blank=True, null=True)
-    start_date = models.DateTimeField()
-    end_date = models.DateTimeField()
+    start_date = models.DateTimeField(null=True, blank=True)
+    end_date = models.DateTimeField(null=True, blank=True)
     state = models.CharField(max_length=50, null=True, blank=True)
     city = models.CharField(max_length=100, null=True, blank=True)
     area = models.CharField(max_length=200, null=True, blank=True)
@@ -85,6 +85,12 @@ class Appointment(models.Model):
     def __str__(self):
         return str(self.customer.fname) + " " + str(self.customer.lname)
 
+
+class City(models.Model):
+    city = models.CharField(max_length=50, null=True, blank=True)
+
+    def __str__(self):
+        return str(self.city)
 
 
 class Blog(models.Model):

@@ -433,12 +433,12 @@
               class="bg-yellow-300 mt-3 px-3 py-2 rounded-lg cursor-not-allowed">Book Now
             </button>
           {% else %}
-            <a href="/appointment/{{ph.photographer_id}}"><button style="background-color: rgb(95, 248, 7);"
+            <a href="/appointment/{{ph.photographer_id}}_{{city}}"><button style="background-color: rgb(95, 248, 7);"
               class="bg-yellow-300 mt-3 px-3 py-2 rounded-lg">Book
               Now</button>
             </a>
           {% endif %}
-          <a href="/blog/{{ph.photographer_id}}"><button
+          <a href="/blog/{{ph.photographer_id}}_{{city}}"><button
             class="bg-blue-600 ml-1 mt-3 px-4 py-2 mr-3 rounded-lg">Profile</button>
           </a>
         </div>
@@ -449,7 +449,7 @@
   </div>
   <center>
     <div class="py-10 mt-4">
-      <a href="/allfromCat/{{cat}}"><button class="bg-indigo-800 px-3 py-2"
+      <a href="/allfromCat/{{cat}}_{{city}}"><button class="bg-indigo-800 px-3 py-2"
           style="border-radius: 5px; color: rgb(248, 244, 244);">Show More..</button></a>
     </div>
   </center>
