@@ -11,17 +11,17 @@
   {% endfor %}
   {% endif %}
 
-  <div class="p-5 mb-4 bg-light rounded-3">
-    <div class="container-fluid py-5">
-        <h2 class="display-5 fw-bold">Choose your role</h2>
-        <p class="col-md-8 fs-4"><br>Yoy have logged in successfuly through Google. But before moving ahead you need to specify you role. <br> So choose your role and press the submit role button</p>
-        <form action="/glogin" method="post">{% csrf_token %}
-          <label for="cars">Choose a role:</label><br>
-          <select name="role" id="role">
+  <div class="p-16 pt-16 pb-24 bg-gray-200  bg bg-light rounded-3">
+    <div class="container-fluid ">
+        <h2 class="ml-4 mt-1 font-extrabold text-4xl ">Choose your role</h2>
+        <p class="col-md-8 ml-4  text-xl "><br>Yoy have logged in successfuly through Google. But before moving ahead you need to specify you role. <br> So choose your role and press the submit role button</p>
+        <form action="/glogin" method="post" class="ml-4 mt-2 text-2xl">{% csrf_token %}
+          <label for="cars" class="text-blue-800">Choose a role:</label><br>
+          <select name="role" id="role" class="mt-1 outline rounded-sm ">
             <option value="Customer">Customer</option>
             <option value="Photographer">Photographer</option>
-          </select><br>
-          <button class="btn btn-secondary btn-lg" type="submit">Submit role</button>
+          </select>
+          <button class="bg-yellow-500  ml-3 mt-3 font-semibold text-white py-2  rounded-md px-6" type="submit">Submit </button>
         </form>
     </div>
   </div>
