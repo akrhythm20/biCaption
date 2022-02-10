@@ -201,7 +201,7 @@
               class="py-5 px-3 text-white tracking-normal hover:tracking-wide hover:drop-shadow-lg"><strong>Pricing</strong></a>
             {% if request.user.is_authenticated%}
             {% if role == 'Photographer' %}
-            <a href="/blog/{{id}}"
+            <a href="/blog/{{id}}_a"
               class="py-5 px-3 text-white tracking-normal hover:tracking-wide hover:drop-shadow-lg"><strong>Blog</strong></a>
             {% endif %}
             {% if role == 'Customer'%}

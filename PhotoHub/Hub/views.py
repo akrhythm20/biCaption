@@ -167,15 +167,51 @@ def profile(request, af):
         return render(request, 'profile.html', context)
 
 def forgotpassword(request):
-   if request.method == 'POST':
-      uname = request.POST.get('uname')
-      pass1 = request.POST.get('password1')
-      pass2 = request.POST.get('password2')
+    if request.method == 'POST':
+        uname = request.POST.get('uname')
+        present = "True"
+        context = {}
+        try:
+            user = User.objects.get(username=uname)
+            context['user'] = user
+            context['email'] = user.email
+            return render(request, 'forgotpassword2.html', context)
+        except User.DoesNotExist:
+            present = "False"
+            context['present'] = present
+            return render(request, 'forgotpassword.html', context)
+    return render(request, 'forgotpassword.html')
 
-      #Validation logic
-      return HttpResponse('Password updated successfully!')
 
-   return render(request, 'forgotpassword.html')
+def forgotpassword2(request):
+    if request.method == "POST":
+        original_otp = request.POST.get('original_otp')
+        entered_otp = request.POST.get('entered_otp')
+        user = request.POST.get('user')
+        correct = "False"
+        if original_otp == entered_otp:
+            corrent = "True"
+            user = User.objects.get(username=user)
+            return render(request, 'changePassword.html', {'user':user})
+        else : 
+            return render(request, 'forgotpassword2.html', {'correct':correct})
+
+def changePassword(request):
+    if request.method == "POST":
+        new_password = request.POST.get('new_password')
+        usr = request.POST.get('user')
+        user = User.objects.get(username = usr)
+        print(user.password)
+        user.set_password(new_password)
+        user.save()
+
+        print(user)
+        print(user.email)
+        print(user.password)
+
+        messages.success(request, 'Your password updated succefully, please login!')
+        return render(request, 'landing.html')
+    
 
 def fetch_incoming_appointments(appointments):
     incoming_appointments = []
@@ -596,13 +632,13 @@ def blog(request, pid):
     context={}
     context['ph'] = ph
     context['post'] = post
-    context['city'] = pid[1]
     if request.user.is_authenticated:
         if request.user.groups.all()[0].name == 'Customer':
             usr = Customer.objects.get(customer_id=request.user.id)
             context['role'] = 'Customer'
             context['image'] = usr.image
             context['id'] = usr.customer_id
+            context['city'] = pid[1]
         else : 
             usr = Photographer.objects.get(photographer_id=request.user.id)
             context['role'] = 'Photographer'
