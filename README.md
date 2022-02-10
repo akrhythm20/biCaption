@@ -1,4 +1,8 @@
-# Photoshop
+# BiCaption
+
+# An ultimate photography site.
+
+Current Status -> Models being added...😉.
 
 
-Codeflow and system architecture to be shared soon.
+shared!!!
