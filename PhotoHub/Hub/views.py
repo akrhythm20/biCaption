@@ -162,7 +162,7 @@ def profile(request, af):
                  'fname': ph.fname, 'lname':ph.lname, 'gender':ph.gender, 'phone':ph.phone, 'city':ph.city, 'pin':ph.pincode,
                  'email':ph.email[:21], 'category':ph.category, 'role':'Photographer', 'image':ph.image, 'status':ph.status,
                  'state':ph.state, 'incoming_appointments': incoming_appointments, 'length': length, 'alert': alert, 
-                 'id':ph.photographer_id, 'ckey':ckey, 'pkey': pkey
+                 'id':ph.photographer_id, 'ckey':ckey, 'pkey': pkey, 'facebook':ph.facebook, 'instagram':ph.instagram, 'tweeter':ph.tweeter
         }
         
         return render(request, 'profile.html',  context)
@@ -355,6 +355,9 @@ def editProfile(request):
       image= request.FILES['dp'] 
 
       if request.user.groups.all()[0].name == 'Photographer':
+          facebook = request.POST.get('facebook')
+          instagram = request.POST.get('instagram')
+          tweeter = request.POST.get('tweeter')
           age = request.POST.get('age')
           category = request.POST.get('category')  
           photographer = Photographer.objects.get(photographer_id=request.user.id)
@@ -369,6 +372,9 @@ def editProfile(request):
           photographer.email = email
           photographer.category = category
           photographer.image = image
+          photographer.facebook = facebook
+          photographer.instagram = instagram
+          photographer.tweeter = tweeter
           photographer.save()
 
       else :
@@ -394,7 +400,7 @@ def editProfile(request):
         context={
                  'fname': ph.fname, 'lname':ph.lname, 'phone':ph.phone, 'city':ph.city, 'pin':ph.pincode,
                  'email':ph.email, 'category':ph.category, 'image':ph.image, 'state':ph.state, 'age':ph.age,
-                 'area': ph.area, 'id':ph.photographer_id
+                 'area': ph.area, 'id':ph.photographer_id, 'facebook':ph.facebook, 'instagram':ph.instagram, 'tweeter':ph.tweeter
         }
         
         return render(request, 'editProfile.html',  context)

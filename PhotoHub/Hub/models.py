@@ -67,6 +67,9 @@ class Photographer(models.Model):
     )
     image = models.ImageField(upload_to="images/", blank=True, null = True)
     bio = models.CharField(max_length=500, null=True, blank=True)
+    facebook = models.CharField(max_length=100, blank=True, null=True)
+    instagram = models.CharField(max_length=100, blank=True, null=True)
+    tweeter = models.CharField(max_length=100, blank=True, null=True)
 
     def __str__(self):
         return str(self.fname) + " " + str(self.lname)
