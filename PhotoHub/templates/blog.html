@@ -21,6 +21,37 @@
     integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
     crossorigin="anonymous"></script>
 
+  <style>
+    .imag{
+      height: 200px;
+      width : 200px;
+    }
+
+    .flex-container {
+      display: flex;
+      flex-direction: row;
+      font-size: 30px;
+      text-align: center;
+    }
+
+    .flex-item-left {
+      padding: 10px;
+      flex: 50%;
+    }
+
+    .flex-item-right {
+      padding: 10px;
+      flex: 50%;
+    }
+
+    /* Responsive layout - makes a one column-layout instead of two-column layout */
+    @media (max-width: 800px) {
+      .flex-container {
+        flex-direction: column;
+      }
+    }
+  </style>
+
 </head>
 
 <body>
@@ -45,8 +76,9 @@
           <!-- primary nav -->
           <div class="hidden md:flex items-center space-x-1">
 
-            <a href="#features" class="py-5 px-3 text-white tracking-normal hover:tracking-wide hover:drop-shadow-lg"><strong>Features</strong></a>
-         
+            <a href="#features"
+              class="py-5 px-3 text-white tracking-normal hover:tracking-wide hover:drop-shadow-lg"><strong>Features</strong></a>
+
             {% if request.user.is_authenticated%}
             {% if role == 'Photographer' %}
             <a href="/blog/{{id}}_a"
@@ -71,6 +103,11 @@
           {% if request.user.is_authenticated %}
           <nav :class="{'flex': open, 'hidden': !open}"
             class="flex-col flex-grow pb-4 md:pb-0 hidden md:flex md:justify-end md:flex-row">
+            {% if role == 'Photographer' %}
+            <a href="/addPost/{{id}}"
+              class="bg-green-400 text-white hover:bg-gray-400 px-3 py-1 mt-3 border border-gray-600"><button><strong>Add
+                  Post</strong></button></a>
+            {% endif %}
             <div @click.away="open = false" class="relative" x-data="{ open: false }">
               <button @click="open = !open"
                 class="flex flex-row items-center space-x-2 w-full px-3 py-2 mt-2 text-sm font-semibold text-left bg-transparent  md:w-auto md:inline md:mt-0 md:ml-4 focus:outline-none">
@@ -136,35 +173,28 @@
     <div class="col-span-2 ml-24">
       <!-- post -->
       {% for pst in post %}
-      <div class="mx-3">
-        <div class="h-84 flex ml-4 items-left">
-          <!--card-->
-          <div class="flex  space-x-4 py-3">
-            <div class="">
-              <img class="w-72 h-72" src="/media/{{pst.img}}" alt="image">
-            </div>
-            <div class="flex-1 px-4">
-              <h1 class="text-2xl">
-                <strong>{{pst.head}}</strong>
-              </h1>
-              <p class="mt-1">
-                {{pst.date}} / 26 Comments
-              </p>
-              <p style="font-size:0.9rem" class="text-gray-700  mt-1">
-                {{pst.desc}}
-              </p>
-              {% if role == 'Photographer' %}
-              <div class="pt-3">
-                <a href="/editPost/{{pst.id}}"><button
-                    class="py-1 px-3 border border-gray-400 rounded-md hover:bg-gray-300 mr-1">Edit</button></a>
-                <a href="/deletePost/{{pst.id}}"><button
-                    class="py-1 px-2 border border-gray-400 rounded-md hover:bg-gray-300">Delete</button></a>
-              </div>
-              {% endif %}
-            </div>
-
-          </div>
+      <h1 class="text-2xl text-extrabold ml-3 mt-2"><strong>{{pst.head}}</strong></h1>
+      <p class="ml-3 text-sm">{{pst.date}} / 26 comments</p>
+      <div class="flex-container">
+        <div class="flex-item-left mr-1">
+          <img class="imag h-84 w-full mx-auto border border-white border-4" src="/media/{{pst.img1}}" />
         </div>
+        <div class="flex-item-right mr-1">
+          <img class="imag h-84 w-full mx-auto border border-white border-4" src="/media/{{pst.img2}}" />
+        </div>
+        <div class="flex-item-left mr-1">
+          <img class="imag h-84 w-full mx-auto border border-white border-4" src="/media/{{pst.img3}}" />
+        </div>
+        <div class="flex-item-right">
+          <img class="imag h-84 w-full mx-auto border border-white border-4" src="/media/{{pst.img4}}" />
+        </div>
+      </div>
+      <p class="mt-1 ml-3">{{pst.desc}}</p>
+      <div class="mt-2 ml-2 mb-16">
+        <a href="/editPost/{{pst.id}}"><button
+            class="py-1 px-3 border border-gray-400 rounded-md hover:bg-gray-300 mr-1">Edit</button></a>
+        <a href="/deletePost/{{pst.id}}"><button
+            class="py-1 px-2 border border-gray-400 rounded-md hover:bg-gray-300">Delete</button></a>
       </div>
       {% endfor %}
     </div>
@@ -189,18 +219,27 @@
               <i style="color:rgb(54, 190, 243); font-size: 1.5rem;" class="fab fa-twitter   py-1 px-2"></i>
             </div>
           </div>
-          <p style="text-align: left; font-size: 0.9rem;" class="px-2">
-            I’m David duChemin. I’m a photographer, author, adventurer, and entrepreneur.
-            I want to see this world for the astonishing place it is,
-            and help others do the same.
+          <p style="background-color:rgb(251, 253, 255); color: rgb(35, 145, 196); text-align: left; font-size: 0.8rem;"
+            class="border-1 border-gray-300 rounded-xl px-2 py-1">
+            <a href="tel:{{ph.phone}}"><strong>Call : {{ph.phone}}</strong>
+            </a>
           </p>
+          <p style="background-color:rgb(251, 253, 255); color:rgb(85, 84, 85); text-align: left; font-size: 0.8rem;"
+            class="border-1 border-gray-300 rounded-xl px-2 py-1 mt-1">
+            <a href="mailto:{{ph.mail}}"><strong>Email : {{ph.email}}</strong></a>
+          </p>
+          {% if ph.bio != None %}
+          <p style="text-align: left; font-size: 0.9rem;" class="px-2 mt-1">
+            {{ph.bio}}
+          </p>
+          {% endif %}
+
         </div>
         <!-- End of profile card -->
         <div class="my-4"></div>
         <!-- Friends card -->
         <div class=" p-3 hover:shadow">
           <div class="flex items-center space-x-3 font-semibold text-gray-900 text-xl leading-8">
-
 
 
           </div>

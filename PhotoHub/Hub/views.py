@@ -21,6 +21,24 @@ from datetime import date, datetime, timedelta
 
 # Create your views here.
 def index(request):    
+    now = timezone.make_aware(datetime.now(),timezone.get_default_timezone())
+    now =  now.astimezone(timezone.utc)
+    appointments = Appointment.objects.all()
+
+    for appointment in appointments:
+        if appointment.zip == sys.maxsize:
+            appointment.delete()
+
+    feedback = []
+    for ap in appointments:
+        if ap.feedback==False and ap.end_date <= now:
+            ap.feedback = True
+            ap.save()
+            feedback.append(ap)
+    print(len(feedback))
+
+    context = {}
+    context['feedback'] = feedback
     #Display posts on basis of recent publishing date
     blogs = Blog.objects.order_by('-date')[:3]
     pphs = [(blogs[0], [blogs[1], blogs[2]])]
@@ -28,13 +46,13 @@ def index(request):
     customerTemp = Customer.objects.all()[:4]
     customers = [customerTemp[:2], customerTemp[2:4]]
 
-    context = {'blogs': blogs, 'customers':customers, 'pphs': pphs}
+    context = {'blogs': blogs, 'customers':customers, 'pphs': pphs, 'feedback':feedback}
 
     if request.user.is_authenticated:
         if request.user.groups.all()[0].name == 'Photographer':
             ph = Photographer.objects.get(photographer_id=request.user.id)
 
-            context= {'id':ph.photographer_id, 'role':'Photographer','image': ph.image, 'blogs': blogs, 'customers':customers, 'pphs': pphs}
+            context= {'id':ph.photographer_id, 'role':'Photographer','image': ph.image, 'blogs': blogs, 'customers':customers, 'pphs': pphs, 'feedback':feedback}
             return render(request, 'landing.html', context)
 
         else :
@@ -45,7 +63,7 @@ def index(request):
                     appointment.delete()
 
             cst = Customer.objects.get(customer_id=request.user.id)
-            context= {'role':'Customer','image':cst.image, 'blogs': blogs, 'customers':customers, 'pphs': pphs}
+            context= {'role':'Customer','image':cst.image, 'blogs': blogs, 'customers':customers, 'pphs': pphs, 'feedback':feedback}
             return render(request, 'landing.html', context)
 
     return render(request, 'landing.html', context)
@@ -649,6 +667,7 @@ def blog(request, pid):
     context={}
     context['ph'] = ph
     context['post'] = post
+    print(ph.bio)
     if request.user.is_authenticated:
         if request.user.groups.all()[0].name == 'Customer':
             usr = Customer.objects.get(customer_id=request.user.id)
@@ -674,11 +693,17 @@ def deletePost(request, pid):
 def editPost(request, pid):
     post = Blog.objects.get(id=pid)
     if request.method == 'POST':
-        img = request.FILES['img']
+        img1 = request.FILES['img1']
+        img2 = request.FILES['img2']
+        img3 = request.FILES['img3']
+        img4 = request.FILES['img4']
         head = request.POST.get('head')
         date = request.POST.get('date')
         desc = request.POST.get('desc')
-        post.img = img
+        post.img1 = img1
+        post.img2 = img2
+        post.img3 = img3
+        post.img4 = img4
         post.head = head
         post.date = date
         post.desc = desc
@@ -695,13 +720,19 @@ def editPost(request, pid):
 def addPost(request, pid):
     if request.method == 'POST':
         photographer = Photographer.objects.get(photographer_id = pid)
-        img = request.FILES['img']
+        img1 = request.FILES['img1']
+        img2 = request.FILES['img2']
+        img3 = request.FILES['img3']
+        img4 = request.FILES['img4']
         head = request.POST.get('head')
         date = request.POST.get('date')
         desc = request.POST.get('desc')
         post = Blog(
                     photographer = photographer,
-                    img = img,
+                    img1 = img1,
+                    img2 = img2,
+                    img3 = img3,
+                    img4 = img4,
                     head = head,
                     date = date,
                     desc = desc

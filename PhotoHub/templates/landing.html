@@ -163,11 +163,14 @@
   <link href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css" rel="stylesheet" />
   <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>
 
-   <!-- Bootstrap CSS -->
-   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
 
-    <!-- Option 1: Bootstrap Bundle with Popper -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+  <!-- Option 1: Bootstrap Bundle with Popper -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+    crossorigin="anonymous"></script>
 
 
 </head>
@@ -195,8 +198,9 @@
           <!-- primary nav -->
           <div class="hidden md:flex items-center space-x-1">
 
-            <a href="#features" class="py-5 px-3 text-white tracking-normal hover:tracking-wide hover:drop-shadow-lg"><strong>Features</strong></a>
-         
+            <a href="#features"
+              class="py-5 px-3 text-white tracking-normal hover:tracking-wide hover:drop-shadow-lg"><strong>Features</strong></a>
+
             {% if request.user.is_authenticated%}
             {% if role == 'Photographer' %}
             <a href="/blog/{{id}}_a"
@@ -296,7 +300,9 @@
     <div class="text py-8">
       <h2 class="tracking-tight hover:tracking-wide">Never Stop To </h2>
       <h3 class="tracking-tight hover:tracking-wide">Exploring The World</h3>
-      <p class="tracking-tight hover:tracking-wide">YOU DON'T MAKE A PHOTOGRAPH JUST WITH A CAMERA. YOU BRING TO THE ACT OF PHOTOGRAPHY ALL THE PICTURES YOU HAVE SEEN, THE BOOKS YOU HAVE READ, THE MUSIC YOU HAVE HEARD, THE PEOPLE YOU HAVE LOVED.</p>
+      <p class="tracking-tight hover:tracking-wide">YOU DON'T MAKE A PHOTOGRAPH JUST WITH A CAMERA. YOU BRING TO THE ACT
+        OF PHOTOGRAPHY ALL THE PICTURES YOU HAVE SEEN, THE BOOKS YOU HAVE READ, THE MUSIC YOU HAVE HEARD, THE PEOPLE YOU
+        HAVE LOVED.</p>
       <a href="# " class="mr-3">Hire A Photographer</a>
       <a href="#" class="">Join as Photographer</a>
     </div>
@@ -536,31 +542,36 @@
           aria-label="Slide 3"></button>
       </div>
       <div class="carousel-inner relative w-full overflow-hidden">
-        {% for p1, p2 in  pphs%}
+        {% for p1, p2 in pphs%}
         <div class="carousel-item active relative w-full float-center">
           <div class="flex justify-center w-full">
             <div class="rounded-lg max-w-xl pb-12 pt-8">
               <center>
                 <a href="#" data-mdb-ripple="true" data-mdb-ripple-color="light">
-                  <img class="w-32 h-32 border border-blue-500 border-3 rounded-full"
-                    src="/media/{{p1.img}}" alt="" />
+                  <img class="w-32 h-32 border border-blue-500 border-3 rounded-full" src="/media/{{p1.img}}" alt="" />
                 </a>
 
                 <div class="p-6">
-                  <h5 class="text-gray-800 text-xl font-medium mb-2"><strong>{{p1.photographer.fname}} {{p1.photographer.lname}}</strong></h5>
+                  <h5 class="text-gray-800 text-xl font-medium mb-2"><strong>{{p1.photographer.fname}}
+                      {{p1.photographer.lname}}</strong></h5>
                   <p style="font-size: 0.9rem;" class="text-white mb-3">
                     {{p1.desc|truncatewords:32}}
                   </p>
                   {% if request.user.is_authenticated %}
-                    {% if role == 'Customer' %}
-                    <a href="/location"><button class="border border-gray-600 border-1  hover:bg-gray-300  py-1 px-2 mr-1">Book Now</button></a>
-                    <a href="/blog/{{p1.photographer.photographer_id}}_a"><button class="border border-gray-600 border-1  hover:bg-gray-300  py-1 px-2">Know More</button></a>
-                    {% else %}
-                    <a href="/blog/{{p1.photographer.photographer_id}}_a"><button class="border border-gray-600 border-1  hover:bg-gray-300  py-1 px-2">Know More</button></a>
-                    {% endif %}
+                  {% if role == 'Customer' %}
+                  <a href="/location"><button
+                      class="border border-gray-600 border-1  hover:bg-gray-300  py-1 px-2 mr-1">Book Now</button></a>
+                  <a href="/blog/{{p1.photographer.photographer_id}}_a"><button
+                      class="border border-gray-600 border-1  hover:bg-gray-300  py-1 px-2">Know More</button></a>
                   {% else %}
-                  <a href="/accounts/login"><button class="border border-gray-600 border-1  hover:bg-gray-300  py-1 px-2 mr-1">Book Now</button></a>
-                  <a href="/blog/{{p1.photographer.photographer_id}}_a"><button class="border border-gray-600 border-1  hover:bg-gray-300  py-1 px-2">Know More</button></a>
+                  <a href="/blog/{{p1.photographer.photographer_id}}_a"><button
+                      class="border border-gray-600 border-1  hover:bg-gray-300  py-1 px-2">Know More</button></a>
+                  {% endif %}
+                  {% else %}
+                  <a href="/accounts/login"><button
+                      class="border border-gray-600 border-1  hover:bg-gray-300  py-1 px-2 mr-1">Book Now</button></a>
+                  <a href="/blog/{{p1.photographer.photographer_id}}_a"><button
+                      class="border border-gray-600 border-1  hover:bg-gray-300  py-1 px-2">Know More</button></a>
                   {% endif %}
                 </div>
               </center>
@@ -573,25 +584,30 @@
             <div class="rounded-lg max-w-xl pb-12 pt-8">
               <center>
                 <a href="#" data-mdb-ripple="true" data-mdb-ripple-color="light">
-                  <img class="w-32 h-32 border border-blue-500 border-3 rounded-full"
-                    src="/media/{{ph.img}}" alt="" />
+                  <img class="w-32 h-32 border border-blue-500 border-3 rounded-full" src="/media/{{ph.img}}" alt="" />
                 </a>
 
                 <div class="p-6">
-                  <h5 class="text-gray-800 text-xl font-medium mb-2"><strong>{{ph.photographer.fname}} {{ph.photographer.lname}}</strong></h5>
+                  <h5 class="text-gray-800 text-xl font-medium mb-2"><strong>{{ph.photographer.fname}}
+                      {{ph.photographer.lname}}</strong></h5>
                   <p style="font-size: 0.9rem;" class="text-white mb-3">
-                   {{ph.desc|truncatewords:32}}
+                    {{ph.desc|truncatewords:32}}
                   </p>
                   {% if request.user.is_authenticated %}
-                    {% if role == 'Customer' %}
-                    <a href="/location"><button class="border border-gray-600 border-1  hover:bg-gray-300  py-1 px-2 mr-1">Book Now</button></a>
-                    <a href="/blog/{{ph.photographer.photographer_id}}_a"><button class="border border-gray-600 border-1  hover:bg-gray-300  py-1 px-2">Know More</button></a>
-                    {% else %}
-                    <a href="/blog/{{ph.photographer.photographer_id}}_a"><button class="border border-gray-600 border-1  hover:bg-gray-300  py-1 px-2">Know More</button></a>
-                    {% endif %}
+                  {% if role == 'Customer' %}
+                  <a href="/location"><button
+                      class="border border-gray-600 border-1  hover:bg-gray-300  py-1 px-2 mr-1">Book Now</button></a>
+                  <a href="/blog/{{ph.photographer.photographer_id}}_a"><button
+                      class="border border-gray-600 border-1  hover:bg-gray-300  py-1 px-2">Know More</button></a>
                   {% else %}
-                  <a href="/accounts/login"><button class="border border-gray-600 border-1  hover:bg-gray-300  py-1 px-2 mr-1">Book Now</button></a>
-                  <a href="/blog/{{ph.photographer.photographer_id}}_a"><button class="border border-gray-600 border-1  hover:bg-gray-300  py-1 px-2">Know More</button></a>
+                  <a href="/blog/{{ph.photographer.photographer_id}}_a"><button
+                      class="border border-gray-600 border-1  hover:bg-gray-300  py-1 px-2">Know More</button></a>
+                  {% endif %}
+                  {% else %}
+                  <a href="/accounts/login"><button
+                      class="border border-gray-600 border-1  hover:bg-gray-300  py-1 px-2 mr-1">Book Now</button></a>
+                  <a href="/blog/{{ph.photographer.photographer_id}}_a"><button
+                      class="border border-gray-600 border-1  hover:bg-gray-300  py-1 px-2">Know More</button></a>
                   {% endif %}
                 </div>
               </center>
@@ -617,12 +633,14 @@
   </div>
 
 
-   <!-- Recent Posts -->
+  <!-- Recent Posts -->
   <div class="bg-gradient-to-r from-pink-200 to-blue-400 px-5 sm:px-10 md:px-20 lg:px-10 xl:px-20 py-8 bg-indigo-100"
     id="blog-posts">
-    <center><h3 class="leading-none text-gray-600 text-3xl pt-6"><strong>Recent Posts</strong></h3></center>
+    <center>
+      <h3 class="leading-none text-gray-600 text-3xl pt-6"><strong>Recent Posts</strong></h3>
+    </center>
     <div class="grid grid-cols-3 px-16 pt-10 pb-16">
-    {% for blog in blogs %}
+      {% for blog in blogs %}
       <a href="/blog/{{blog.photographer.photographer_id}}_a" class="flex w-full max-w-sm mt-2 lg:mt-8">
         <div class="transition-all duration-300 cursor-pointer w-full shadow-lg hover:shadow-xl rounded-lg
         bg-gray-100 relative xl:flex xl:flex-row-reverse xl:items-center xl:px-6 xl:py-6">
@@ -634,7 +652,7 @@
           </div>
         </div>
       </a>
-    {% endfor %}  
+      {% endfor %}
     </div>
   </div>
 
@@ -642,34 +660,34 @@
   <!-- Testimonials -->
   <div class="pt-12 pb-2">
     <center>
-     <h3 class="text-gray-200 font-extrabold text-4xl">Testimonials</h3>
-     <hr style="width: 70%; color:white;" class="my-2">
-   </center>
-    <div class="grid grid-cols-1 mt-4"> 
-      {% for c1, c2 in  customers%}
-        <div style="padding-left: 15%;" class="grid grid-cols-2">
-            <div class="inline-block  lg:flex mt-4">
-                <img src="/media/{{c1.image}}" class="w-32 h-32 border-white border-2 border-white border-2  rounded-full"/>
-                <div class="text-xs lg:text-md mt-3 text-white pl-3">
-                  <h1 class="font-bold text-black mt-2">{{c1.fname}} {{c1.lname}}</h1>
-                  <p class="mt-2">Lorem ipsum dolor sit amet consectetur 
-                      adipisicing <br>elit.Temporibus perspiciatis facere <br>nemo qui quas! ea ipsa inventore facere magnam.
-                  </p>
-                </div>
-            </div>
-
-            <div class="inline-block  lg:flex mt-4">
-              <img src="/media/{{c2.image}}" class="w-32 h-32 border-white border-2  rounded-full"/>
-              <div class=" pl-3 text-xs lg:text-md text-white mt-3">
-                <h1 class="font-bold text-black   mt-2">{{c2.fname}} {{c2.lname}}</h1>
-                <p class="mt-2">Lorem ipsum dolor sit amet consectetur 
-                  adipisicing <br>elit.Temporibus perspiciatis facere <br>nemo qui quas! ea ipsa inventore facere magnam.
-              </p>
-              </div>
-            </div>
+      <h3 class="text-gray-200 font-extrabold text-4xl">Testimonials</h3>
+      <hr style="width: 70%; color:white;" class="my-2">
+    </center>
+    <div class="grid grid-cols-1 mt-4">
+      {% for c1, c2 in customers%}
+      <div style="padding-left: 15%;" class="grid grid-cols-2">
+        <div class="inline-block  lg:flex mt-4">
+          <img src="/media/{{c1.image}}" class="w-32 h-32 border-white border-2 border-white border-2  rounded-full" />
+          <div class="text-xs lg:text-md mt-3 text-white pl-3">
+            <h1 class="font-bold text-black mt-2">{{c1.fname}} {{c1.lname}}</h1>
+            <p class="mt-2">Lorem ipsum dolor sit amet consectetur
+              adipisicing <br>elit.Temporibus perspiciatis facere <br>nemo qui quas! ea ipsa inventore facere magnam.
+            </p>
+          </div>
         </div>
+
+        <div class="inline-block  lg:flex mt-4">
+          <img src="/media/{{c2.image}}" class="w-32 h-32 border-white border-2  rounded-full" />
+          <div class=" pl-3 text-xs lg:text-md text-white mt-3">
+            <h1 class="font-bold text-black   mt-2">{{c2.fname}} {{c2.lname}}</h1>
+            <p class="mt-2">Lorem ipsum dolor sit amet consectetur
+              adipisicing <br>elit.Temporibus perspiciatis facere <br>nemo qui quas! ea ipsa inventore facere magnam.
+            </p>
+          </div>
+        </div>
+      </div>
       {% endfor %}
-       <!-- <div style="padding-left: 15%;" class="grid grid-cols-1">
+      <!-- <div style="padding-left: 15%;" class="grid grid-cols-1">
         <div class="inline-block  lg:flex mt-4">
             <img src="https://images.unsplash.com/photo-1507591064344-4c6ce005b128?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80" class="w-32 h-32 border-white border-2  rounded-full"/>
             <div class="text-xs lg:text-md text-white mt-3 pl-3">
@@ -698,7 +716,7 @@
           </div>
        </div>
        </div> -->
-    </div> 
+    </div>
   </div>
   </main>
 
@@ -726,6 +744,29 @@
       })
     );
   </script>
+
+  <!-- Sending feeback mail to customer -->
+  <script src="https://smtpjs.com/v3/smtp.js">
+  </script>
+
+  {% for ap in feedback %}
+  <script>
+    Email.send({
+      Host: "smtp.gmail.com",
+      Username: "rhythma.ug19.cs@nitp.ac.in",
+      Password: "Aman@1234",
+      To: 'rohitj.ug19.cs@nitp.ac.in',
+      From: "rhythma.ug19.cs@nitp.ac.in",
+      Subject: "Verify you account",
+      Body: "{{ap.customer}}, please fill out the feedback form. Link\n http://127.0.0.1:8000/"
+    })
+      .then(function (message) {
+        console.log("mail sent successfully");
+        console.log("{{ap.customer}}");
+      });
+  </script>
+  {% endfor %}
+  
 </body>
 
 </html>

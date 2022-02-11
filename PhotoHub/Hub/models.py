@@ -66,6 +66,7 @@ class Photographer(models.Model):
         blank=True
     )
     image = models.ImageField(upload_to="images/", blank=True, null = True)
+    bio = models.CharField(max_length=500, null=True, blank=True)
 
     def __str__(self):
         return str(self.fname) + " " + str(self.lname)
@@ -81,6 +82,7 @@ class Appointment(models.Model):
     area = models.CharField(max_length=200, null=True, blank=True)
     zip = models.IntegerField(null=True, blank=True)
     appointment_status = models.CharField(max_length=50, null=True, blank=True)
+    feedback = models.BooleanField(default=False)
 
     def __str__(self):
         return str(self.customer.fname) + " " + str(self.customer.lname)
@@ -95,10 +97,13 @@ class City(models.Model):
 
 class Blog(models.Model):
     photographer = models.ForeignKey(Photographer, on_delete=models.CASCADE)
-    img = models.ImageField(upload_to="images/")
+    img1 = models.ImageField(upload_to="images/", blank=True, null=True)
+    img2 = models.ImageField(upload_to="images/", blank=True, null=True)
+    img3 = models.ImageField(upload_to="images/", blank=True, null=True)
+    img4 = models.ImageField(upload_to="images/", blank=True, null=True)
     head = models.CharField(max_length=50)
     date = models.DateField()
-    desc = models.CharField(max_length=400)
+    desc = models.CharField(max_length=5000)
 
     def __str__(self):
         return str(self.photographer.fname) + " " + str(self.photographer.lname)
