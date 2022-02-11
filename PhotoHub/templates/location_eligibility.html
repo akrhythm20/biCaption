@@ -110,7 +110,7 @@
                 <div class="flex space-x-4">
                     <!-- logo -->
                     <div>
-                        <a href="#" class="flex items-center py-5 px-2 text-gray-700 hover:text-gray-900">
+                        <a href="/" class="flex items-center py-5 px-2 text-gray-700 hover:text-gray-900">
                             <svg class="h-6 w-6 mr-1 text-blue-400" xmlns="http://www.w3.org/2000/svg" fill="none"
                                 viewBox="0 0 24 24" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -125,8 +125,6 @@
 
                         <a href="#"
                             class="py-5 px-3 text-white tracking-normal hover:tracking-wide hover:drop-shadow-lg"><strong>Features</strong></a>
-                        <a href="#"
-                            class="py-5 px-3 text-white tracking-normal hover:tracking-wide hover:drop-shadow-lg"><strong>Pricing</strong></a>
                         {% if request.user.is_authenticated%}
                         {% if role == 'Photographer' %}
                         <a href="/blog/{{id}}"

@@ -11,9 +11,9 @@
   <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>
 </head>
 
-<body class="bg-gradient-to-r from-pink-400 to-blue-500">
+<body class="">
   <!-- navbar goes here -->
-  <nav class="bg-gradient-to-r from-pink-400 to-blue-500 py-4">
+  <nav class="bg-gradient-to-r from-gray-400 via-purple-400 to-blue-500  py-4 hove:drop-shadow-lg">
     <div class="max-w-6xl mx-auto px-4">
       <div class="flex justify-between">
 
@@ -32,14 +32,13 @@
 
           <!-- primary nav -->
           <div class="hidden md:flex items-center space-x-1">
-            <a href="#" class="py-5 px-3 text-gray-700 hover:text-gray-900 tracking-normal hover:tracking-wide hover:drop-shadow-lg">Features</a>
-            <a href="#" class="py-5 px-3 text-gray-700 hover:text-gray-900 tracking-normal hover:tracking-wide hover:drop-shadow-lg">Pricing</a>
+            <a href="#" class="py-5 px-3 text-white text-lg tracking-normal hover:tracking-wide hover:drop-shadow-lg">Features</a>
+            <a href="#" class="py-5 px-3 text-white text-lg tracking-normal hover:tracking-wide hover:drop-shadow-lg">Pricing</a>
           </div>
         </div>
 
         <!-- secondary nav -->
         <div class="hidden md:flex  items-center space-x-1">
-          {% if request.user.is_authenticated %}
           <nav :class="{'flex': open, 'hidden': !open}"
             class="flex-col flex-grow pb-4 md:pb-0 hidden md:flex md:justify-end md:flex-row">
             <div @click.away="open = false" class="relative" x-data="{ open: false }">
@@ -48,7 +47,7 @@
                 <span style="color: rgb(6, 90, 90); font-size: medium;"><span
                     style="font-family:-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif; color: rgb(9, 171, 192);">Hi</span>
                   {{request.user}}</span>
-                <img class="inline ml-3 h-6 w-6 absolute border border-blue-500 border-3 rounded-full
+                <img class="inline ml-3 h-6 w-6 rounded-full absolute border border-blue-500 border-3
                 " style="z-index: 1000;" src="/media/{{image}}" />
                 <svg fill="currentColor" viewBox="0 0 20 20" :class="{'rotate-180': open, 'rotate-0': !open}"
                   class="inline w-16 h-4 transition-transform duration-200 transform">
@@ -74,10 +73,6 @@
                 </div>
               </div>
           </nav>
-          {% else %}
-          <a href="/accounts/login" class="py-5 px-3  tracking-normal hover:tracking-wide hover:drop-shadow-lg">Login</a>
-          <a href="/accounts/signup" class="py-5 px-3 tracking-normal hover:tracking-wide hover:drop-shadow-lg">Register</a>
-          {% endif %}
         </div>
 
         <!-- mobile button goes here -->
@@ -99,34 +94,52 @@
       <a href="#" class="block py-2 px-4 text-sm hover:bg-gray-200">Pricing</a>
     </div>
   </nav>
+  
 
+  <div style="border: 1px groove; border-radius:10px;" class="mt-5 pb-11 bg-gradient-to-r from-gray-300 to-blue-200 mx-3">
+  <!--Category-->  
+  <div class=" pt-8 pb-3  mt-3">
+    <button id="{{cat}}" style="background-color: rgb(44, 44, 48); text-transform: uppercase;"
+      class="text-white text-2xl ml-9 px-10 py-4 rounded-r-lg"><h1>{{category}}</h1></button>
+  </div>  
+  {% for catph in catphall%}
+  <div class="h-84 flex items-left mt-7 pl-5">
+     {% for ph in catph%}
+      <!--cards-->
+      <div style="border: 1.5px groove; border-radius:15px;" class="flex items-center space-x-4 p-3 mx-3  bg-gradient-to-r from-gray-400 to-blue-500">
+        <div class="flex-shrink-0">
+          <img class="w-48 h-48 rounded-full" src="/media/{{ph.image}}" alt="image">
+        </div>
+        <div class="flex-1 min-w-0">
+          <h1 class="text-2xl text-gray-300 truncate">
+            <strong>{{ph.fname}} {{ph.lname}}</strong>
+          </h1>
 
-  <!--Category-->
-  <div class="py-10 mt-4">
-    <button class="bg-gradient-to-r from-slate-300 to-cyan-500 px-20 py-4 rounded-r-lg">{{category}}</button>
-  </div>
-
-
-  <div class="h-84 flex items-left">
-    {% for ph in  catph%}
-    <!--cards-->
-    <div class="bg-gradient-to-r from-cyan-500 drop-shadow-xl hover:drop-shadow-2xl bg-blue-200 ml-5 mt-4 text-white  p-3 lg:w-1/4 sm:w-4/4 md:w-2/4 rounded-lg text-center py-8  cursor-pointer">
-      <div class="flex justify-center mb-2"> <img src="/media/{{ph.image}}"
-          class="rounded-full h-48 w-48 flex items-center  justify-center"> </div>
-      <h1 class="text-2xl  text-black mt-5">{{ph.fname}} {{ph.lname}}</h1> <span class="text-1xl  text-black  mt-2">2+ Years
-        Experience</span>
-      <br />
-      <div class="mx-auto">
-        <a href="/appointment/{{ph.photographer_id}}"><button style="background-color: rgba(7, 248, 99, 0.658);" class="bg-red-600 ml-3 mt-3 px-6 py-3 rounded-lg">Book
-          Now</button>
-        </a> 
-          <a href="/blog/{{ph.photographer_id}}"><button style="background-color: rgb(6, 65, 173);"
-            class="hover:bg-black-200 ml-1 mt-3 px-6 mr-3 py-3 rounded-lg">Profile</button>
-        </a>
-      </div>
-    </div>
+          <h3 class="text-xl text-gray-300 mt-1 truncate">
+            {{ph.city}} {{ph.state}}
+          </h3>
+    
+          <p class="text-1xl  text-gray-300  mt-1">Status : {{ph.status}}</p>
+          <p class="text-1xl  text-gray-300  mt-1">Experience 2+ years</p>
+          {% if ph.status == 'Busy' %}
+            <button style="background-color: rgb(245, 23, 16);"
+              class="bg-yellow-300 mt-3 px-3 py-2 rounded-lg cursor-not-allowed">Book Now
+            </button>
+          {% else %}
+            <a href="/appointment/{{ph.photographer_id}}_{{city}}"><button style="background-color: rgb(95, 248, 7);"
+              class="bg-yellow-300 mt-3 px-3 py-2 rounded-lg">Book
+              Now</button>
+            </a>
+          {% endif %}
+          <a href="/blog/{{ph.photographer_id}}_{{city}}"><button
+            class="bg-blue-600 ml-1 mt-3 px-4 py-2 mr-3 rounded-lg">Profile</button>
+          </a>
+        </div>
+      </div> 
     {% endfor %}
- </div>
+  </div>
+  {% endfor %}
+  </div>
  <center>
   <div class=" p-5 mt-4">
     <a href="/category/{{city}}"><button class="px-6 py-2" style="border-radius: 5px; color: white; background-color: rgb(60, 63, 63);">Back</button></a>
@@ -140,8 +153,6 @@
       <a class="mx-4 text-sm font-bold text-indigo-600 hover:text-indigo-800" href="#">Home</a>
       <a class="mx-4 text-sm font-bold text-indigo-600 hover:text-indigo-800" href="#">About Us</a>
       <a class="mx-4 text-sm font-bold text-indigo-600 hover:text-indigo-800" href="#">Careers</a>
-      <!-- <a href="#">About Us</a> -->
-      <!-- <a href="#">Careers</a> -->
     </div>
     <div class="mt-4">
       <img src="" class="w-32">
