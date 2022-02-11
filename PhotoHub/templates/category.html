@@ -152,7 +152,7 @@
   });
 </script>
 
-<body class="">
+<body>
   <!-- navbar goes here -->
   <nav class="bg-gradient-to-r from-gray-400 via-purple-400 to-blue-500  py-4 hove:drop-shadow-lg">
     <div class="max-w-6xl mx-auto px-4">
@@ -404,11 +404,11 @@
   {% for cat, catph in allcatph%}
   <div style="border: 1px groove; border-radius:10px;" class="mt-5 bg-gradient-to-r from-gray-300 to-blue-200 mx-3">
   <!--Category-->
-  <div class=" py-10 mt-4">
+  <div class=" pt-7 pb-10 mt-4 pl-2">
     <button id="{{cat}}" style="background-color: rgb(44, 44, 48); text-transform: uppercase;"
       class="text-white text-2xl ml-9 px-10 py-4 rounded-r-lg"><h1>{{cat}}</h1></button>
   </div>
-  <div class="h-84 flex ml-4 items-left">
+  <div class="h-84 flex ml-4 items-left pl-4">
     <!--card-->
     {% for ph in catph%}
     {% if forloop.counter < 4 %} 

@@ -195,10 +195,8 @@
           <!-- primary nav -->
           <div class="hidden md:flex items-center space-x-1">
 
-            <a href="#"
-              class="py-5 px-3 text-white tracking-normal hover:tracking-wide hover:drop-shadow-lg"><strong>Features</strong></a>
-            <a href="#"
-              class="py-5 px-3 text-white tracking-normal hover:tracking-wide hover:drop-shadow-lg"><strong>Pricing</strong></a>
+            <a href="#features" class="py-5 px-3 text-white tracking-normal hover:tracking-wide hover:drop-shadow-lg"><strong>Features</strong></a>
+         
             {% if request.user.is_authenticated%}
             {% if role == 'Photographer' %}
             <a href="/blog/{{id}}_a"
@@ -277,8 +275,7 @@
 
     <!-- mobile menu -->
     <div class="mobile-menu hidden md:hidden">
-      <a href="#" class="block py-2 px-4 text-white text-sm hover:bg-gray-200"><strong> Features</strong></a>
-      <a href="#" class="block py-2 px-4 text-white text-sm hover:bg-gray-200"><strong>Pricing</strong></a>
+      <a href="#features" class="block py-2 px-4 text-white text-sm hover:bg-gray-200"><strong> Features</strong></a>
     </div>
 
   </nav>
@@ -299,10 +296,7 @@
     <div class="text py-8">
       <h2 class="tracking-tight hover:tracking-wide">Never Stop To </h2>
       <h3 class="tracking-tight hover:tracking-wide">Exploring The World</h3>
-      <p class="tracking-tight hover:tracking-wide">Lorem ipsum dolor sit amet, consectetur adipisicing elit,Ut enim ad
-        minim veniam,
-        quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-        consequat.</p>
+      <p class="tracking-tight hover:tracking-wide">YOU DON'T MAKE A PHOTOGRAPH JUST WITH A CAMERA. YOU BRING TO THE ACT OF PHOTOGRAPHY ALL THE PICTURES YOU HAVE SEEN, THE BOOKS YOU HAVE READ, THE MUSIC YOU HAVE HEARD, THE PEOPLE YOU HAVE LOVED.</p>
       <a href="# " class="mr-3">Hire A Photographer</a>
       <a href="#" class="">Join as Photographer</a>
     </div>
@@ -456,7 +450,7 @@
     </div>
   </div>
 
-
+  <!-- Features -->
   <div class="bg-gradient-to-r from-pink-200 to-blue-400 px-5 sm:px-10 md:px-20 lg:px-10 xl:px-20 py-24" id="features">
     <div class="max-w-screen-xl mx-auto">
       <h3 class=" leading-none  text-center  font-extrabold text-4xl">
@@ -526,7 +520,7 @@
     </div>
   </div>
 
-  <!-- carousel -->
+  <!-- carousel popular photographers-->
   <div class="py-84 pb-3 px-32">
     <center>
       <h3 class="leading-none text-gray-300 text-3xl pt-11"><strong>Popular PhotoGraphers</strong></h3>
@@ -542,78 +536,70 @@
           aria-label="Slide 3"></button>
       </div>
       <div class="carousel-inner relative w-full overflow-hidden">
+        {% for p1, p2 in  pphs%}
         <div class="carousel-item active relative w-full float-center">
           <div class="flex justify-center w-full">
             <div class="rounded-lg max-w-xl pb-12 pt-8">
               <center>
-                <a href="#!" data-mdb-ripple="true" data-mdb-ripple-color="light">
+                <a href="#" data-mdb-ripple="true" data-mdb-ripple-color="light">
                   <img class="w-32 h-32 border border-blue-500 border-3 rounded-full"
-                    src="https://mdbootstrap.com/img/new/standard/nature/182.jpg" alt="" />
+                    src="/media/{{p1.img}}" alt="" />
                 </a>
 
                 <div class="p-6">
-                  <h5 class="text-gray-800 text-xl font-medium mb-2"><strong>Aman Kumar</strong></h5>
+                  <h5 class="text-gray-800 text-xl font-medium mb-2"><strong>{{p1.photographer.fname}} {{p1.photographer.lname}}</strong></h5>
                   <p style="font-size: 0.9rem;" class="text-white mb-3">
-                    Some quick example text to build on the card title and make up the bulk of the card's
-                    content.Some quick example text to build on the card title and make up the bulk of the card's
-                    content.Some quick example text to build on the card title and make up the bulk of the card's
-                    content.
+                    {{p1.desc|truncatewords:32}}
                   </p>
-                  <button class="border border-gray-600 border-1  hover:bg-gray-300  py-1 px-2 mr-1">Book Now</button>
-                  <button class="border border-gray-600 border-1  hover:bg-gray-300  py-1 px-2">Know More</button>
+                  {% if request.user.is_authenticated %}
+                    {% if role == 'Customer' %}
+                    <a href="/location"><button class="border border-gray-600 border-1  hover:bg-gray-300  py-1 px-2 mr-1">Book Now</button></a>
+                    <a href="/blog/{{p1.photographer.photographer_id}}_a"><button class="border border-gray-600 border-1  hover:bg-gray-300  py-1 px-2">Know More</button></a>
+                    {% else %}
+                    <a href="/blog/{{p1.photographer.photographer_id}}_a"><button class="border border-gray-600 border-1  hover:bg-gray-300  py-1 px-2">Know More</button></a>
+                    {% endif %}
+                  {% else %}
+                  <a href="/accounts/login"><button class="border border-gray-600 border-1  hover:bg-gray-300  py-1 px-2 mr-1">Book Now</button></a>
+                  <a href="/blog/{{p1.photographer.photographer_id}}_a"><button class="border border-gray-600 border-1  hover:bg-gray-300  py-1 px-2">Know More</button></a>
+                  {% endif %}
                 </div>
               </center>
             </div>
           </div>
         </div>
+        {% for ph in p2 %}
         <div class="carousel-item  relative w-full float-center">
           <div class="flex justify-center w-full">
             <div class="rounded-lg max-w-xl pb-12 pt-8">
               <center>
-                <a href="#!" data-mdb-ripple="true" data-mdb-ripple-color="light">
+                <a href="#" data-mdb-ripple="true" data-mdb-ripple-color="light">
                   <img class="w-32 h-32 border border-blue-500 border-3 rounded-full"
-                    src="https://mdbootstrap.com/img/new/standard/nature/182.jpg" alt="" />
+                    src="/media/{{ph.img}}" alt="" />
                 </a>
 
                 <div class="p-6">
-                  <h5 class="text-gray-800 text-xl font-medium mb-2"><strong>Aman Kumar</strong></h5>
+                  <h5 class="text-gray-800 text-xl font-medium mb-2"><strong>{{ph.photographer.fname}} {{ph.photographer.lname}}</strong></h5>
                   <p style="font-size: 0.9rem;" class="text-white mb-3">
-                    Some quick example text to build on the card title and make up the bulk of the card's
-                    content.Some quick example text to build on the card title and make up the bulk of the card's
-                    content.Some quick example text to build on the card title and make up the bulk of the card's
-                    content.
+                   {{ph.desc|truncatewords:32}}
                   </p>
-                  <button class="border border-gray-600 border-1  hover:bg-gray-300 py-1 px-2 mr-1">Book Now</button>
-                  <button class="border border-gray-600 border-1  hover:bg-gray-300 py-1 px-2">Know More</button>
+                  {% if request.user.is_authenticated %}
+                    {% if role == 'Customer' %}
+                    <a href="/location"><button class="border border-gray-600 border-1  hover:bg-gray-300  py-1 px-2 mr-1">Book Now</button></a>
+                    <a href="/blog/{{ph.photographer.photographer_id}}_a"><button class="border border-gray-600 border-1  hover:bg-gray-300  py-1 px-2">Know More</button></a>
+                    {% else %}
+                    <a href="/blog/{{ph.photographer.photographer_id}}_a"><button class="border border-gray-600 border-1  hover:bg-gray-300  py-1 px-2">Know More</button></a>
+                    {% endif %}
+                  {% else %}
+                  <a href="/accounts/login"><button class="border border-gray-600 border-1  hover:bg-gray-300  py-1 px-2 mr-1">Book Now</button></a>
+                  <a href="/blog/{{ph.photographer.photographer_id}}_a"><button class="border border-gray-600 border-1  hover:bg-gray-300  py-1 px-2">Know More</button></a>
+                  {% endif %}
                 </div>
               </center>
             </div>
           </div>
         </div>
-        <div class="carousel-item  relative w-full float-center">
-          <div class="flex justify-center w-full">
-            <div class="rounded-lg max-w-xl pb-12 pt-8">
-              <center>
-                <a href="#!" data-mdb-ripple="true" data-mdb-ripple-color="light">
-                  <img class="w-32 h-32 border border-blue-500 border-3 rounded-full"
-                    src="https://mdbootstrap.com/img/new/standard/nature/182.jpg" alt="" />
-                </a>
-
-                <div class="p-6">
-                  <h5 class="text-gray-800 text-xl font-medium mb-2"><strong>Aman Kumar</strong></h5>
-                  <p style="font-size: 0.9rem;" class="text-white mb-3">
-                    Some quick example text to build on the card title and make up the bulk of the card's
-                    content.Some quick example text to build on the card title and make up the bulk of the card's
-                    content.Some quick example text to build on the card title and make up the bulk of the card's
-                    content.
-                  </p>
-                  <button class="border border-gray-600 border-1  hover:bg-gray-300 py-1 px-2 mr-1">Book Now</button>
-                  <button class="border border-gray-600 border-1  hover:bg-gray-300 py-1 px-2">Know More</button>
-                </div>
-              </center>
-            </div>
-          </div>
-        </div>
+        {% endfor %}
+        {% endfor %}
       </div>
       <button
         class="carousel-control-prev absolute top-0 bottom-0 flex items-center justify-center p-0 text-center border-0 hover:outline-none hover:no-underline focus:outline-none focus:no-underline left-0"
@@ -637,18 +623,7 @@
     <center><h3 class="leading-none text-gray-600 text-3xl pt-6"><strong>Recent Posts</strong></h3></center>
     <div class="grid grid-cols-3 px-16 pt-10 pb-16">
     {% for blog in blogs %}
-      <!-- <div class="px-2 pt-2">
-        <div style="border: 1.5px groove; border-radius:10px;" class="h-32 w-72 grid grid-cols-3  rounded-lg  bg-gradient-to-r from-gray-200 to-blue-300">
-          <div class="rounded-lg">
-              <img class="rounded-lg h-full w-full" src="/media/images/{{blog.img}}" alt="">
-          </div>
-          <div class="col-span-2 px-2">
-            <h3 class="text-gray-700"><strong>{{blog.head}}</strong></h3>
-            <p style="font-size: 0.9rem;" class="text-white">{{blog.desc}}</p>
-          </div>
-        </div>
-      </div> -->
-      <a href="/blog/{{blog.photographer.photographer_id}}" class="flex w-full max-w-sm mt-2 lg:mt-8">
+      <a href="/blog/{{blog.photographer.photographer_id}}_a" class="flex w-full max-w-sm mt-2 lg:mt-8">
         <div class="transition-all duration-300 cursor-pointer w-full shadow-lg hover:shadow-xl rounded-lg
         bg-gray-100 relative xl:flex xl:flex-row-reverse xl:items-center xl:px-6 xl:py-6">
           <div class="w-full h-48 bg-cover rounded-t-lg xl:w-32 xl:h-20 xl:rounded-lg xl:ml-2" style='background-image:
@@ -731,7 +706,6 @@
     <div class="flex flex-col items-center lg:flex-row-reverse justify-between">
       <div class="">
         <a class="text-white mx-4 text-sm font-bold text-indigo-600 hover:text-indigo-800" href="#">Home</a>
-        <a class="text-white mx-4 text-sm font-bold text-indigo-600 hover:text-indigo-800" href="#">About Us</a>
         <a class="text-white mx-4 text-sm font-bold text-indigo-600 hover:text-indigo-800" href="#">Careers</a>
       </div>
       <div class="mt-4">

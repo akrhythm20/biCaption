@@ -20,24 +20,32 @@ from datetime import date, datetime, timedelta
 
 
 # Create your views here.
-def index(request):
+def index(request):    
     #Display posts on basis of recent publishing date
     blogs = Blog.objects.order_by('-date')[:3]
+    pphs = [(blogs[0], [blogs[1], blogs[2]])]
 
     customerTemp = Customer.objects.all()[:4]
     customers = [customerTemp[:2], customerTemp[2:4]]
 
-    context = {'blogs': blogs, 'customers':customers}
+    context = {'blogs': blogs, 'customers':customers, 'pphs': pphs}
 
     if request.user.is_authenticated:
         if request.user.groups.all()[0].name == 'Photographer':
             ph = Photographer.objects.get(photographer_id=request.user.id)
-            context= {'id':ph.photographer_id, 'role':'Photographer','image': ph.image, 'blogs': blogs, 'customers':customers}
+
+            context= {'id':ph.photographer_id, 'role':'Photographer','image': ph.image, 'blogs': blogs, 'customers':customers, 'pphs': pphs}
             return render(request, 'landing.html', context)
 
-        else : 
+        else :
+            #Clean appointment model
+            appointments = Appointment.objects.all()
+            for appointment in appointments:
+                if appointment.zip == sys.maxsize:
+                    appointment.delete()
+
             cst = Customer.objects.get(customer_id=request.user.id)
-            context= {'role':'Customer','image':cst.image, 'blogs': blogs, 'customers':customers}
+            context= {'role':'Customer','image':cst.image, 'blogs': blogs, 'customers':customers, 'pphs': pphs}
             return render(request, 'landing.html', context)
 
     return render(request, 'landing.html', context)
@@ -430,8 +438,17 @@ def allfromCat(request, cat):
     cst = Customer.objects.get(customer_id=request.user.id)
     context['image'] = cst.image
 
-    catph = Photographer.objects.filter(category=cat[0], city=cat[1])
-    context['catph'] = catph
+    tempcatphall = Photographer.objects.filter(category=cat[0], city=cat[1])
+    catphall = []
+    st=0
+    for ind in range(3, len(tempcatphall)+1, 3):
+        catphall.append(tempcatphall[st:ind])
+        st+=3
+    if len(tempcatphall[st:]) != 0:
+      catphall.append(tempcatphall[st:])
+
+
+    context['catphall'] = catphall
     context['category'] = cat[0]
     context['city'] = cat[1]
     return render(request, 'allfromCat.html', context)
@@ -628,7 +645,7 @@ def updateMarkers(first, last, funct):
 def blog(request, pid):
     pid = pid.split('_')
     ph = Photographer.objects.get(photographer_id=pid[0])
-    post = Blog.objects.filter(photographer = ph)
+    post = Blog.objects.filter(photographer = ph).order_by('-date')
     context={}
     context['ph'] = ph
     context['post'] = post
