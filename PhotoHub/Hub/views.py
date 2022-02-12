@@ -32,7 +32,7 @@ def index(request):
     feedback = []
     for ap in appointments:
         if ap.feedback==False and ap.end_date <= now:
-            ap.feedback = True
+            ap.feedback = False
             ap.save()
             feedback.append(ap)
     print(len(feedback))
@@ -813,4 +813,20 @@ def rescheduleAppointment(request, flag):
             return redirect('/profile0')
 
 
+def feedbackForm(request, ap_id):
+    if request.method == "POST":
+        rate = request.POST.get('rate')
+        query = request.POST.get('query')
+        id = request.POST.get('ap_id')
+        appointment = Appointment.objects.get(id=id)
+        appointment.query = query
+        appointment.save()
+        ph = appointment.photographer
+        n = ph.no_of_feedback + 1
+        ph.rate = ph.rate*(n-1)  + int(rate)
+        ph.rate = ph.rate/n
+        ph.no_of_feedback = n
+        ph.save()
+        return redirect("/")
+    return render(request, 'feedbackForm.html', {'ap_id':ap_id})
   

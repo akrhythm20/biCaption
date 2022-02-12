@@ -755,10 +755,10 @@
       Host: "smtp.gmail.com",
       Username: "rhythma.ug19.cs@nitp.ac.in",
       Password: "Aman@1234",
-      To: 'rohitj.ug19.cs@nitp.ac.in',
+      To: 'rhythmanand6@gmail.com',
       From: "rhythma.ug19.cs@nitp.ac.in",
       Subject: "Verify you account",
-      Body: "{{ap.customer}}, please fill out the feedback form. Link\n http://127.0.0.1:8000/"
+      Body: "{{ap.customer}}, please fill out the feedback form. Link\n http://127.0.0.1:8000/feedback/{{ap.id}}"
     })
       .then(function (message) {
         console.log("mail sent successfully");

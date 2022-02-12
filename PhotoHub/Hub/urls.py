@@ -26,4 +26,5 @@ urlpatterns = [
     path('addPost/<int:pid>', views.addPost, name='addPost'),
     path('changeStatus', views.changeStatus, name='changeStatus'), 
     path('reschedule/<int:flag>', views.rescheduleAppointment, name='reschedule'), 
+    path('feedback/<int:ap_id>', views.feedbackForm, name='feedbackForm')
 ]

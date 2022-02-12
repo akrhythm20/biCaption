@@ -1,5 +1,6 @@
 from statistics import mode
 from django.db import models
+from numpy import blackman
 
 
 class Customer(models.Model):
@@ -70,6 +71,8 @@ class Photographer(models.Model):
     facebook = models.CharField(max_length=100, blank=True, null=True)
     instagram = models.CharField(max_length=100, blank=True, null=True)
     tweeter = models.CharField(max_length=100, blank=True, null=True)
+    rate = models.IntegerField(default=0, blank=True, null=True)
+    no_of_feedback = models.IntegerField(default=0)
 
     def __str__(self):
         return str(self.fname) + " " + str(self.lname)
@@ -86,9 +89,10 @@ class Appointment(models.Model):
     zip = models.IntegerField(null=True, blank=True)
     appointment_status = models.CharField(max_length=50, null=True, blank=True)
     feedback = models.BooleanField(default=False)
+    query = models.CharField(max_length=5000, blank=True, null=True)
 
     def __str__(self):
-        return str(self.customer.fname) + " " + str(self.customer.lname)
+        return str(self.customer.fname) + " " + str(self.customer.lname) +'('+str(self.photographer.fname)+')'
 
 
 class City(models.Model):
